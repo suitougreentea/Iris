@@ -24,39 +24,79 @@ this.iris = {
       wall : new shapeConfig(1, 1, 0, 0.8)
       floor : new shapeConfig(1, 1, 0, 0.8)
       ceil : new shapeConfig(1, 1, 0, 0.8)
-      box: [
-        new shapeConfig(1, 1, 0, 0.8)
+      shoot: new shapeConfig(0.5, 1, 0, 0.8)
+      shape: [
+        [
+          new shapeConfig(1, 1, 0.5, 0.8)
+          new shapeConfig(1, 1, 0.5, 0.8)
+          new shapeConfig(1, 1, 0.5, 0.8)
+          new shapeConfig(1, 1, 0.5, 0.8)
+          new shapeConfig(1, 1, 0.5, 0.8)
+        ]
+        [
+          new shapeConfig(1, 1, 0.5, 0.8)
+          new shapeConfig(1, 1, 0.5, 0.8)
+          new shapeConfig(1, 1, 0.5, 0.8)
+          new shapeConfig(1, 1, 0.5, 0.8)
+          new shapeConfig(1, 1, 0.5, 0.8)
+        ]
+        [
+          new shapeConfig(1, 1, 0.5, 0.8)
+          new shapeConfig(1, 1, 0.5, 0.8)
+          new shapeConfig(1, 1, 0.5, 0.8)
+          new shapeConfig(1, 1, 0.5, 0.8)
+          new shapeConfig(1, 1, 0.5, 0.8)
+        ]
       ]
     }
   }
   field: {
     world: new b2World(new b2Vec2(0, 9.8), true)
-    addShape: (type, size, color, speed, position) ->
+    addShape: (type, size, angle, color, speed, position) ->
       fixtureConfig = window.iris.config.fixture
-      config = fixtureConfig.box[size]
+      config = fixtureConfig.shape[type][size]
       fixture = config.getFixtureDef()
 
       switch type
         when 0
+          # box
           fixture.shape = new b2PolygonShape
           fixture.shape.SetAsBox(config.size,config.size)
         when 1
+          # triangle
           v = [
             new b2Vec2(-config.size,-config.size)
-            new b2Vec2(-config.size, config.size)
             new b2Vec2( config.size, config.size)
+            new b2Vec2(-config.size, config.size)
           ]
           fixture.shape = new b2PolygonShape
-          fixture.shape.SetAsArray(v)
+          fixture.shape.SetAsArray(v,3)
         when 2
+          # circle
           fixture.shape = new b2CircleShape
           fixture.shape.SetRadius(config.size)
       
       body = new b2BodyDef
-      body.angle = 0.2
-      body.type = b2Body.b2_dynamicBody
+      body.angle = angle
+      body.type = b2Body.b2_kinematicBody
+      body.userData = {type: "shape", data: undefined} # TODO
       body.position.Set(position*20 + 2, 5) # x: 2-22
       @world.CreateBody(body).CreateFixture(fixture)
+    shoot: (x, y, vel) ->
+      fixtureConfig = window.iris.config.fixture
+      config = fixtureConfig.shoot
+      fixture = config.getFixtureDef()
+
+      fixture.shape = new b2PolygonShape
+      fixture.shape.SetAsBox(config.size,config.size)
+      
+      body = new b2BodyDef
+      body.type = b2Body.b2_dynamicBody
+      body.userData = {type: "shoot", data: undefined} # TODO
+      body.position.Set(x, y)
+      b = @world.CreateBody(body)
+      b.CreateFixture(fixture)
+      b.SetLinearVelocity(new b2Vec2(0,-vel))
 
     init: ->
       fixtureConfig = window.iris.config.fixture
@@ -65,6 +105,7 @@ this.iris = {
       wallFixture.shape.SetAsBox(0.5,8)
       wallBody = new b2BodyDef
       wallBody.type = b2Body.b2_staticBody
+      wallBody.userData = {type: "wall"}
       wallBody.position.Set(2.5,15)
       @world.CreateBody(wallBody).CreateFixture(wallFixture)
       wallBody.position.Set(21.5,15)
@@ -75,6 +116,7 @@ this.iris = {
       floorFixture.shape.SetAsBox(10,0.5)
       floorBody = new b2BodyDef
       floorBody.type = b2Body.b2_staticBody
+      floorBody.userData = {type: "floor"}
       floorBody.position.Set(12,25.5)
       @world.CreateBody(floorBody).CreateFixture(floorFixture)
 
@@ -83,12 +125,13 @@ this.iris = {
       ceilFixture.shape.SetAsBox(10,5)
       ceilBody = new b2BodyDef
       ceilBody.type = b2Body.b2_staticBody
+      ceilBody.userData = {type: "ceil"}
       ceilBody.position.Set(12,-4)
       @world.CreateBody(ceilBody).CreateFixture(ceilFixture)
       
-      @addShape(0,0,0,0,0.5)
-      @addShape(1,0,0,0,0.7)
-      @addShape(2,0,0,0,0.5)
+      @addShape(0,0,0,0,0,0.4)
+      @addShape(1,0,0,0,0,0.5)
+      @addShape(2,0,0,0,0,0.6)
   }
 
   init : ->
@@ -101,11 +144,19 @@ this.iris = {
     debugDraw.SetFlags b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit
     @field.world.SetDebugDraw debugDraw
     @field.init()
+    document.getElementById("screen").onmousedown = @click
     console.log "Iris ready"
     window.setInterval(update, 1000/30)
 
   update : ->
-    @field.world.Step(1/30, 10, 10)
+    @field.world.Step(1/30, 10, 10) # should be customizable
+    b = iris.field.world.GetBodyList()
+    while(b)
+      if b.GetType() == 1
+        pos = b.GetPosition()
+        b.SetPosition(new b2Vec2(pos.x, pos.y + 0.01)) # should be customizable
+      b = b.GetNext()
+
     @field.world.DrawDebugData()
     # grid
     @s.lineWidth = 1
@@ -121,6 +172,9 @@ this.iris = {
       @s.lineTo(20*i,640)
       @s.stroke()
     @field.world.ClearForces()
+
+  click: ->
+    iris.field.shoot(event.clientX / 20, event.clientY / 20, 12) # should be customizable
 }
 
 window.onload = ->
