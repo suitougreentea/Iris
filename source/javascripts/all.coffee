@@ -24,7 +24,7 @@ this.iris = {
       wall : new shapeConfig(1, 1, 0, 0.8)
       floor : new shapeConfig(1, 1, 0, 0.8)
       ceil : new shapeConfig(1, 1, 0, 0.8)
-      shoot: new shapeConfig(0.5, 1, 0, 0.8)
+      shoot: new shapeConfig(0.5, 8, 0, 0.8)
       shape: [
         [
           new shapeConfig(1, 1, 0.5, 0.8)
@@ -75,7 +75,7 @@ this.iris = {
           # circle
           fixture.shape = new b2CircleShape
           fixture.shape.SetRadius(config.size)
-      
+      #fixture.filter.maskBits = 2
       body = new b2BodyDef
       body.angle = angle
       body.type = b2Body.b2_kinematicBody
@@ -156,6 +156,17 @@ this.iris = {
         pos = b.GetPosition()
         b.SetPosition(new b2Vec2(pos.x, pos.y + 0.01)) # should be customizable
       b = b.GetNext()
+
+    c = iris.field.world.GetContactList()
+    while(c)
+      b1 = c.GetFixtureA().GetBody()
+      b2 = c.GetFixtureB().GetBody()
+      if c.IsTouching()
+        if b1.GetType() == 1
+          b1.SetType(2)
+        if b2.GetType() == 1
+          b2.SetType(2)
+      c = c.GetNext()
 
     @field.world.DrawDebugData()
     # grid
