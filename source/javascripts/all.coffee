@@ -19,6 +19,10 @@ class shapeConfig
     return f
     
 this.iris = {
+  const: { # TODO
+    FILTER_NORMAL: 0x0001
+    FILTER_ONLY_ACTIVE: 0x0002
+  }
   config : {
     fixture : {
       wall : new shapeConfig(1, 1, 0, 0.8)
@@ -48,6 +52,9 @@ this.iris = {
           new shapeConfig(1, 1, 0.5, 0.8)
         ]
       ]
+      color: [
+        "#FF0000"
+      ]
     }
   }
   field: {
@@ -75,13 +82,16 @@ this.iris = {
           # circle
           fixture.shape = new b2CircleShape
           fixture.shape.SetRadius(config.size)
-      #fixture.filter.maskBits = 2
+      #fixture.filter.
       body = new b2BodyDef
       body.angle = angle
-      body.type = b2Body.b2_kinematicBody
-      body.userData = {type: "shape", data: undefined} # TODO
+      body.type = b2Body.b2_dynamicBody
+      body.userData = {type: "shape", state: 0} # TODO
       body.position.Set(position*20 + 2, 5) # x: 2-22
-      @world.CreateBody(body).CreateFixture(fixture)
+      b = @world.CreateBody(body)
+      b.CreateFixture(fixture)
+      b.SetLinearVelocity(new b2Vec2(0, 0.2)) # TODO
+      b.ApplyForce(new b2Vec2(0, -9.8 * b.GetMass()), b.GetWorldCenter()) # Cancel gravity
     shoot: (x, y, vel) ->
       fixtureConfig = window.iris.config.fixture
       config = fixtureConfig.shoot
@@ -92,7 +102,7 @@ this.iris = {
       
       body = new b2BodyDef
       body.type = b2Body.b2_dynamicBody
-      body.userData = {type: "shoot", data: undefined} # TODO
+      body.userData = {type: "shoot"} # TODO
       body.position.Set(x, y)
       b = @world.CreateBody(body)
       b.CreateFixture(fixture)
@@ -103,6 +113,7 @@ this.iris = {
       wallFixture = fixtureConfig.wall.getFixtureDef()
       wallFixture.shape = new b2PolygonShape
       wallFixture.shape.SetAsBox(0.5,8)
+      #wallFixture.filter.maskBits = 2
       wallBody = new b2BodyDef
       wallBody.type = b2Body.b2_staticBody
       wallBody.userData = {type: "wall"}
@@ -129,9 +140,9 @@ this.iris = {
       ceilBody.position.Set(12,-4)
       @world.CreateBody(ceilBody).CreateFixture(ceilFixture)
       
-      @addShape(0,0,0,0,0,0.4)
+      @addShape(0,0,0,0,0,0.3)
       @addShape(1,0,0,0,0,0.5)
-      @addShape(2,0,0,0,0,0.6)
+      @addShape(2,0,0,0,0,0.7)
   }
 
   init : ->
@@ -150,11 +161,14 @@ this.iris = {
 
   update : ->
     @field.world.Step(1/30, 10, 10) # should be customizable
+    @field.world.ClearForces()
     b = iris.field.world.GetBodyList()
     while(b)
-      if b.GetType() == 1
-        pos = b.GetPosition()
-        b.SetPosition(new b2Vec2(pos.x, pos.y + 0.01)) # should be customizable
+      data = b.GetUserData()
+      if data
+        if data.type == "shape" and data.state == 0
+          # Cancel gravity
+          b.ApplyForce(new b2Vec2(0, -9.8 * b.GetMass()), b.GetWorldCenter())
       b = b.GetNext()
 
     c = iris.field.world.GetContactList()
@@ -162,10 +176,8 @@ this.iris = {
       b1 = c.GetFixtureA().GetBody()
       b2 = c.GetFixtureB().GetBody()
       if c.IsTouching()
-        if b1.GetType() == 1
-          b1.SetType(2)
-        if b2.GetType() == 1
-          b2.SetType(2)
+        @handleCollision(b1, b2)
+        @handleCollision(b2, b1)
       c = c.GetNext()
 
     @field.world.DrawDebugData()
@@ -182,7 +194,31 @@ this.iris = {
       @s.moveTo(20*i,0)
       @s.lineTo(20*i,640)
       @s.stroke()
-    @field.world.ClearForces()
+    b = iris.field.world.GetBodyList()
+    while(b)
+      data = b.GetUserData()
+      if data
+        center = b.GetWorldCenter()
+        d = "cat: " + b.GetFixtureList().GetFilterData().categoryBits.toString(16) + "\n"
+        d += "mask: " + b.GetFixtureList().GetFilterData().maskBits.toString(16) + "\n"
+        for k, v of data
+          d += k + ": " + v + "\n"
+        @s.font="10px Arial"
+        @s.fillStyle = "rgba(0,0,0,1)"
+        @fillTextLine(@s, d, center.x * 20, center.y * 20)
+      b = b.GetNext()
+
+  handleCollision: (bm, bo) ->
+    data = bm.GetUserData()
+    if data
+      if data.type == "shape" and data.state == 0
+        data.state = 1
+
+  fillTextLine: (context, text, x, y) ->
+    list = text.split("\n")
+    height = context.measureText("あ").width
+    for l, i in list
+      context.fillText(l, x, y+height*i)
 
   click: ->
     iris.field.shoot(event.clientX / 20, event.clientY / 20, 12) # should be customizable
