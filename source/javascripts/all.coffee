@@ -41,23 +41,23 @@ this.iris = {
         [
           new shapeConfig(0.5, 1, 0.5, 0.8)
           new shapeConfig(1, 1, 0.5, 0.8)
+          new shapeConfig(1.5, 1, 0.5, 0.8)
           new shapeConfig(2, 1, 0.5, 0.8)
           new shapeConfig(3, 1, 0.5, 0.8)
-          new shapeConfig(4, 1, 0.5, 0.8)
         ]
         [
           new shapeConfig(0.5, 1, 0.5, 0.8)
           new shapeConfig(1, 1, 0.5, 0.8)
+          new shapeConfig(1.5, 1, 0.5, 0.8)
           new shapeConfig(2, 1, 0.5, 0.8)
           new shapeConfig(3, 1, 0.5, 0.8)
-          new shapeConfig(4, 1, 0.5, 0.8)
         ]
         [
           new shapeConfig(0.5, 1, 0.5, 0.8)
           new shapeConfig(1, 1, 0.5, 0.8)
+          new shapeConfig(1.5, 1, 0.5, 0.8)
           new shapeConfig(2, 1, 0.5, 0.8)
           new shapeConfig(3, 1, 0.5, 0.8)
-          new shapeConfig(4, 1, 0.5, 0.8)
         ]
       ]
     }
@@ -245,8 +245,11 @@ this.iris = {
           color = iris.config.color[data.color]
           if data.state == iris.const.STATE_FALLING
             @s.fillStyle = "rgba(#{color[0]}, #{color[1]}, #{color[2]}, 0.7)"
-          else
+          else if data.state == iris.const.STATE_ACTIVE
             @s.fillStyle = "rgba(#{color[0]}, #{color[1]}, #{color[2]}, 1)"
+          else if data.state == iris.const.STATE_MATCH
+            @s.fillStyle = "rgba(#{color[0] + 64}, #{color[1] + 64}, #{color[2]}, 1)"
+
           if b.GetFixtureList().GetShape() instanceof b2CircleShape
             pos = b.GetWorldCenter()
             @s.beginPath()
@@ -257,14 +260,24 @@ this.iris = {
       b = b.GetNext()
 
   handleCollision: (bm, bo) ->
-    data = bm.GetUserData()
-    if data
-      if data.type == "shape" and data.state == 0
-        data.state = 1
-        filter = bm.GetFixtureList().GetFilterData()
-        filter.categoryBits = iris.const.CATEGORY_SHAPE_ACTIVE
-        filter.maskBits = iris.const.CATEGORY_WALL + iris.const.CATEGORY_CEIL + iris.const.CATEGORY_FLOOR + iris.const.CATEGORY_SHOOT + iris.const.CATEGORY_SHAPE_FALLING + iris.const.CATEGORY_SHAPE_ACTIVE
-        bm.GetFixtureList().SetFilterData(filter)
+    md = bm.GetUserData()
+    od = bo.GetUserData()
+    if md
+      if md.type == "shape"
+        if md.state == 0
+          md.state = 1
+          filter = bm.GetFixtureList().GetFilterData()
+          filter.categoryBits = iris.const.CATEGORY_SHAPE_ACTIVE
+          filter.maskBits = iris.const.CATEGORY_WALL + iris.const.CATEGORY_CEIL + iris.const.CATEGORY_FLOOR + iris.const.CATEGORY_SHOOT + iris.const.CATEGORY_SHAPE_FALLING + iris.const.CATEGORY_SHAPE_ACTIVE
+          bm.GetFixtureList().SetFilterData(filter)
+        if md.state == 1
+          if od and od.color == md.color
+            md.state = 2
+        if od.type == "floor" or (od.type == "shape" and od.state == 3)
+          # collide with floor
+          if md.state == 2
+            iris.field.world.DestroyBody(bm)
+
 
   fillTextLine: (context, text, x, y) ->
     list = text.split("\n")
