@@ -75,3 +75,10 @@ configure :build do
   # Or use a different image path
   # set :http_prefix, "/Content/images/"
 end
+
+# middleman-deploy
+activate :deploy do |deploy|
+  deploy.method = :git
+  deploy.branch = "gh-pages"
+  deploy.remote = "https://#{ENV['GH_TOKEN']}@github.com/suitougreentea/Iris.git"
+end
