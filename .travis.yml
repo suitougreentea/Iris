@@ -7,10 +7,11 @@ env:
     - GIT_COMMITTER_EMAIL='suitougreentea@noreply.github.com'
     - GIT_AUTHOR_NAME='suitougreentea'
     - GIT_AUTHOER_EMAIL='suitougreentea@noreply.github.com'
-    - secure: "KJ8QsWgcR1KKdUbe5kBHUITXx3aLvOZbAot8EcVFIPUhntmrcqcGMjEAB4HQaol3m3OmuzdLGgrSNquNzfg5HAUrpnSDdNL7+jDXjwlePPiuAqjJn1IFyUg0ow6vp9PRSqHgRneU3xrd//Y76PRqeqvgwlqkGYAw5weKDePVPpE="
+    - secure: "NmOXx2WVpn+Xl9H7Ebm24SQ+aohBwfehHmC4KEcvEGGFbneJaLbUAgDUIuHkVFOFYbJcrEUIYQ4vFlu+Kmi6x+Tajm7HAzokDF8j97Kdfq9jpNoARA15OIgWAoxWlHhdJXp3N+2Lb8/yOJwLRt3r4xAGxbpsRATlrre8rFDrlE0="
+
 
 before_script:
   - echo beforescript
 
 after_success:
-  - '[ "$TRAVIS_BRANCH" == "master" ] && [ $GH_TOKEN ] && bundle exec middleman deploy'
+  - '[ "$TRAVIS_BRANCH" == "master" ] && [ $GH_TOKEN ] && bundle exec middleman deploy 2> /dev/null'
