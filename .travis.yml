@@ -9,16 +9,8 @@ env:
     - GIT_AUTHOER_EMAIL='suitougreentea@noreply.github.com'
     - secure: "KJ8QsWgcR1KKdUbe5kBHUITXx3aLvOZbAot8EcVFIPUhntmrcqcGMjEAB4HQaol3m3OmuzdLGgrSNquNzfg5HAUrpnSDdNL7+jDXjwlePPiuAqjJn1IFyUg0ow6vp9PRSqHgRneU3xrd//Y76PRqeqvgwlqkGYAw5weKDePVPpE="
 
-
 before_script:
-  - git clone --quiet https://github.com/suitougreentea/Iris.git build
-  - pushd build
-  - git checkout -b gh-pages
-  - popd
+  - echo beforescript
 
 after_success:
-  - cd build
-  - git add -A
-  - git commit -m 'Travis CI Deploy'
-  - '[ "$TRAVIS_BRANCH" == "master" ] && [ $GH_TOKEN ] && git push --quiet https://$GH_TOKEN@github.com/suitougreentea/Iris.git gh-pages'
-
+  - '[ "$TRAVIS_BRANCH" == "master" ] && [ $GH_TOKEN ] && bundle exec middleman deploy'
