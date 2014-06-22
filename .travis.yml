@@ -7,8 +7,7 @@ env:
     - GIT_COMMITTER_EMAIL='suitougreentea@noreply.github.com'
     - GIT_AUTHOR_NAME='suitougreentea'
     - GIT_AUTHOER_EMAIL='suitougreentea@noreply.github.com'
-    - secure: "NmOXx2WVpn+Xl9H7Ebm24SQ+aohBwfehHmC4KEcvEGGFbneJaLbUAgDUIuHkVFOFYbJcrEUIYQ4vFlu+Kmi6x+Tajm7HAzokDF8j97Kdfq9jpNoARA15OIgWAoxWlHhdJXp3N+2Lb8/yOJwLRt3r4xAGxbpsRATlrre8rFDrlE0="
-
+    - secure: "J2xR9pz65BrxWG/eeV77qTCn5CoVZqHj0mWd65LMfP5dpH7OqsN6Rd3zNqm4rQGzZNfj/x5LY6fWh+jRZ1vyKnpDGLUEPWN6VWE/MoDp7q/37TtVHfrRg10tXzghVKFM/isqUepadNJymMVB8DJ/zqMT0MTvMF8Exygf34zHYM8="
 
 before_script:
   - echo beforescript
