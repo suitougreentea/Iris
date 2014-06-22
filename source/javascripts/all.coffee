@@ -72,6 +72,7 @@ this.iris = {
   }
   field: {
     world: new b2World(new b2Vec2(0, 9.8), true)
+    destroyList: []
     addShape: (type, size, angle, color, speed, position) ->
       fixtureConfig = window.iris.config.fixture
       config = fixtureConfig.shape[type][size]
@@ -100,7 +101,7 @@ this.iris = {
       body = new b2BodyDef
       body.angle = angle
       body.type = b2Body.b2_dynamicBody
-      body.userData = {type: "shape", state: 0, color: color, chain: 0} # TODO
+      body.userData = {type: "shape", state: 0, color: color, chain: 0, corruptionTimer: -1} # TODO
       body.position.Set(position*20 + 2, -5) # x: 2-22
       b = @world.CreateBody(body)
       b.CreateFixture(fixture)
@@ -117,7 +118,7 @@ this.iris = {
       fixture.filter.maskBits = iris.const.CATEGORY_WALL + iris.const.CATEGORY_CEIL + iris.const.CATEGORY_FLOOR + iris.const.CATEGORY_SHOOT + iris.const.CATEGORY_SHAPE_FALLING + iris.const.CATEGORY_SHAPE_ACTIVE
       body = new b2BodyDef
       body.type = b2Body.b2_dynamicBody
-      body.userData = {type: "shoot"} # TODO
+      body.userData = {type: "shoot", state: 1, corruptionTimer: -1} # TODO
       body.position.Set(x, y)
       b = @world.CreateBody(body)
       b.CreateFixture(fixture)
@@ -181,9 +182,22 @@ this.iris = {
     while(b)
       data = b.GetUserData()
       if data
-        if data.type == "shape" and data.state == 0
-          # Cancel gravity
-          b.ApplyForce(new b2Vec2(0, -9.8 * b.GetMass()), b.GetWorldCenter())
+        if data.type == "shape"
+          if data.state == 0
+            # Cancel gravity
+            b.ApplyForce(new b2Vec2(0, -9.8 * b.GetMass()), b.GetWorldCenter())
+          if data.corruptionTimer > -1
+            data.corruptionTimer++
+            if data.corruptionTimer > 30 # TODO
+              data.state = iris.const.STATE_INACTIVE
+        if data.type == "shoot"
+          if data.corruptionTimer > -1
+            data.corruptionTimer++
+            if data.corruptionTimer > 30 # TODO
+              data.state = iris.const.STATE_INACTIVE
+          
+        if b.GetWorldCenter().y > 50
+          iris.field.destroyList.push(b)
       b = b.GetNext()
 
     c = iris.field.world.GetContactList()
@@ -195,7 +209,7 @@ this.iris = {
         @handleCollision(b2, b1)
       c = c.GetNext()
 
-    if Math.random() < 0.012
+    if Math.random() < 0.05
       @field.addShape(
         Math.floor(Math.random() * 2), # 3
         Math.floor(Math.random() * 4), # 5
@@ -203,6 +217,10 @@ this.iris = {
         Math.floor(Math.random() * 3),
         1,
         Math.random())
+
+    for body in iris.field.destroyList
+      iris.field.world.DestroyBody(body)
+    iris.field.destroyList = []
 
     @render()
     @field.world.DrawDebugData()
@@ -249,6 +267,8 @@ this.iris = {
             @s.fillStyle = "rgba(#{color[0]}, #{color[1]}, #{color[2]}, 1)"
           else if data.state == iris.const.STATE_MATCH
             @s.fillStyle = "rgba(#{color[0] + 64}, #{color[1] + 64}, #{color[2]}, 1)"
+          else if data.state == iris.const.STATE_INACTIVE
+            @s.fillStyle = "rgba(#{color[0] - 64}, #{color[1] - 64}, #{color[2] - 64}, 1)"
 
           if b.GetFixtureList().GetShape() instanceof b2CircleShape
             pos = b.GetWorldCenter()
@@ -264,7 +284,7 @@ this.iris = {
     od = bo.GetUserData()
     if md
       if md.type == "shape"
-        if md.state == 0
+        if md.state == 0 and (od.type != "shape" or (od.type == "shape" and ((od.state == 2 and od.color == md.color) or od.state != 2))) # TODO: when md=0 od=2 od.c!=md.c ignore collision velocity
           md.state = 1
           filter = bm.GetFixtureList().GetFilterData()
           filter.categoryBits = iris.const.CATEGORY_SHAPE_ACTIVE
@@ -273,11 +293,20 @@ this.iris = {
         if md.state == 1
           if od and od.color == md.color
             md.state = 2
-        if od.type == "floor" or (od.type == "shape" and od.state == 3)
+        if od.type == "floor" or ((od.type == "shape" or od.type == "shoot") and od.state == 3)
           # collide with floor
+          if md.state == 1 and md.corruptionTimer == -1
+            md.corruptionTimer = 0
           if md.state == 2
-            iris.field.world.DestroyBody(bm)
-
+            iris.field.destroyList.push(bm)
+          if md.state != 3 and od.type == "shape" and od.state == 3 and od.color == md.color
+            iris.field.destroyList.push(bm)
+            iris.field.destroyList.push(bo)
+      if md.type == "shoot"
+        if od.type == "floor" or ((od.type == "shape" or od.type == "shoot") and od.state == 3)
+          # collide with floor
+          if md.state == 1 and md.corruptionTimer == -1
+            md.corruptionTimer = 0
 
   fillTextLine: (context, text, x, y) ->
     list = text.split("\n")
