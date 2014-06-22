@@ -1,0 +1,24 @@
+language: ruby
+script: bundle exec middleman build
+
+env:
+  global:
+    - GIT_COMMITTER_NAME = "suitougreentea"
+    - GIT_COMMITTER_EMAIL = "suitougreentea@noreply.github.com"
+    - GIT_AUTHOR_NAME= "suitougreentea"
+    - GIT_AUTHOER_EMAIL = "suitougreentea@noreply.github.com"
+    - secure: "KJ8QsWgcR1KKdUbe5kBHUITXx3aLvOZbAot8EcVFIPUhntmrcqcGMjEAB4HQaol3m3OmuzdLGgrSNquNzfg5HAUrpnSDdNL7+jDXjwlePPiuAqjJn1IFyUg0ow6vp9PRSqHgRneU3xrd//Y76PRqeqvgwlqkGYAw5weKDePVPpE="
+
+
+before_script:
+  - git clone --quiet https://github.com/suitougreentea/Iris.git build
+  - pushd build
+  - git checkout -b gh-pages
+  - popd
+
+after_success:
+  - cd build
+  - git add -A
+  - git commit -m 'Travis CI Deploy'
+  - '["$TRAVIS_BRANCH" == "master"] && [$GH_TOKEN] && git push --quiet https://$GH_TOKEN@github.com/suitougreentea/Iris.git'
+
