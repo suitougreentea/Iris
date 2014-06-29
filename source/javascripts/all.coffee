@@ -8,6 +8,7 @@ b2FixtureDef = Box2D.Dynamics.b2FixtureDef
 b2CircleShape = Box2D.Collision.Shapes.b2CircleShape
 b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape
 b2DebugDraw = Box2D.Dynamics.b2DebugDraw
+b2ContactListener = Box2D.Dynamics.b2ContactListener
 
 class shapeConfig
   constructor: (@size, @density, @friction, @restitution) ->
@@ -17,6 +18,25 @@ class shapeConfig
     f.friction = @friction
     f.restitution = @restitution
     return f
+
+class IrisListener extends b2ContactListener
+  BeginContact: (c) ->
+    b1 = c.GetFixtureA().GetBody()
+    b2 = c.GetFixtureB().GetBody()
+    if c.IsTouching()
+      iris.handleCollision(c, b1, b2)
+      iris.handleCollision(c, b2, b1)
+  EndContact: (c) ->
+    b1 = c.GetFixtureA().GetBody()
+    b2 = c.GetFixtureB().GetBody()
+    d1 = b1.GetUserData()
+    d2 = b2.GetUserData()
+    #if d1 and d1.type == "shape" and b1.GetType() == b2Body.b2_staticBody
+    #  b1.SetLinearVelocity(new b2Vec2(0,0))
+    #  b1.SetType(b2Body.b2_dynamicBody)
+    #if d2 and d2.type == "shape" and b2.GetType() == b2Body.b2_staticBody
+    #  b2.SetLinearVelocity(new b2Vec2(0,0))
+    #  b2.SetType(b2Body.b2_dynamicBody)
     
 this.iris = {
   const: { # TODO
@@ -101,6 +121,7 @@ this.iris = {
       body = new b2BodyDef
       body.angle = angle
       body.type = b2Body.b2_dynamicBody
+      #body.type = b2Body.b2_kinematicBody
       body.userData = {type: "shape", state: 0, color: color, chain: 0, corruptionTimer: -1} # TODO
       body.position.Set(position*20 + 2, -5) # x: 2-22
       b = @world.CreateBody(body)
@@ -157,6 +178,8 @@ this.iris = {
       ceilBody.userData = {type: "ceil"}
       ceilBody.position.Set(12,-4)
       @world.CreateBody(ceilBody).CreateFixture(ceilFixture)
+
+      @world.SetContactListener iris.listener
   }
 
   init : ->
@@ -175,6 +198,8 @@ this.iris = {
     console.log "Iris ready"
     window.setInterval(update, 1000/30)
 
+  listener: new IrisListener()
+
   update : ->
     @field.world.Step(1/30, 10, 10) # should be customizable
     @field.world.ClearForces()
@@ -183,9 +208,12 @@ this.iris = {
       data = b.GetUserData()
       if data
         if data.type == "shape"
+          #b.SetType(b2Body.b2_dynamicBody)
           if data.state == 0
             # Cancel gravity
             b.ApplyForce(new b2Vec2(0, -9.8 * b.GetMass()), b.GetWorldCenter())
+            #b.SetLinearVelocity(new b2Vec2(0,5))
+            #b.SetAngularVelocity(0)
           if data.corruptionTimer > -1
             data.corruptionTimer++
             if data.corruptionTimer > 30 # TODO
@@ -200,14 +228,6 @@ this.iris = {
           iris.field.destroyList.push(b)
       b = b.GetNext()
 
-    c = iris.field.world.GetContactList()
-    while(c)
-      b1 = c.GetFixtureA().GetBody()
-      b2 = c.GetFixtureB().GetBody()
-      if c.IsTouching()
-        @handleCollision(b1, b2)
-        @handleCollision(b2, b1)
-      c = c.GetNext()
 
     if Math.random() < 0.05
       @field.addShape(
@@ -279,17 +299,24 @@ this.iris = {
             @fillPolygon(b)
       b = b.GetNext()
 
-  handleCollision: (bm, bo) ->
+  handleCollision: (c, bm, bo) ->
     md = bm.GetUserData()
     od = bo.GetUserData()
     if md
       if md.type == "shape"
-        if md.state == 0 and (od.type != "shape" or (od.type == "shape" and ((od.state == 2 and od.color == md.color) or od.state != 2))) # TODO: when md=0 od=2 od.c!=md.c ignore collision velocity
-          md.state = 1
-          filter = bm.GetFixtureList().GetFilterData()
-          filter.categoryBits = iris.const.CATEGORY_SHAPE_ACTIVE
-          filter.maskBits = iris.const.CATEGORY_WALL + iris.const.CATEGORY_CEIL + iris.const.CATEGORY_FLOOR + iris.const.CATEGORY_SHOOT + iris.const.CATEGORY_SHAPE_FALLING + iris.const.CATEGORY_SHAPE_ACTIVE
-          bm.GetFixtureList().SetFilterData(filter)
+        if md.state == 0
+          if (od.type != "shape" or (od.type == "shape" and ((od.state == 2 and od.color == md.color) or od.state != 2))) # TODO: when md=0 od=2 od.c!=md.c ignore collision velocity
+            md.state = 1
+            #bm.SetType(b2Body.b2_dynamicBody)
+            filter = bm.GetFixtureList().GetFilterData()
+            filter.categoryBits = iris.const.CATEGORY_SHAPE_ACTIVE
+            filter.maskBits = iris.const.CATEGORY_WALL + iris.const.CATEGORY_CEIL + iris.const.CATEGORY_FLOOR + iris.const.CATEGORY_SHOOT + iris.const.CATEGORY_SHAPE_FALLING + iris.const.CATEGORY_SHAPE_ACTIVE
+            bm.GetFixtureList().SetFilterData(filter)
+          else
+            #bm.SetLinearVelocity(new b2Vec2(2,0))
+            #bm.SetAngularVelocity(0)
+            bm.SetType(b2Body.b2_staticBody)
+            #c.SetEnabled(false)
         if md.state == 1
           if od and od.color == md.color
             md.state = 2
@@ -338,6 +365,7 @@ this.iris = {
     rect = event.target.getBoundingClientRect()
     iris.field.shoot((event.clientX - rect.left) / 20, (event.clientY - rect.top) / 20, 12) # should be customizable
 }
+
 
 window.onload = ->
   iris.init()
