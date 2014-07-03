@@ -1,3 +1,10 @@
 @charset "utf-8";
 
-
+#screen {
+  margin: 2px;
+  border: 2px solid #000;
+}
+#debugscreen {
+  margin: 2px;
+  border: 2px solid #F00;
+}

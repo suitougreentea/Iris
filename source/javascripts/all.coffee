@@ -55,7 +55,7 @@ this.iris = {
       body.angle = angle
       body.type = b2Body.b2_dynamicBody
       #body.type = b2Body.b2_kinematicBody
-      body.userData = {type: "shape", state: 0, color: color, chain: 0, corruptionTimer: -1} # TODO
+      body.userData = {type: "shape", state: 0, color: color, chainGroup: -1, corruptionTimer: -1} # TODO
       body.position.Set(position*20 + 2, -5) # x: 2-22
       b = @world.CreateBody(body)
       b.CreateFixture(fixture)
@@ -72,7 +72,7 @@ this.iris = {
       fixture.filter.maskBits = iris.const.CATEGORY_WALL + iris.const.CATEGORY_CEIL + iris.const.CATEGORY_FLOOR + iris.const.CATEGORY_SHOOT + iris.const.CATEGORY_SHAPE_FALLING + iris.const.CATEGORY_SHAPE_ACTIVE
       body = new b2BodyDef
       body.type = b2Body.b2_dynamicBody
-      body.userData = {type: "shoot", state: iris.const.STATE_ACTIVE, corruptionTimer: -1} # TODO
+      body.userData = {type: "shoot", state: iris.const.STATE_ACTIVE, corruptionTimer: -1, destroyTimer: 0} # TODO
       body.position.Set(x, y)
       b = @world.CreateBody(body)
       b.CreateFixture(fixture)
@@ -81,6 +81,17 @@ this.iris = {
     init: ->
       new FieldNormal().generate(@world)
       @world.SetContactListener iris.listener
+  }
+  gauge: 1
+  chaingroups: {
+    groups: []
+    new: ->
+      len = @groups.length
+      @groups[len] = 0
+      return len
+    handle: (group) ->
+      ## TODO: add point ##
+      @groups[group]++
   }
 
   init : ->
@@ -125,20 +136,24 @@ this.iris = {
             data.corruptionTimer++
             if data.corruptionTimer > 30 # TODO
               data.state = iris.const.STATE_INACTIVE
+          data.destroyTimer++
+          if data.destroyTimer > 300 # TODO
+            iris.field.destroyList.push(b)
           
         if b.GetWorldCenter().y > 50
           iris.field.destroyList.push(b)
       b = b.GetNext()
 
-
-    if Math.random() < 0.005
+    if Math.random() < 0.1
       @field.addShape(
         Math.floor(Math.random() * 3), # Type (3)
-        Math.floor(Math.random() * 4), # Size (5)
+        Math.floor(Math.random() * 5), # Size (5)
         Math.floor(Math.random() * 360), # Angle
         Math.floor(Math.random() * 1), # Color
         Math.random() + 1, # Speed
         Math.random()) # Pos
+
+    @gauge -= 0.0001
 
     for body in iris.field.destroyList
       iris.field.world.DestroyBody(body)
@@ -151,7 +166,6 @@ this.iris = {
     rect = event.target.getBoundingClientRect()
     iris.field.shoot((event.clientX - rect.left) / 20, (event.clientY - rect.top) / 20, 12) # should be customizable
 }
-
 
 window.onload = ->
   iris.init()

@@ -40,6 +40,11 @@ class @IrisListener extends b2ContactListener
             #c.SetEnabled(false)
         if md.state == 1
           if od and od.color == md.color
+            if od.chainGroup == -1
+              md.chainGroup = iris.chaingroups.new()
+              od.chainGroup = md.chainGroup
+            else
+              md.chainGroup = od.chainGroup
             md.state = 2
         if od.type == "floor" or ((od.type == "shape" or od.type == "shoot") and od.state == 3)
           # collide with floor
