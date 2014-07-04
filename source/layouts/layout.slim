@@ -12,5 +12,7 @@ html
     == stylesheet_link_tag "normalize", "all"
     == javascript_include_tag  "all"
 
+    == yield_content :assets
+
   body
     == yield

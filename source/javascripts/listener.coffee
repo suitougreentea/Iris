@@ -51,9 +51,12 @@ class @IrisListener extends b2ContactListener
           if md.state == 1 and md.corruptionTimer == -1
             md.corruptionTimer = 0
           if md.state == 2
+            iris.chaingroups.handle(md.chainGroup, true)
             iris.field.destroyList.push(bm)
           if md.state != 3 and od.type == "shape" and od.state == 3 and od.color == md.color
+            iris.chaingroups.handle(md.chainGroup, true)
             iris.field.destroyList.push(bm)
+            iris.chaingroups.handle(md.chainGroup, false)
             iris.field.destroyList.push(bo)
       if md.type == "shoot"
         if od.type == "floor" or ((od.type == "shape" or od.type == "shoot") and od.state == 3)
