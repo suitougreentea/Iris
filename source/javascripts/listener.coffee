@@ -1,5 +1,7 @@
 b2ContactListener = Box2D.Dynamics.b2ContactListener
 b2Body = Box2D.Dynamics.b2Body
+b2Vec2 = Box2D.Common.Math.b2Vec2
+b2MassData = Box2D.Dynamics.b2MassData
 
 class @IrisListener extends b2ContactListener
   BeginContact: (c) ->
@@ -8,17 +10,8 @@ class @IrisListener extends b2ContactListener
     if c.IsTouching()
       @handleCollision(c, b1, b2)
       @handleCollision(c, b2, b1)
-  EndContact: (c) ->
-    b1 = c.GetFixtureA().GetBody()
-    b2 = c.GetFixtureB().GetBody()
-    d1 = b1.GetUserData()
-    d2 = b2.GetUserData()
-    #if d1 and d1.type == "shape" and b1.GetType() == b2Body.b2_staticBody
-    #  b1.SetLinearVelocity(new b2Vec2(0,0))
-    #  b1.SetType(b2Body.b2_dynamicBody)
-    #if d2 and d2.type == "shape" and b2.GetType() == b2Body.b2_staticBody
-    #  b2.SetLinearVelocity(new b2Vec2(0,0))
-    #  b2.SetType(b2Body.b2_dynamicBody)
+  PreSolve: (c, om) ->
+    @BeginContact c
 
   handleCollision: (c, bm, bo) ->
     md = bm.GetUserData()
@@ -26,18 +19,13 @@ class @IrisListener extends b2ContactListener
     if md
       if md.type == "shape"
         if md.state == 0
-          if (od.type != "shape" or (od.type == "shape" and ((od.state == 2 and od.color == md.color) or od.state != 2))) # TODO: when md=0 od=2 od.c!=md.c ignore collision velocity
+          if (od.type != "shape" or (od.type == "shape" and ((od.state == 2 and od.color == md.color) or od.state != 2))) # when md=0 od=2 od.c!=md.c ignore collision velocity
             md.state = 1
-            #bm.SetType(b2Body.b2_dynamicBody)
+            bm.SetType(b2Body.b2_dynamicBody)
             filter = bm.GetFixtureList().GetFilterData()
             filter.categoryBits = iris.const.CATEGORY_SHAPE_ACTIVE
             filter.maskBits = iris.const.CATEGORY_WALL + iris.const.CATEGORY_CEIL + iris.const.CATEGORY_FLOOR + iris.const.CATEGORY_SHOOT + iris.const.CATEGORY_SHAPE_FALLING + iris.const.CATEGORY_SHAPE_ACTIVE
             bm.GetFixtureList().SetFilterData(filter)
-          else
-            #bm.SetLinearVelocity(new b2Vec2(2,0))
-            #bm.SetAngularVelocity(0)
-            bm.SetType(b2Body.b2_staticBody)
-            #c.SetEnabled(false)
         if md.state == 1
           if od and od.color == md.color
             if od.chainGroup == -1
@@ -58,6 +46,8 @@ class @IrisListener extends b2ContactListener
             iris.field.destroyList.push(bm)
             iris.chaingroups.handle(md.chainGroup, false)
             iris.field.destroyList.push(bo)
+        if md.state != 3 and od.type == "shoot"
+          iris.field.destroyList.push(bo)
       if md.type == "shoot"
         if od.type == "floor" or ((od.type == "shape" or od.type == "shoot") and od.state == 3)
           # collide with floor

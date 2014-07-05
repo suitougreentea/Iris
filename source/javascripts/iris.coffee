@@ -49,6 +49,7 @@ this.iris = {
             new b2Vec2( config.size, config.size)
             new b2Vec2(-config.size, config.size)
           ]
+         
           fixture.shape = new b2PolygonShape
           fixture.shape.SetAsArray(v,3)
         when iris.const.SHAPE_CIRCLE
@@ -58,8 +59,7 @@ this.iris = {
       fixture.filter.maskBits = iris.const.CATEGORY_FLOOR + iris.const.CATEGORY_SHOOT + iris.const.CATEGORY_SHAPE_ACTIVE
       body = new b2BodyDef
       body.angle = angle
-      body.type = b2Body.b2_dynamicBody
-      #body.type = b2Body.b2_kinematicBody
+      body.type = b2Body.b2_kinematicBody
       body.userData = {type: "shape", state: 0, color: color, chainGroup: -1, corruptionTimer: -1} # TODO
       body.position.Set(position*20 + 2, -5) # x: 2-22
       b = @world.CreateBody(body)
@@ -96,6 +96,7 @@ this.iris = {
       return len
     handle: (group, add) ->
       if add then @groups[group]++
+      
       ## TODO: add point ##
       console.log @groups[group]
   }
@@ -120,14 +121,16 @@ this.iris = {
   renderer: new Renderer()
 
   update : ->
-    @field.world.Step(1 / (iris.config.framerate / iris.config.speedrate) , 10, 10) # should be customizable
+    @field.world.Step(1 / (iris.config.framerate / iris.config.speedrate) , 10, 10)
     @field.world.ClearForces()
     b = iris.field.world.GetBodyList()
     while(b)
       data = b.GetUserData()
       if data
         if data.type == "shape"
-          #b.SetType(b2Body.b2_dynamicBody)
+          if b.GetType() == b2Body.b2_staticBody
+            b.SetType(b2Body.b2_dynamicBody)
+            b.SetLinearVelocity(new b2Vec2(0,2))
           if data.state == 0
             # Cancel gravity
             b.ApplyForce(new b2Vec2(0, -9.8 * b.GetMass()), b.GetWorldCenter())
@@ -148,14 +151,17 @@ this.iris = {
           
         if b.GetWorldCenter().y > 50
           iris.field.destroyList.push(b)
+        if data.type == "floorsensor"
+          b.ApplyForce(new b2Vec2(0, -9.8 * b.GetMass()), b.GetWorldCenter())
+
       b = b.GetNext()
 
-    if Math.random() < 0.1
+    if Math.random() < 0.03
       @field.addShape(
-        Math.floor(Math.random() * 3), # Type (3)
-        Math.floor(Math.random() * 5), # Size (5)
+        Math.floor(Math.random() * 2), # Type (3)
+        Math.floor(Math.random() * 4), # Size (5)
         Math.floor(Math.random() * 360), # Angle
-        Math.floor(Math.random() * 1), # Color
+        Math.floor(Math.random() * 3), # Color
         Math.random() + 1, # Speed
         Math.random()) # Pos
 
