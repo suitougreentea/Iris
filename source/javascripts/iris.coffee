@@ -98,7 +98,7 @@ this.iris = {
       if add then @groups[group]++
       
       ## TODO: add point ##
-      console.log @groups[group]
+      #console.log @groups[group]
   }
 
   init : ->
@@ -113,7 +113,9 @@ this.iris = {
     @field.world.SetDebugDraw debugDraw
     @field.init()
     document.getElementById("screen").onmousedown = @click
+    document.getElementById("screen").oncontextmenu = -> return false
     document.getElementById("debugscreen").onmousedown = @click
+    document.getElementById("debugscreen").oncontextmenu = -> return false
     console.log "Iris ready"
     window.setInterval(update, 1000 / iris.config.framerate)
 
@@ -174,9 +176,12 @@ this.iris = {
     @renderer.render(@s)
     @renderer.renderdebug(@ds)
 
-  click: ->
+  click: (event) ->
     rect = event.target.getBoundingClientRect()
-    iris.field.shoot((event.clientX - rect.left) / 20, (event.clientY - rect.top) / 20, 12) # should be customizable
+    if event.button == 0
+      iris.field.shoot((event.clientX - rect.left) / 20, (event.clientY - rect.top) / 20, iris.config.shootspeedleft) # should be customizable
+    else if event.button == 2
+      iris.field.shoot((event.clientX - rect.left) / 20, (event.clientY - rect.top) / 20, iris.config.shootspeedright) # should be customizable
 }
 
 window.onload = ->

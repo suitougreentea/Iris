@@ -11,11 +11,14 @@ class ShapeConfig
 class @Config
   framerate: 30
   speedrate: 1
+  gravity: 8
+  shootspeedleft: 12
+  shootspeedright: 24
   fixture : {
     wall : new ShapeConfig(1, 1, 0.5, 0.8)
     floor : new ShapeConfig(1, 1, 0.5, 0.8)
     ceil : new ShapeConfig(1, 1, 0.5, 0.8)
-    shoot: new ShapeConfig(0.5, 8, 0.5, 0.8)
+    shoot: new ShapeConfig(0.5, 5, 0.5, 0.8)
     shape: [
       [
         new ShapeConfig(0.5, 1, 0.5, 0.8)
