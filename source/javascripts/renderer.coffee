@@ -37,10 +37,16 @@ class @Renderer
             @fillPolygon(context, b)
       b = b.GetNext()
 
+    # gauge
     context.fillStyle = "rgba(255, 128, 128, 1)"
     context.fillRect(40, 540, 400 * iris.gauge, 30)
     context.strokeStyle = "rgba(0,0,0,1)"
     context.strokeRect(40, 540, 400, 30)
+    
+    # point
+    context.fillStyle = "rgba(0,0,0,1)"
+    context.font="32px Arial"
+    context.fillText(iris.point, 440 - context.measureText(iris.point).width, 610)
 
   renderdebug: (context) ->
     iris.field.world.DrawDebugData()

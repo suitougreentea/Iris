@@ -87,7 +87,8 @@ this.iris = {
       new FieldNormal().generate(@world)
       @world.SetContactListener iris.listener
   }
-  gauge: 1
+  gauge: 0.2
+  point: 0
   chaingroups: {
     groups: []
     new: ->
@@ -96,9 +97,9 @@ this.iris = {
       return len
     handle: (group, add) ->
       if add then @groups[group]++
-      
-      ## TODO: add point ##
-      #console.log @groups[group]
+      iris.point += 10 * @groups[group]
+      iris.gauge += 0.01 * Math.pow(@groups[group], 1/3)
+      if iris.gauge > 1 then iris.gauge = 1
   }
 
   init : ->
@@ -139,14 +140,16 @@ this.iris = {
             b.ApplyForce(new b2Vec2(0, -iris.config.gravity * b.GetMass()), b.GetWorldCenter())
             #b.SetLinearVelocity(new b2Vec2(0,5))
             #b.SetAngularVelocity(0)
+
           if data.corruptionTimer > -1
             data.corruptionTimer++
-            if data.corruptionTimer > 30 # TODO
+            if data.state == iris.const.STATE_ACTIVE and data.corruptionTimer > 30 # TODO
               data.state = iris.const.STATE_INACTIVE
+              iris.gauge -= 0.1
         if data.type == "shoot"
           if data.corruptionTimer > -1
             data.corruptionTimer++
-            if data.corruptionTimer > 30 # TODO
+            if data.state == iris.const.STATE_ACTIVE and data.corruptionTimer > 30 # TODO
               data.state = iris.const.STATE_INACTIVE
           data.destroyTimer++
           if data.destroyTimer > 300 # TODO
