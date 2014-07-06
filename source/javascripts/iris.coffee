@@ -88,6 +88,12 @@ this.iris = {
       @world.SetContactListener iris.listener
   }
   gauge: 0.2
+  changegauge: (delta) ->
+    iris.gauge += delta
+    if iris.gauge > 1 then iris.gauge = 1
+    if iris.gauge < 0
+      iris.gauge = 0
+      # TODO: game over
   point: 0
   chaingroups: {
     groups: []
@@ -98,8 +104,7 @@ this.iris = {
     handle: (group, add) ->
       if add then @groups[group]++
       iris.point += 10 * @groups[group]
-      iris.gauge += 0.01 * Math.pow(@groups[group], 1/3)
-      if iris.gauge > 1 then iris.gauge = 1
+      iris.changegauge(iris.config.gaugefix * Math.pow(@groups[group], iris.config.gaugepow))
   }
 
   init : ->
@@ -138,14 +143,12 @@ this.iris = {
           if data.state == 0
             # Cancel gravity
             b.ApplyForce(new b2Vec2(0, -iris.config.gravity * b.GetMass()), b.GetWorldCenter())
-            #b.SetLinearVelocity(new b2Vec2(0,5))
-            #b.SetAngularVelocity(0)
 
           if data.corruptionTimer > -1
             data.corruptionTimer++
             if data.state == iris.const.STATE_ACTIVE and data.corruptionTimer > 30 # TODO
               data.state = iris.const.STATE_INACTIVE
-              iris.gauge -= 0.1
+              @changegauge iris.config.gaugeinactive
         if data.type == "shoot"
           if data.corruptionTimer > -1
             data.corruptionTimer++
@@ -171,7 +174,7 @@ this.iris = {
         Math.random() + 1, # Speed
         Math.random()) # Pos
 
-    @gauge -= 0.0001
+    @changegauge iris.config.gaugetime
 
     for body in iris.field.destroyList
       iris.field.world.DestroyBody(body)
