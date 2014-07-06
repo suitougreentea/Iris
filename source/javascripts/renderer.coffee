@@ -1,53 +1,71 @@
 b2CircleShape = Box2D.Collision.Shapes.b2CircleShape
 class @Renderer
-  render: (context) ->
-    context.clearRect(0,0,480,640)
-    #context.lineWidth = 1
-    #context.fillStyle = "rgba(0,0,0,0.2)"
-    context.strokeStyle = "rgba(0,0,0,0.2)"
-    @drawGrid(context)
+  
+  init: ->
+    @s = document.getElementById("screen").getContext("2d")
+    @s.save()
+
+  resize: (size) ->
+    if size.width / size.height < 480 / 640
+      @s.restore()
+      @s.translate(0, (size.height - ((size.width / 480) * 640)) / 2)
+      @s.scale(size.width/480, size.width/480)
+      @s.save()
+    else
+      @s.restore()
+      @s.translate((size.width - ((size.height / 640) * 480)) / 2, 0)
+      @s.scale(size.height/640, size.height/640)
+      @s.save()
+
+  render: () ->
+    @s.clearRect(0,0,480,640)
+    #@s.lineWidth = 1
+    #@s.fillStyle = "rgba(0,0,0,0.2)"
+    @s.strokeStyle = "rgba(0,0,0,0.2)"
+    @drawGrid(@s)
 
     b = iris.field.world.GetBodyList()
     while(b)
       data = b.GetUserData()
       if data
         if data.type == "wall" or data.type == "floor" or data.type == "ceil"
-          context.fillStyle = "rgba(128, 128, 128, 1)"
-          @fillPolygon(context, b)
+          @s.fillStyle = "rgba(128, 128, 128, 1)"
+          @fillPolygon(@s, b)
         if data.type == "shoot"
-          context.fillStyle = "rgba(0, 0, 0, 1)"
-          @fillPolygon(context, b)
+          @s.fillStyle = "rgba(0, 0, 0, 1)"
+          @fillPolygon(@s, b)
         if data.type == "shape"
           color = iris.config.color[data.color]
           if data.state == iris.const.STATE_FALLING
-            context.fillStyle = "rgba(#{color[0]}, #{color[1]}, #{color[2]}, 0.7)"
+            @s.fillStyle = "rgba(#{color[0]}, #{color[1]}, #{color[2]}, 0.7)"
           else if data.state == iris.const.STATE_ACTIVE
-            context.fillStyle = "rgba(#{color[0]}, #{color[1]}, #{color[2]}, 1)"
+            @s.fillStyle = "rgba(#{color[0]}, #{color[1]}, #{color[2]}, 1)"
           else if data.state == iris.const.STATE_MATCH
-            context.fillStyle = "rgba(#{color[0] + 64}, #{color[1] + 64}, #{color[2]}, 1)"
+            @s.fillStyle = "rgba(#{color[0] + 64}, #{color[1] + 64}, #{color[2]}, 1)"
           else if data.state == iris.const.STATE_INACTIVE
-            context.fillStyle = "rgba(#{color[0] - 64}, #{color[1] - 64}, #{color[2] - 64}, 1)"
+            @s.fillStyle = "rgba(#{color[0] - 64}, #{color[1] - 64}, #{color[2] - 64}, 1)"
 
           if b.GetFixtureList().GetShape() instanceof b2CircleShape
             pos = b.GetWorldCenter()
-            context.beginPath()
-            context.arc(pos.x * 20, pos.y * 20, b.GetFixtureList().GetShape().GetRadius() * 20, 0, Math.PI*2, false)
-            context.fill()
+            @s.beginPath()
+            @s.arc(pos.x * 20, pos.y * 20, b.GetFixtureList().GetShape().GetRadius() * 20, 0, Math.PI*2, false)
+            @s.fill()
           else
-            @fillPolygon(context, b)
+            @fillPolygon(@s, b)
       b = b.GetNext()
 
     # gauge
-    context.fillStyle = "rgba(255, 128, 128, 1)"
-    context.fillRect(40, 540, 400 * iris.gauge, 30)
-    context.strokeStyle = "rgba(0,0,0,1)"
-    context.strokeRect(40, 540, 400, 30)
+    @s.fillStyle = "rgba(255, 128, 128, 1)"
+    @s.fillRect(40, 540, 400 * iris.gauge, 30)
+    @s.strokeStyle = "rgba(0,0,0,1)"
+    @s.strokeRect(40, 540, 400, 30)
     
     # point
-    context.fillStyle = "rgba(0,0,0,1)"
-    context.font="32px Arial"
-    context.fillText(iris.point, 440 - context.measureText(iris.point).width, 610)
+    @s.fillStyle = "rgba(0,0,0,1)"
+    @s.font="32px Arial"
+    @s.fillText(iris.point, 440 - @s.measureText(iris.point).width, 610)
 
+  # deprecated (don't work)
   renderdebug: (context) ->
     iris.field.world.DrawDebugData()
     # grid

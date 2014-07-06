@@ -110,19 +110,21 @@ this.iris = {
   init : ->
     console.log "Loading Iris"
     @field.world = new b2World(new b2Vec2(0, iris.config.gravity), true)
-    @s = document.getElementById("screen").getContext("2d")
-    @ds = document.getElementById("debugscreen").getContext("2d")
-    debugDraw = new b2DebugDraw
-    debugDraw.SetSprite @ds
-    debugDraw.SetDrawScale 20
-    debugDraw.SetFillAlpha 0.7
-    debugDraw.SetFlags b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit
-    @field.world.SetDebugDraw debugDraw
+    @renderer.init()
+    #@ds = document.getElementById("debugscreen").getContext("2d")
+    #debugDraw = new b2DebugDraw
+    #debugDraw.SetSprite @ds
+    #debugDraw.SetDrawScale 20
+    #debugDraw.SetFillAlpha 0.7
+    #debugDraw.SetFlags b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit
+    #@field.world.SetDebugDraw debugDraw
     @field.init()
     document.getElementById("screen").onmousedown = @click
     document.getElementById("screen").oncontextmenu = -> return false
-    document.getElementById("debugscreen").onmousedown = @click
-    document.getElementById("debugscreen").oncontextmenu = -> return false
+    #document.getElementById("debugscreen").onmousedown = @click
+    #document.getElementById("debugscreen").oncontextmenu = -> return false
+    @renderer.resize(@expandcanvas())
+    
     console.log "Iris ready"
     window.setInterval(update, 1000 / iris.config.framerate)
 
@@ -181,7 +183,7 @@ this.iris = {
     iris.field.destroyList = []
 
     @renderer.render(@s)
-    @renderer.renderdebug(@ds)
+    #@renderer.renderdebug(@ds)
 
   click: (event) ->
     rect = event.target.getBoundingClientRect()
@@ -189,10 +191,18 @@ this.iris = {
       iris.field.shoot((event.clientX - rect.left) / 20, (event.clientY - rect.top) / 20, iris.config.shootspeedleft) # should be customizable
     else if event.button == 2
       iris.field.shoot((event.clientX - rect.left) / 20, (event.clientY - rect.top) / 20, iris.config.shootspeedright) # should be customizable
+  expandcanvas: ->
+    canvas = document.getElementById("screen")
+    container = document.getElementById("container")
+    canvas.width = container.offsetWidth
+    canvas.height = container.offsetHeight
+    return {width: canvas.width, height: canvas.height}
 }
 
 window.onload = ->
   iris.init()
+window.onresize = ->
+  iris.renderer.resize(iris.expandcanvas())
 update = ->
   iris.update()
 zebra()["zebra.json"] = "javascripts/zebra.json"
