@@ -14,6 +14,7 @@ class @Config
   gravity: 8
   shootspeedleft: 12
   shootspeedright: 24
+  damagelimit: 2
   fixture : {
     wall : new ShapeConfig(1, 1, 0.5, 0.8)
     floor : new ShapeConfig(1, 1, 0.5, 0.8)

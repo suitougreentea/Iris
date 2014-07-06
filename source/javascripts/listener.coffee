@@ -10,8 +10,8 @@ class @IrisListener extends b2ContactListener
     if c.IsTouching()
       @handleCollision(c, b1, b2)
       @handleCollision(c, b2, b1)
-  PreSolve: (c, om) ->
-    @BeginContact c
+  #PreSolve: (c, om) ->
+  #@BeginContact c
 
   handleCollision: (c, bm, bo) ->
     md = bm.GetUserData()
@@ -48,6 +48,10 @@ class @IrisListener extends b2ContactListener
             iris.field.destroyList.push(bo)
         if md.state != 3 and od.type == "shoot"
           iris.field.destroyList.push(bo)
+        if md.state == 2 and od.type == "shoot"
+          md.damage++
+          if md.damage == iris.config.damagelimit
+            iris.field.destroyList.push(bm)
       if md.type == "shoot"
         if od.type == "floor" or ((od.type == "shape" or od.type == "shoot") and od.state == 3)
           # collide with floor
