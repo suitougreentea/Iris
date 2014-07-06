@@ -40,7 +40,7 @@ class @FieldNormal
       floorSensorBody.position.Set(12,25.5)
       b = world.CreateBody(floorSensorBody)
       b.CreateFixture(floorSensorFixture)
-      b.ApplyForce(new b2Vec2(0, -9.8 * b.GetMass()), b.GetWorldCenter())
+      b.ApplyForce(new b2Vec2(0, -iris.config.gravity * b.GetMass()), b.GetWorldCenter())
 
       ceilFixture = fixtureConfig.wall.getFixtureDef()
       ceilFixture.shape = new b2PolygonShape

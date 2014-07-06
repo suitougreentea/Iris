@@ -32,7 +32,7 @@ this.iris = {
   }
   config : new Config()
   field: {
-    world: new b2World(new b2Vec2(0, 9.8), true)
+    world: null
     destroyList: []
     addShape: (type, size, angle, color, speed, position) ->
       fixtureConfig = window.iris.config.fixture
@@ -60,12 +60,12 @@ this.iris = {
       body = new b2BodyDef
       body.angle = angle
       body.type = b2Body.b2_kinematicBody
-      body.userData = {type: "shape", state: 0, color: color, chainGroup: -1, corruptionTimer: -1} # TODO
+      body.userData = {type: "shape", state: 0, color: color, chainGroup: -1, corruptionTimer: -1, damage: 0}
       body.position.Set(position*20 + 2, -5) # x: 2-22
       b = @world.CreateBody(body)
       b.CreateFixture(fixture)
       b.SetLinearVelocity(new b2Vec2(0, speed)) # TODO
-      b.ApplyForce(new b2Vec2(0, -9.8 * b.GetMass()), b.GetWorldCenter()) # Cancel gravity
+      b.ApplyForce(new b2Vec2(0, -iris.config.gravity * b.GetMass()), b.GetWorldCenter()) # Cancel gravity
 
     shoot: (x, y, vel) ->
       fixtureConfig = window.iris.config.fixture
@@ -77,7 +77,7 @@ this.iris = {
       fixture.filter.maskBits = iris.const.CATEGORY_WALL + iris.const.CATEGORY_CEIL + iris.const.CATEGORY_FLOOR + iris.const.CATEGORY_SHOOT + iris.const.CATEGORY_SHAPE_FALLING + iris.const.CATEGORY_SHAPE_ACTIVE
       body = new b2BodyDef
       body.type = b2Body.b2_dynamicBody
-      body.userData = {type: "shoot", state: iris.const.STATE_ACTIVE, corruptionTimer: -1, destroyTimer: 0} # TODO
+      body.userData = {type: "shoot", state: iris.const.STATE_ACTIVE, corruptionTimer: -1, destroyTimer: 0}
       body.position.Set(x, y)
       b = @world.CreateBody(body)
       b.CreateFixture(fixture)
@@ -103,6 +103,7 @@ this.iris = {
 
   init : ->
     console.log "Loading Iris"
+    @field.world = new b2World(new b2Vec2(0, iris.config.gravity), true)
     @s = document.getElementById("screen").getContext("2d")
     @ds = document.getElementById("debugscreen").getContext("2d")
     debugDraw = new b2DebugDraw
@@ -135,7 +136,7 @@ this.iris = {
             b.SetLinearVelocity(new b2Vec2(0,2))
           if data.state == 0
             # Cancel gravity
-            b.ApplyForce(new b2Vec2(0, -9.8 * b.GetMass()), b.GetWorldCenter())
+            b.ApplyForce(new b2Vec2(0, -iris.config.gravity * b.GetMass()), b.GetWorldCenter())
             #b.SetLinearVelocity(new b2Vec2(0,5))
             #b.SetAngularVelocity(0)
           if data.corruptionTimer > -1
@@ -154,7 +155,7 @@ this.iris = {
         if b.GetWorldCenter().y > 50
           iris.field.destroyList.push(b)
         if data.type == "floorsensor"
-          b.ApplyForce(new b2Vec2(0, -9.8 * b.GetMass()), b.GetWorldCenter())
+          b.ApplyForce(new b2Vec2(0, -iris.config.gravity * b.GetMass()), b.GetWorldCenter())
 
       b = b.GetNext()
 
