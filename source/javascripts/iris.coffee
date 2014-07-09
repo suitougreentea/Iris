@@ -123,7 +123,7 @@ this.iris = {
     document.getElementById("screen").oncontextmenu = -> return false
     #document.getElementById("debugscreen").onmousedown = @click
     #document.getElementById("debugscreen").oncontextmenu = -> return false
-    @renderer.resize(@expandcanvas())
+    iris.canvassize = iris.expandcanvas()
     
     console.log "Iris ready"
     window.setInterval(update, 1000 / iris.config.framerate)
@@ -187,22 +187,37 @@ this.iris = {
 
   click: (event) ->
     rect = event.target.getBoundingClientRect()
-    if event.button == 0
-      iris.field.shoot((event.clientX - rect.left) / 20, (event.clientY - rect.top) / 20, iris.config.shootspeedleft) # should be customizable
-    else if event.button == 2
-      iris.field.shoot((event.clientX - rect.left) / 20, (event.clientY - rect.top) / 20, iris.config.shootspeedright) # should be customizable
+    size = iris.canvassize
+    x = (event.clientX - size.result.x) / size.result.zoom
+    y = (event.clientY - size.result.y) / size.result.zoom
+    if 0 <= x < 480 and 0 <= y < 640
+      if event.button == 0
+        iris.field.shoot((x - rect.left) / 20, (y - rect.top) / 20, iris.config.shootspeedleft) # should be customizable
+      else if event.button == 2
+        iris.field.shoot((x - rect.left) / 20, (y - rect.top) / 20, iris.config.shootspeedright) # should be customizable
   expandcanvas: ->
     canvas = document.getElementById("screen")
     container = document.getElementById("container")
     canvas.width = container.offsetWidth
     canvas.height = container.offsetHeight
-    return {width: canvas.width, height: canvas.height}
+    size = {width: canvas.width, height: canvas.height}
+    size.result = iris.renderer.resize(size)
+    return size
+  canvassize: {
+    width: null
+    height: null
+    result: {
+      x: null
+      y: null
+      zoom: null
+    }
+  }
 }
 
 window.onload = ->
   iris.init()
 window.onresize = ->
-  iris.renderer.resize(iris.expandcanvas())
+  iris.canvassize = iris.expandcanvas()
 update = ->
   iris.update()
 zebra()["zebra.json"] = "javascripts/zebra.json"

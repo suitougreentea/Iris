@@ -3,19 +3,33 @@ class @Renderer
   
   init: ->
     @s = document.getElementById("screen").getContext("2d")
+    @setclip()
     @s.save()
 
+  setclip: ->
+    @s.beginPath()
+    @s.moveTo(0, 0)
+    @s.lineTo(480, 0)
+    @s.lineTo(480, 640)
+    @s.lineTo(0, 640)
+    @s.clip()
+
   resize: (size) ->
+    result = {}
     if size.width / size.height < 480 / 640
-      @s.restore()
-      @s.translate(0, (size.height - ((size.width / 480) * 640)) / 2)
-      @s.scale(size.width/480, size.width/480)
-      @s.save()
+      result.x = 0
+      result.y = (size.height - ((size.width / 480) * 640)) / 2
+      result.zoom = size.width/480
     else
-      @s.restore()
-      @s.translate((size.width - ((size.height / 640) * 480)) / 2, 0)
-      @s.scale(size.height/640, size.height/640)
-      @s.save()
+      result.x = (size.width - ((size.height / 640) * 480)) / 2
+      result.y = 0
+      result.zoom = size.height/640
+    @s.restore()
+    @s.translate(result.x, result.y)
+    @s.scale(result.zoom, result.zoom)
+    @setclip()
+    @s.save()
+    return result
 
   render: () ->
     @s.clearRect(0,0,480,640)
@@ -23,6 +37,8 @@ class @Renderer
     #@s.fillStyle = "rgba(0,0,0,0.2)"
     @s.strokeStyle = "rgba(0,0,0,0.2)"
     @drawGrid(@s)
+    @s.strokeStyle = "rgba(0, 0, 0, 1)"
+    @s.strokeRect(0, 0, 480, 640)
 
     b = iris.field.world.GetBodyList()
     while(b)
