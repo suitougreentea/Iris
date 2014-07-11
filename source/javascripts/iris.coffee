@@ -1,4 +1,4 @@
-#= require "zebra.min.js"
+#= require "zebra.js"
 #= require "Box2dWeb-2.1.a.3.min.js"
 #= require "config"
 #= require "field"
@@ -220,7 +220,7 @@ window.onresize = ->
   iris.canvassize = iris.expandcanvas()
 update = ->
   iris.update()
-zebra()["zebra.json"] = "javascripts/zebra.json"
-zebra()["zebra.png"] = "javascripts/zebra.png"
-zebra.ready ->
-  console.log "Zebra library ready"
+#zebra()["zebra.json"] = "javascripts/zebra.json"
+#zebra()["zebra.png"] = "javascripts/zebra.png"
+#zebra.ready ->
+#  console.log "Zebra library ready"

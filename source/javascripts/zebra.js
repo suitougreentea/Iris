@@ -3651,7 +3651,7 @@ pkg.Matrix = Class([
 })(zebra("data"), zebra.Class, zebra.Interface);
 
 /**
- * The module provides number of classes to help to communicate 
+ * The module provides number of classes to help to communicate
  * with remote services and servers by HTTP, JSON-RPC, XML-RPC
  * protocols
  * @module io
@@ -3806,19 +3806,19 @@ pkg.parseXML = function(s) {
 };
 
 /**
- * Query string parser class. The class provides number of 
- * useful static methods to manipulate with a query string 
- * of an URL 
+ * Query string parser class. The class provides number of
+ * useful static methods to manipulate with a query string
+ * of an URL
  * @class zebra.io.QS
  * @static
  */
 pkg.QS = Class([
     function $clazz() {
         /**
-         * Append the given parameters to a query string of the specified URL 
+         * Append the given parameters to a query string of the specified URL
          * @param  {String} url an URL
-         * @param  {Object} obj a dictionary of parameters to be appended to 
-         * the URL query string 
+         * @param  {Object} obj a dictionary of parameters to be appended to
+         * the URL query string
          * @return {String} a new URL
          * @static
          * @method append
@@ -3846,8 +3846,8 @@ pkg.QS = Class([
         /**
          * Convert the given dictionary of parameters to a query string.
          * @param  {Object} obj a dictionary of parameters
-         * @param  {Boolean} encode say if the parameters values have to be 
-         * encoded 
+         * @param  {Boolean} encode say if the parameters values have to be
+         * encoded
          * @return {String} a query string built from parameters list
          * @static
          * @method toQS
@@ -3886,7 +3886,7 @@ $Request.prototype.open = function(method, url, async, user, password) {
                 $this.status     = $this._request.status;
                 $this.statusText = $this._request.statusText;
             }
-            
+
             if ($this.onreadystatechange) {
                 $this.onreadystatechange();
             }
@@ -3906,9 +3906,9 @@ $Request.prototype.send = function(data) {
     if (this._xdomain) {
         var originalReq = this._request, $this = this;
 
-        //!!!! handler has to be defined after 
-        //!!!! open method has been called and all 
-        //!!!! four handlers have to be defined 
+        //!!!! handler has to be defined after
+        //!!!! open method has been called and all
+        //!!!! four handlers have to be defined
         originalReq.ontimeout = originalReq.onprogress = function () {};
 
         originalReq.onerror = function() {
@@ -3928,7 +3928,7 @@ $Request.prototype.send = function(data) {
             }
         };
 
-        //!!! set time out zero to prevent data lost 
+        //!!! set time out zero to prevent data lost
         originalReq.timeout = 0;
 
         if (this._async === false) {
@@ -3943,7 +3943,7 @@ $Request.prototype.send = function(data) {
             return;
         }
 
-        //!!! make short timeout to make sure bloody IE is ready 
+        //!!! make short timeout to make sure bloody IE is ready
         setTimeout(function () {
            originalReq.send(data);
         }, 10);
@@ -3960,11 +3960,11 @@ $Request.prototype.abort = function(data) {
 $Request.prototype.setRequestHeader = function(name, value) {
     if (this._xdomain) {
         if (name == "Content-Type") {
-            //!!! 
+            //!!!
             // IE8 and IE9 anyway don't take in account the assignment
             // IE8 throws exception every time a value is assigned to
             // the property
-            // !!!  
+            // !!!
             //this._request.contentType = value;
             return;
         }
@@ -3998,7 +3998,7 @@ pkg.getRequest = function() {
         if (zebra.isFF) {
             r.__send = r.send;
             r.send = function(data) {
-                // !!! FF can throw NS_ERROR_FAILURE exception instead of 
+                // !!! FF can throw NS_ERROR_FAILURE exception instead of
                 // !!! returning 404 File Not Found HTTP error code
                 // !!! No request status, statusText are defined in this case
                 try { return this.__send(data); }
@@ -4024,7 +4024,7 @@ pkg.getRequest = function() {
 };
 
 /**
- * HTTP request class. This class provides API to generate different 
+ * HTTP request class. This class provides API to generate different
  * (GET, POST, etc) HTTP requests in sync and async modes
  * @class zebra.io.HTTP
  * @constructor
@@ -4037,13 +4037,13 @@ pkg.HTTP = Class([
     },
 
     /**
-     * Perform HTTP GET request synchronously or asynchronously with the given 
+     * Perform HTTP GET request synchronously or asynchronously with the given
      * query parameters.
-     * @param {Object} [q] a dictionary of query parameters 
-     * @param {Function} [f] a callback function that is called when the HTTP GET 
-     * request is done. The method gets a request object as its only argument 
+     * @param {Object} [q] a dictionary of query parameters
+     * @param {Function} [f] a callback function that is called when the HTTP GET
+     * request is done. The method gets a request object as its only argument
      * and is called in context of the HTTP class instance.
-    
+
         // synchronous HTTP GET request with the number of
         // query parameters
         var result = zebra.io.HTTP("google.com").GET({
@@ -4066,7 +4066,7 @@ pkg.HTTP = Class([
         });
 
 
-     * @method GET  
+     * @method GET
      */
     function GET(q, f) {
         if (typeof q == 'function') {
@@ -4077,12 +4077,12 @@ pkg.HTTP = Class([
     },
 
     /**
-     * Perform HTTP POST request synchronously or asynchronously with the given 
+     * Perform HTTP POST request synchronously or asynchronously with the given
      * data to be sent.
-     * @param {String|Object} d a data to be sent by HTTP POST request.  It can be 
-     * either a parameters set or a string. 
-     * @param {Function} [f] a callback function that is called when HTTP POST 
-     * request is done. The method gets a request as its only  argument 
+     * @param {String|Object} d a data to be sent by HTTP POST request.  It can be
+     * either a parameters set or a string.
+     * @param {Function} [f] a callback function that is called when HTTP POST
+     * request is done. The method gets a request as its only  argument
      * and called in context of appropriate HTTP class instance. If the argument
      * is null the POST request will be done synchronously.
 
@@ -4098,14 +4098,14 @@ pkg.HTTP = Class([
            }
        });
 
-    * Or you can pass a number of parameters to be sent synchronously by 
-    * HTTP POST request: 
+    * Or you can pass a number of parameters to be sent synchronously by
+    * HTTP POST request:
 
        // send parameters synchronously by HTTP POST request
        zebra.io.HTTP("google.com").POST({
            param1: "val1",
            param2: "val3",
-           param3: "val3" 
+           param3: "val3"
        });
 
      * @method POST
@@ -4114,9 +4114,14 @@ pkg.HTTP = Class([
         if (typeof d == 'function') {
             f = d;
             d = null;
-        }    
+        }
 
-        if (d != null && zebra.isString(d) == false) {
+        // if the passed data is simple dictionary object encode it as POST
+        // parameters
+        //
+        // TODO: think also about changing content type
+        // "application/x-www-form-urlencoded; charset=UTF-8"
+        if (d != null && zebra.isString(d) == false && d.constructor === Object) {
             d = pkg.QS.toQS(d, false);
         }
 
@@ -4124,14 +4129,14 @@ pkg.HTTP = Class([
     },
 
     /**
-     * Universal HTTP request method that can be used to generate 
-     * a HTTP request with any HTTP method to the given URL with 
+     * Universal HTTP request method that can be used to generate
+     * a HTTP request with any HTTP method to the given URL with
      * the given data to be sent asynchronously or synchronously
      * @param {String}   method   an HTTP method (GET,POST,DELETE,PUT, etc)
      * @param {String}   url      an URL
      * @param {String}   data     a data to be sent to the given URL
-     * @param {Function} [callback] a callback method to be defined 
-     * if the HTTP request has to be sent asynchronously. 
+     * @param {Function} [callback] a callback method to be defined
+     * if the HTTP request has to be sent asynchronously.
      * @method SEND
      */
     function SEND(method, url, data, callback) {
@@ -4156,7 +4161,7 @@ pkg.HTTP = Class([
             r.send(data);
         }
         catch(e) {
-            // exception has to be redefined since the type of exception 
+            // exception has to be redefined since the type of exception
             // can be browser dependent
             if (callback == null) {
                 var ee = new Error(e.toString());
@@ -4173,7 +4178,7 @@ pkg.HTTP = Class([
         if (callback == null) {
             if (r.status != 200) {
 
-                // requesting local files can return 0 as a success result 
+                // requesting local files can return 0 as a success result
                 if (r.status !== 0 || new zebra.URL(this.url).protocol != "file:") {
                     var e = new Error("HTTP error " + r.status + " response = '" + r.statusText + "' url = " + url);
                     e.request = r;
@@ -4187,7 +4192,7 @@ pkg.HTTP = Class([
 
 /**
  * Shortcut method to perform asynchronous or synchronous HTTP GET requests.
- 
+
         // synchronous HTTP GET call
         var res = zebra.io.GET("http://test.com");
 
@@ -4211,10 +4216,10 @@ pkg.HTTP = Class([
         });
 
  * @param {String} url an URL
- * @param {Object} [parameters] a dictionary of query parameters 
- * @param {Funcion} [callback] a callback function that is called 
+ * @param {Object} [parameters] a dictionary of query parameters
+ * @param {Funcion} [callback] a callback function that is called
  * when the GET request is completed. Pass it  to perform request
- * asynchronously 
+ * asynchronously
  * @api  zebra.io.GET()
  * @method GET
  */
@@ -4237,7 +4242,7 @@ pkg.GET = function(url) {
 
 /**
  * Shortcut method to perform asynchronous or synchronous HTTP POST requests.
- 
+
         // synchronous HTTP POST call
         var res = zebra.io.POST("http://test.com");
 
@@ -4245,7 +4250,7 @@ pkg.GET = function(url) {
         zebra.io.POST("http://test.com", function(request) {
             // handle result
             if (request.status == 200) {
-            
+
             }
             else {
                 // handle error
@@ -4268,7 +4273,7 @@ pkg.GET = function(url) {
         zebra.io.POST("http://test.com", "request", function(request) {
             // handle result
             if (request.status == 200) {
-    
+
             }
             else {
                 // handle error
@@ -4277,10 +4282,10 @@ pkg.GET = function(url) {
         });
 
  * @param {String} url an URL
- * @param {Object} [parameters] a dictionary of query parameters 
- * @param {Function} [callback] a callback function that is called 
+ * @param {Object} [parameters] a dictionary of query parameters
+ * @param {Function} [callback] a callback function that is called
  * when the GET request is completed. Pass it if to perform request
- * asynchronously 
+ * asynchronously
  * @method  POST
  * @api  zebra.io.POST()
  */
@@ -4409,10 +4414,10 @@ pkg.URLInputStream = Class(pkg.InputStream, [
 ]);
 
 /**
- * A remote service connector class. It is supposed the class has to be extended with 
- * different protocols like RPC, JSON etc. The typical pattern of connecting to 
+ * A remote service connector class. It is supposed the class has to be extended with
+ * different protocols like RPC, JSON etc. The typical pattern of connecting to
  * a remote service is shown below:
- 
+
         // create service connector that has two methods "a()" and "b(param1)"
         var service = new zebra.io.Service("http://myservice.com", [
             "a", "b"
@@ -4438,16 +4443,16 @@ pkg.URLInputStream = Class(pkg.InputStream, [
  *
  * Ideally any specific remote service extension of "zebra.io.Service"
  * class has to implement two methods:
- 
+
     - **encode** to say how the given remote method with passed parameters have
     to be transformed into a concrete service side protocol (JSON, XML, etc)
-    - **decode** to say how the specific service response has to be converted into 
-    JavaScript object 
+    - **decode** to say how the specific service response has to be converted into
+    JavaScript object
 
- * @class  zebra.io.Service 
+ * @class  zebra.io.Service
  * @constructor
  * @param {String} url an URL of remote service
- * @param {Array} methods a list of methods names the remote service provides  
+ * @param {Array} methods a list of methods names the remote service provides
  */
 pkg.Service = Class([
     function(url, methods) {
@@ -4499,31 +4504,31 @@ pkg.Service = Class([
 
     /**
      * Transforms the given remote method execution with the specified parameters
-     * to service specific protocol. 
+     * to service specific protocol.
      * @param {String} name a remote method name
-     * @param {Array} args an passed to the remote method arguments 
-     * @return {String} a remote service specific encoded string 
+     * @param {Array} args an passed to the remote method arguments
+     * @return {String} a remote service specific encoded string
      * @protected
      * @method encode
      */
 
     /**
-     * Transforms the given remote method response to a JavaScript 
+     * Transforms the given remote method response to a JavaScript
      * object.
      * @param {String} name a remote method name
-     * @return {Object} a result of the remote method calling as a JavaScript 
+     * @return {Object} a result of the remote method calling as a JavaScript
      * object
      * @protected
      * @method decode
      */
 
      /**
-      * Send the given data to the given url and return a response. Callback 
+      * Send the given data to the given url and return a response. Callback
       * function can be passed for asynchronous result handling.
       * @protected
       * @param  {String}   url an URL
       * @param  {String}   data  a data to be send
-      * @param  {Function} [callback] a callback function  
+      * @param  {Function} [callback] a callback function
       * @return {String}  a result
       * @method  send
       */
@@ -4543,17 +4548,17 @@ pkg.Service.invoke = function(clazz, url, method) {
 
 /**
  * The class is implementation of JSON-RPC remote service connector.
- 
-        // create JSON-RPC connector to a remote service that 
+
+        // create JSON-RPC connector to a remote service that
         // has three remote methods
         var service = new zebra.io.JRPC("json-rpc.com", [
             "method1", "method2", "method3"
         ]);
 
-        // synchronously call remote method "method1" 
+        // synchronously call remote method "method1"
         service.method1();
-        
-        // asynchronously call remote method "method1" 
+
+        // asynchronously call remote method "method1"
         service.method1(function(res) {
             ...
         });
@@ -4561,7 +4566,7 @@ pkg.Service.invoke = function(clazz, url, method) {
  * @class zebra.io.JRPC
  * @constructor
  * @param {String} url an URL of remote service
- * @param {Array} methods a list of methods names the remote service provides  
+ * @param {Array} methods a list of methods names the remote service provides
  * @extends {zebra.io.Service}
  */
 pkg.JRPC = Class(pkg.Service, [
@@ -4584,7 +4589,7 @@ pkg.JRPC = Class(pkg.Service, [
         if (typeof(r.error) !== "undefined") {
             throw new Error(r.error.message);
         }
-        
+
         if (typeof r.result === "undefined" || typeof r.id === "undefined") {
             throw new Error("Wrong JSON response format");
         }
@@ -4599,16 +4604,16 @@ pkg.Base64.prototype.decode   = function() { return pkg.b64decode(this.encoded);
 /**
  * The class is implementation of XML-RPC remote service connector.
 
-        // create XML-RPC connector to a remote service that 
+        // create XML-RPC connector to a remote service that
         // has three remote methods
         var service = new zebra.io.XRPC("xmlrpc.com", [
             "method1", "method2", "method3"
         ]);
 
-        // synchronously call remote method "method1" 
+        // synchronously call remote method "method1"
         service.method1();
 
-        // asynchronously call remote method "method1" 
+        // asynchronously call remote method "method1"
         service.method1(function(res) {
             ...
         });
@@ -4617,7 +4622,7 @@ pkg.Base64.prototype.decode   = function() { return pkg.b64decode(this.encoded);
  * @constructor
  * @extends {zebra.io.Service}
  * @param {String} url an URL of remote service
- * @param {Array} methods a list of methods names the remote service provides  
+ * @param {Array} methods a list of methods names the remote service provides
  */
 pkg.XRPC = Class(pkg.Service, [
     function(url, methods) {
@@ -4637,7 +4642,7 @@ pkg.XRPC = Class(pkg.Service, [
     },
 
     function encodeValue(v, p)  {
-        if (v === null) { 
+        if (v === null) {
             throw new Error("Null is not allowed");
         }
 
@@ -7138,42 +7143,42 @@ pkg.GridLayout = Class(L, [
 (function(pkg, Class, Interface) {
 
 /**
- * Zebra UI. The UI is powerful way to create any imaginable 
- * user interface for WEB. The idea is based on developing 
- * hierarchy of UI components that sits and renders on HTML5 
+ * Zebra UI. The UI is powerful way to create any imaginable
+ * user interface for WEB. The idea is based on developing
+ * hierarchy of UI components that sits and renders on HTML5
  * Canvas element.
  *
- * Write zebra UI code in safe place where you can be sure all 
- * necessary structure, configurations, etc are ready. The safe 
- * place is "zebra.ready(...)" method. Development of zebra UI 
- * application begins from creation "zebra.ui.zCanvas" class, 
- * that is starting point and root element of your UI components 
- * hierarchy. "zCanvas" is actually wrapper around HTML5 Canvas 
- * element where zebra UI sits on. The typical zebra UI coding 
- * template is shown below: 
-       
-     // build UI in safe place  
+ * Write zebra UI code in safe place where you can be sure all
+ * necessary structure, configurations, etc are ready. The safe
+ * place is "zebra.ready(...)" method. Development of zebra UI
+ * application begins from creation "zebra.ui.zCanvas" class,
+ * that is starting point and root element of your UI components
+ * hierarchy. "zCanvas" is actually wrapper around HTML5 Canvas
+ * element where zebra UI sits on. The typical zebra UI coding
+ * template is shown below:
+
+     // build UI in safe place
      zebra.ready(function() {
-        // create canvas element 
+        // create canvas element
         var c = new zebra.ui.zCanvas(400, 400);
-            
+
         // start placing UI component on c.root panel
         //set layout manager
-        c.root.setLayout(new zebra.layout.BorderLayout());            
+        c.root.setLayout(new zebra.layout.BorderLayout());
         //add label to top
-        c.root.add(zebra.layout.TOP,new zebra.ui.Label("Top label")); 
+        c.root.add(zebra.layout.TOP,new zebra.ui.Label("Top label"));
         //add text area to center
-        c.root.add(zebra.layout.CENTER,new zebra.ui.TextArea(""));    
+        c.root.add(zebra.layout.CENTER,new zebra.ui.TextArea(""));
         //add button area to bottom
         c.root.add(zebra.layout.BOTTOM,new zebra.ui.Button("Button"));
         ...
      });
- 
+
  *  The latest version of zebra JavaScript is available in repository:
 
-        <script src='http://repo.zebkit.org/latest/zebra.min.js' 
+        <script src='http://repo.zebkit.org/latest/zebra.min.js'
                 type='text/javascript'></script>
-       
+
  * @module ui
  * @main ui
  * @requires zebra, util, io, data
@@ -7219,7 +7224,7 @@ pkg.$view = function(v) {
 };
 
 /**
- * Look up 2D canvas in the list of exitent  
+ * Look up 2D canvas in the list of exitent
  * @param  {2DCanvas} canvas a canvas
  * @return {zebra.ui.zCanvas} a zebra canvas
  */
@@ -7232,8 +7237,8 @@ pkg.$detectZCanvas = function(canvas) {
 };
 
 /**
- * View class that is designed as a basis for various reusable decorative 
- * UI elements implementations   
+ * View class that is designed as a basis for various reusable decorative
+ * UI elements implementations
  * @class zebra.ui.View
  */
 pkg.View = Class([
@@ -7242,28 +7247,28 @@ pkg.View = Class([
 
         /**
          * Get left gap. The method informs UI component that uses the view as
-         * a border view how much space left side of the border occupies 
+         * a border view how much space left side of the border occupies
          * @return {Integer} a left gap
          * @method getLeft
          */
 
          /**
           * Get right gap. The method informs UI component that uses the view as
-          * a border view how much space right side of the border occupies 
+          * a border view how much space right side of the border occupies
           * @return {Integer} a right gap
           * @method getRight
           */
-         
+
          /**
           * Get top gap. The method informs UI component that uses the view as
-          * a border view how much space top side of the border occupies 
+          * a border view how much space top side of the border occupies
           * @return {Integer} a top gap
           * @method getTop
           */
 
          /**
           * Get bottom gap. The method informs UI component that uses the view as
-          * a border view how much space bottom side of the border occupies 
+          * a border view how much space bottom side of the border occupies
           * @return {Integer} a bottom gap
           * @method getBottom
           */
@@ -7281,15 +7286,15 @@ pkg.View = Class([
         };
 
         /**
-        * The method is called to render the decorative element on the 
+        * The method is called to render the decorative element on the
         * given surface of the specified UI component
         * @param {Canvas 2D context} g  graphical context
         * @param {Integer} x  x coordinate
         * @param {Integer} y  y coordinate
-        * @param {Integer} w  required width  
+        * @param {Integer} w  required width
         * @param {Integer} h  required height
-        * @param {zebra.ui.Panel} c an UI component on which the view 
-        * element has to be drawn 
+        * @param {zebra.ui.Panel} c an UI component on which the view
+        * element has to be drawn
         * @method paint
         */
         this.paint = function(g,x,y,w,h,c) {};
@@ -7297,21 +7302,21 @@ pkg.View = Class([
 ]);
 
 /**
- * Render class extends "zebra.ui.View" class with a notion 
- * of target object. Render stores reference  to a target that 
- * the render knows how to visualize. Basically Render is an 
- * object visualizer. For instance, developer can implement 
- * text, image and so other objects visualizers. 
- * @param {Object} target a target object to be visualized 
+ * Render class extends "zebra.ui.View" class with a notion
+ * of target object. Render stores reference  to a target that
+ * the render knows how to visualize. Basically Render is an
+ * object visualizer. For instance, developer can implement
+ * text, image and so other objects visualizers.
+ * @param {Object} target a target object to be visualized
  * with the render
  * @constructor
- * @extends zebra.ui.View 
+ * @extends zebra.ui.View
  * @class zebra.ui.Render
  */
 pkg.Render = Class(pkg.View, [
     function $prototype() {
         /**
-         * Target object to be visualized  
+         * Target object to be visualized
          * @attribute target
          * @default null
          * @readOnly
@@ -7324,12 +7329,12 @@ pkg.Render = Class(pkg.View, [
         };
 
         /**
-         * Set the given target object. The method triggers 
-         * "targetWasChanged(oldTarget, newTarget)" execution if 
-         * the method is declared. Implement the method if you need 
-         * to track a target object updating. 
+         * Set the given target object. The method triggers
+         * "targetWasChanged(oldTarget, newTarget)" execution if
+         * the method is declared. Implement the method if you need
+         * to track a target object updating.
          * @method setTarget
-         * @param  {Object} o a target object to be visualized 
+         * @param  {Object} o a target object to be visualized
          */
         this.setTarget = function(o) {
             if (this.target != o) {
@@ -7341,15 +7346,15 @@ pkg.Render = Class(pkg.View, [
             }
         };
     }
-]);  
+]);
 
 /**
 * Raised border view
 * @class zebra.ui.Raised
-* @param {String} [brightest] a brightest border line color 
-* @param {String} [middle] a middle border line color 
+* @param {String} [brightest] a brightest border line color
+* @param {String} [middle] a middle border line color
 * @constructor
-* @extends zebra.ui.View 
+* @extends zebra.ui.View
 */
 pkg.Raised = Class(pkg.View, [
     function() { this.$this(pkg.lightBrColor, pkg.midBrColor); },
@@ -7370,13 +7375,13 @@ pkg.Raised = Class(pkg.View, [
          * @type {String}
          * @default "gray"
          */
-        
+
         this.brightest = brightest == null ? "white" : brightest;
         this.middle    = middle    == null ? "gray"  : middle;
     },
 
     function $prototype() {
-        this.paint = function(g,x1,y1,w,h,d){ 
+        this.paint = function(g,x1,y1,w,h,d){
             var x2 = x1 + w - 1, y2 = y1 + h - 1;
             g.setColor(this.brightest);
             g.drawLine(x1, y1, x2, y1);
@@ -7392,10 +7397,10 @@ pkg.Raised = Class(pkg.View, [
 * Sunken border view
 * @class zebra.ui.Sunken
 * @constructor
-* @param {String} [brightest] a brightest border line color 
-* @param {String} [moddle] a middle border line color 
-* @param {String} [darkest] a darkest border line color 
-* @extends zebra.ui.View 
+* @param {String} [brightest] a brightest border line color
+* @param {String} [moddle] a middle border line color
+* @param {String} [darkest] a darkest border line color
+* @extends zebra.ui.View
 */
 pkg.Sunken = Class(pkg.View, [
     function () {
@@ -7452,9 +7457,9 @@ pkg.Sunken = Class(pkg.View, [
 * Etched border view
 * @class zebra.ui.Etched
 * @constructor
-* @param {String} [brightest] a brightest border line color 
-* @param {String} [moddle] a middle border line color 
-* @extends zebra.ui.View 
+* @param {String} [brightest] a brightest border line color
+* @param {String} [moddle] a middle border line color
+* @extends zebra.ui.View
 */
 pkg.Etched = Class(pkg.View, [
     function () {
@@ -7505,7 +7510,7 @@ pkg.Etched = Class(pkg.View, [
 * @class zebra.ui.Dotted
 * @param {String} [c] the dotted border color
 * @constructor
-* @extends zebra.ui.View 
+* @extends zebra.ui.View
 */
 pkg.Dotted = Class(pkg.View, [
     function $prototype() {
@@ -7527,29 +7532,29 @@ pkg.Dotted = Class(pkg.View, [
 ]);
 
 /**
- * Border view. Can be used to render CSS-like border. Border can be applied to any 
+ * Border view. Can be used to render CSS-like border. Border can be applied to any
  * zebra UI component by calling setBorder method:
- 
+
         // create label component
         var lab = new zebra.ui.Label("Test label");
 
-        // set red border to the label component 
+        // set red border to the label component
         lab.setBorder(new zebra.ui.Border("red"));
 
- * @param  {String}  [c] border color 
+ * @param  {String}  [c] border color
  * @param  {Integer} [w] border width
  * @param  {Integer} [r] border corners radius
  * @constructor
  * @class zebra.ui.Border
- * @extends zebra.ui.View 
+ * @extends zebra.ui.View
  */
 pkg.Border = Class(pkg.View, [
-    function $prototype() {        
+    function $prototype() {
         this.paint = function(g,x,y,w,h,d){
             if (this.color != null) {
                 var ps = g.lineWidth;
                 g.lineWidth = this.width;
-                
+
                 if (this.radius > 0) {
                     this.outline(g,x,y,w,h, d);
                 }
@@ -7574,19 +7579,19 @@ pkg.Border = Class(pkg.View, [
          * @param  {Integer} h required height
          * @param  {Integer} d target UI component
          * @method outline
-         * @return {Boolean} true if the outline has to be applied as an 
-         * UI component shape 
+         * @return {Boolean} true if the outline has to be applied as an
+         * UI component shape
          */
         this.outline = function(g,x,y,w,h,d) {
-            if (this.radius <= 0) { 
+            if (this.radius <= 0) {
                 return false;
             }
 
-            var r  = this.radius, 
+            var r  = this.radius,
                 dt = this.width / 2,
-                xx = x + w - dt, 
+                xx = x + w - dt,
                 yy = y + h - dt;
-            
+
             x += dt;
             y += dt;
 
@@ -7649,8 +7654,8 @@ pkg.Border = Class(pkg.View, [
 
 /**
  * Round border view.
- * @param  {String}  [col] border color. Use null as the 
- * border color value to prevent painting of the border 
+ * @param  {String}  [col] border color. Use null as the
+ * border color value to prevent painting of the border
  * @param  {Integer} [width] border width
  * @constructor
  * @class zebra.ui.RoundBorder
@@ -7710,7 +7715,7 @@ pkg.RoundBorder = Class(pkg.View, [
 * Vertical or horizontal linear gradient view
 * @param {String} startColor start color
 * @param {String} endColor end color
-* @param {Integer|String} [type] type of gradient 
+* @param {Integer|String} [type] type of gradient
 * "zebra.layout.VERTICAL" or "zebra.layout.HORIZONTAL" or "vertical" or "horizontal"
 * @constructor
 * @class zebra.ui.Gradient
@@ -7721,7 +7726,7 @@ pkg.Gradient = Class(pkg.View, [
         this[''] =  function(){
             /**
              * Gradient orientation: vertical or horizontal
-             * @attribute orientation 
+             * @attribute orientation
              * @readOnly
              * @default zebra.layout.VERTICAL
              * @type {Integer}
@@ -7729,7 +7734,7 @@ pkg.Gradient = Class(pkg.View, [
 
             /**
              * Gradient start and stop colors
-             * @attribute colors 
+             * @attribute colors
              * @readOnly
              * @type {Array}
              */
@@ -7746,12 +7751,12 @@ pkg.Gradient = Class(pkg.View, [
 
         this.paint = function(g,x,y,w,h,dd){
             var d = (this.orientation == L.HORIZONTAL? [0,1]: [1,0]),
-                x1 = x*d[1], y1 = y * d[0], 
-                x2 = (x + w - 1) * d[1], 
+                x1 = x*d[1], y1 = y * d[0],
+                x2 = (x + w - 1) * d[1],
                 y2 = (y + h - 1) * d[0];
 
             if (this.gradient == null || this.gx1 != x1 ||
-                this.gx2 != x2        || this.gy1 != y1 || 
+                this.gx2 != x2        || this.gy1 != y1 ||
                 this.gy2 != y2                             )
             {
                 this.gx1 = x1;
@@ -7797,13 +7802,13 @@ pkg.Radial = Class(pkg.View, [
 ]);
 
 /**
-* Image render. Render an image target object or specified area of 
+* Image render. Render an image target object or specified area of
 * the given target image object.
 * @param {Image} img the image to be rendered
 * @param {Integer} [x] a x coordinate of the rendered image part
 * @param {Integer} [y] a y coordinate of the rendered image part
-* @param {Integer} [w] a width of the rendered image part 
-* @param {Integer} [h] a height of the rendered image part 
+* @param {Integer} [w] a width of the rendered image part
+* @param {Integer} [h] a height of the rendered image part
 * @constructor
 * @class zebra.ui.Picture
 * @extends zebra.ui.Render
@@ -7877,7 +7882,7 @@ pkg.Picture = Class(pkg.Render, [
 ]);
 
 /**
-* Pattern render. 
+* Pattern render.
 * @class zebra.ui.Pattern
 * @param {Image} [img] an image to be used as the pattern
 * @constructor
@@ -7886,14 +7891,14 @@ pkg.Picture = Class(pkg.Render, [
 pkg.Pattern = Class(pkg.Render, [
     function $prototype() {
         /**
-         * Buffered pattern 
+         * Buffered pattern
          * @type {Pattern}
          * @protected
          * @attribute pattern
          * @readOnly
          */
         this.pattern = null;
-        
+
         this.paint = function(g,x,y,w,h,d) {
             if (this.pattern == null) {
                 this.pattern = g.createPattern(this.target, 'repeat');
@@ -7912,11 +7917,11 @@ pkg.Pattern = Class(pkg.Render, [
 ]);
 
 /**
-* Composite view. The view allows developers to combine number of 
-* views and renders its together. 
+* Composite view. The view allows developers to combine number of
+* views and renders its together.
 * @class zebra.ui.CompositeView
-* @param {Arrayt|Object} [views] array of dictionary of views 
-* to be composed together 
+* @param {Arrayt|Object} [views] array of dictionary of views
+* to be composed together
 * @constructor
 * @extends zebra.ui.View
 */
@@ -8006,9 +8011,9 @@ pkg.CompositeView = Class(pkg.View, [
             }
         };
 
-        this.iterate = function(f) {            
+        this.iterate = function(f) {
             for(var i = 0; i < this.views.length; i++) {
-                f.call(this, i, this.views[i]);      
+                f.call(this, i, this.views[i]);
             }
         };
 
@@ -8050,13 +8055,13 @@ pkg.CompositeView = Class(pkg.View, [
 ]);
 
 /**
-* ViewSet view. The view set is a special view container that includes 
-* number of views accessible by a key and allows only one view be active 
-* in a particular time. Active is view that has to be rendered. The view 
-* set can be used to store number of decorative elements where only one 
+* ViewSet view. The view set is a special view container that includes
+* number of views accessible by a key and allows only one view be active
+* in a particular time. Active is view that has to be rendered. The view
+* set can be used to store number of decorative elements where only one
 * can be rendered depending from an UI component state.
-* @param {Object} args object that represents views instances that have 
-* to be included in the ViewSet   
+* @param {Object} args object that represents views instances that have
+* to be included in the ViewSet
 * @constructor
 * @class zebra.ui.ViewSet
 * @extends zebra.ui.CompositeView
@@ -8070,7 +8075,7 @@ pkg.ViewSet = Class(pkg.CompositeView, [
         };
 
         /**
-         * Activate the given view from the given set. 
+         * Activate the given view from the given set.
          * @param  {String} id a key of a view from the set to be activated
          * @return {Boolean} true if new view has been activated, false otherwise
          * @method activate
@@ -8100,9 +8105,9 @@ pkg.ViewSet = Class(pkg.CompositeView, [
                                                   : false;
         };
 
-        this.iterate = function(f) {            
+        this.iterate = function(f) {
             for(var k in this.views) {
-                f.call(this, k, this.views[k]);      
+                f.call(this, k, this.views[k]);
             }
         };
 
@@ -8121,7 +8126,7 @@ pkg.ViewSet = Class(pkg.CompositeView, [
             this.views = {};
 
             /**
-             * Active in the set view 
+             * Active in the set view
              * @attribute activeView
              * @type View
              * @default null
@@ -8180,8 +8185,8 @@ pkg.Bag = Class(zebra.util.Bag, [
 
 rgb.prototype.paint = function(g,x,y,w,h,d) {
     if (this.s != g.fillStyle) g.fillStyle = this.s;
-    
-    // fix for IE10/11, calculate intersection of clipped area  
+
+    // fix for IE10/11, calculate intersection of clipped area
     // and the area that has to be filled. IE11/10 have a bug
     // that triggers filling more space than it is restricted
     // with clip
@@ -8198,7 +8203,7 @@ rgb.prototype.paint = function(g,x,y,w,h,d) {
         if (rh <= 0) return;
 
         g.fillRect(rx, ry, rw, rh);
-    }   
+    }
     else {
         g.fillRect(x, y, w, h);
     }
@@ -8209,7 +8214,7 @@ rgb.prototype.getPreferredSize = function() {
 };
 
 pkg.getPreferredSize = function(l) {
-    return l != null && l.isVisible === true ? l.getPreferredSize() 
+    return l != null && l.isVisible === true ? l.getPreferredSize()
                                              : { width:0, height:0 };
 };
 
@@ -8254,10 +8259,10 @@ pkg.configure = function(c) {
 };
 
 /**
- * This class represents a font and provides basic font metrics like 
+ * This class represents a font and provides basic font metrics like
  * height, ascent. Using the class developers can compute string width.
-      
-      // plain font 
+
+      // plain font
       var f = new zebra.ui.Font("Arial", 14);
 
       // bold font
@@ -8267,8 +8272,8 @@ pkg.configure = function(c) {
       var f = new zebra.ui.Font("100px Futura, Helvetica, sans-serif");
 
  * @constructor
- * @param {String} name a name of the font. If size and style parameters 
- * has not been passed the name is considered as CSS font name that 
+ * @param {String} name a name of the font. If size and style parameters
+ * has not been passed the name is considered as CSS font name that
  * includes size and style
  * @param {String} [style] a style of the font: "bold", "italic", etc
  * @param {Integer} [size] a size of the font
@@ -8295,7 +8300,7 @@ pkg.Font = function(name, style, size) {
 
     /**
      * Height of the font
-     * @attribute height 
+     * @attribute height
      * @readOnly
      * @type {Integer}
      */
@@ -8303,7 +8308,7 @@ pkg.Font = function(name, style, size) {
 
     //!!!
     // Something weird is going sometimes in IE10 !
-    // Sometimes the property  offsetHeight is 0 but 
+    // Sometimes the property  offsetHeight is 0 but
     // second attempt to access to the property gives
     // proper result
     if (this.height === 0) {
@@ -8311,8 +8316,8 @@ pkg.Font = function(name, style, size) {
     }
 
     /**
-     * Ascent of the font 
-     * @attribute ascent 
+     * Ascent of the font
+     * @attribute ascent
      * @readOnly
      * @type {Integer}
      */
@@ -8320,11 +8325,11 @@ pkg.Font = function(name, style, size) {
 };
 
 /**
- * Calculate the given string width in pixels 
- * @param  {String} s a string whose width has to be computed 
- * @return {Integer} a string size in pixels 
+ * Calculate the given string width in pixels
+ * @param  {String} s a string whose width has to be computed
+ * @return {Integer} a string size in pixels
  * @method stringWidth
- * @for zebra.ui.Font 
+ * @for zebra.ui.Font
  */
 pkg.Font.prototype.stringWidth = function(s) {
     if (s.length === 0) return 0;
@@ -8334,12 +8339,12 @@ pkg.Font.prototype.stringWidth = function(s) {
 
 /**
  * Calculate the specified substring width
- * @param  {String} s a string 
+ * @param  {String} s a string
  * @param  {Integer} off fist character index
  * @param  {Integer} len length of substring
- * @return {Integer} a substring size in pixels 
+ * @return {Integer} a substring size in pixels
  * @method charsWidth
- * @for zebra.ui.Font 
+ * @for zebra.ui.Font
  */
 pkg.Font.prototype.charsWidth = function(s, off, len) {
     if ($fmCanvas.font != this.s) $fmCanvas.font = this.s;
@@ -8348,9 +8353,9 @@ pkg.Font.prototype.charsWidth = function(s, off, len) {
 
 /**
  * Returns CSS font representation
- * @return {String} a CSS representation of the given Font  
+ * @return {String} a CSS representation of the given Font
  * @method toString
- * @for zebra.ui.Font 
+ * @for zebra.ui.Font
  */
 pkg.Font.prototype.toString = function() { return this.s;  };
 
@@ -8373,18 +8378,18 @@ pkg.Cursor = {
 };
 
 /**
- * Interface to express intention to control children UI components event handling by 
- * making them events transparent. In the easiest way a component that needs take 
- * control on input (mouse, keyboard, etc) events has to implement the 
- * composite interface. For instance let's make a composite panel, what causes 
- * any added to the panel zebra.ui.Button component will not react on any input 
+ * Interface to express intention to control children UI components event handling by
+ * making them events transparent. In the easiest way a component that needs take
+ * control on input (mouse, keyboard, etc) events has to implement the
+ * composite interface. For instance let's make a composite panel, what causes
+ * any added to the panel zebra.ui.Button component will not react on any input
  * event:
-    
-        // declare composite panel class that inherits standard zebra 
-        // panel class and implements Composite interface 
+
+        // declare composite panel class that inherits standard zebra
+        // panel class and implements Composite interface
         var CompositePan = zebra.Class(zebra.ui.Panel, zebra.ui.Composite, []);
 
-        // instantiate an instance  
+        // instantiate an instance
         var cp = new CompositePan(new zebra.layout.FlowLayout());
 
         // add button that will not react since they are events transparent
@@ -8392,13 +8397,13 @@ pkg.Cursor = {
         cp.add(new zebra.ui.Button("Button 2"));
 
  *
- * If some of the children components have to be made not event transparent 
+ * If some of the children components have to be made not event transparent
  * you have to implement "catchInput" method as follow:
  *
- 
-        // declare composite panel class that inherits standard zebra 
-        // panel class, implements Composite interface and implements 
-        // catchInput method to make first kid not event transparent 
+
+        // declare composite panel class that inherits standard zebra
+        // panel class, implements Composite interface and implements
+        // catchInput method to make first kid not event transparent
         var CompositePan = zebra.Class(zebra.ui.Panel, zebra.ui.Composite, [
             function catchInput(kid) {
                 // make first kid not event transparent
@@ -8408,37 +8413,37 @@ pkg.Cursor = {
 
         ...
 
- * @class zebra.ui.Composite 
+ * @class zebra.ui.Composite
  * @interface
  */
 
 /**
- * The method is called to ask if the given children UI component 
+ * The method is called to ask if the given children UI component
  * has to be input events transparent
  * @optional
  * @param {zebra.ui.Panel} c a children UI component
- * @return {Boolean} true if the given children component has 
+ * @return {Boolean} true if the given children component has
  * to be input events transparent
  * @method catchInput
  */
 var Composite = pkg.Composite = Interface(),
 
 /**
- * Interface to express intention to participate in native clipboard copy-paste actions. 
+ * Interface to express intention to participate in native clipboard copy-paste actions.
  * A component that implements it and has focus can get / send data into / from clipboard
  * @class zebra.ui.CopyCutPaste
  * @interface
- */    
+ */
 
 /**
- * The method is called to ask return a string that has to be put into clipboard 
+ * The method is called to ask return a string that has to be put into clipboard
  * @optional
- * @return {String} a string to copy in native clipboard 
+ * @return {String} a string to copy in native clipboard
  * @method copy
  */
 
 /**
- * The method is called to pass string from clipboard to a component 
+ * The method is called to pass string from clipboard to a component
  * "CopyCutPaste" interface implements
  * @optional
  * @param {String} s a string from native clipboard
@@ -8447,13 +8452,13 @@ var Composite = pkg.Composite = Interface(),
 CopyCutPaste = pkg.CopyCutPaste = Interface(),
 
 /**
- * Input event class. Input event is everything what is bound to user 
- * inputing like keyboard, mouse, touch screen etc. This class often is 
- * used as basis for more specialized input event classes.  
+ * Input event class. Input event is everything what is bound to user
+ * inputing like keyboard, mouse, touch screen etc. This class often is
+ * used as basis for more specialized input event classes.
  * @param {zebra.ui.Panel} target a source of the input event
- * @param {Integer} id an unique ID of the input event, for 
+ * @param {Integer} id an unique ID of the input event, for
  * instance zebra.ui.KeyEvent.PRESSED
- * @param {Integer} uid an unique class id of the input event, 
+ * @param {Integer} uid an unique class id of the input event,
  * for instance zebra.ui.InputEvent.MOUSE_UID
  * @class  zebra.ui.InputEvent
  * @constructor
@@ -8488,8 +8493,8 @@ IE = pkg.InputEvent = Class([
             this.ID = id;
 
             /**
-             * Class id of the input event. It helps to differentiates 
-             * input events by a device it has been generated 
+             * Class id of the input event. It helps to differentiates
+             * input events by a device it has been generated
              * @attribute UID
              * @readOnly
              * @type {Integer}
@@ -8500,15 +8505,15 @@ IE = pkg.InputEvent = Class([
 ]),
 
 /**
- * Input key event class. The input event is triggered by a 
- * keyboard and has UID property set to zebra.ui.InputEvent.KEY_UID 
- * value 
+ * Input key event class. The input event is triggered by a
+ * keyboard and has UID property set to zebra.ui.InputEvent.KEY_UID
+ * value
  * @param {zebra.ui.Panel} target a source of the key input event
- * @param {Integer} id an unique ID of the key input event: zebra.ui.KeyEvent.PRESSED, 
+ * @param {Integer} id an unique ID of the key input event: zebra.ui.KeyEvent.PRESSED,
  * zebra.ui.KeyEvent.TYPED, zebra.ui.KeyEvent.RELEASED
  * @param {Integer} code a code of pressed key
  * @param {String} ch a character of typed key
- * @param {Integer} mask a bits mask of pressed meta keys:  zebra.ui.KeyEvent.M_CTRL, 
+ * @param {Integer} mask a bits mask of pressed meta keys:  zebra.ui.KeyEvent.M_CTRL,
  * zebra.ui.KeyEvent.M_SHIFT, zebra.ui.KeyEvent.M_ALT, zebra.ui.KeyEvent.M_CMD
  * @class  zebra.ui.KeyEvent
  * @extends zebra.ui.InputEvent
@@ -8539,7 +8544,7 @@ KE = pkg.KeyEvent = Class(IE, [
              * @type {Integer}
              */
             this.code = code;
-            
+
             /**
              * A bits mask of pressed meta keys (CTRL, ALT, etc)
              * @attribute mask
@@ -8560,16 +8565,16 @@ KE = pkg.KeyEvent = Class(IE, [
         /**
          * Test if CTRL key is held
          * @return {Boolean} true if CTRL key is held
-         * @method isControlPressed 
+         * @method isControlPressed
          */
         this.isControlPressed = function(){
             return (this.mask & KE.M_CTRL) > 0;
         };
-        
+
         /**
          * Test if SHIFT key is held
          * @return {Boolean} true if SHIFT key is held
-         * @method isShiftPressed 
+         * @method isShiftPressed
          */
         this.isShiftPressed   = function() {
             return (this.mask & KE.M_SHIFT) > 0;
@@ -8578,16 +8583,16 @@ KE = pkg.KeyEvent = Class(IE, [
         /**
          * Test if ALT key is held
          * @return {Boolean} true if ALT key is held
-         * @method isAltPressed 
+         * @method isAltPressed
          */
         this.isAltPressed  = function(){
             return (this.mask & KE.M_ALT) > 0;
         };
-        
+
         /**
          * Test if command (windows) key is held
          * @return {Boolean} true if command key is held
-         * @method isCmdPressed 
+         * @method isCmdPressed
          */
         this.isCmdPressed = function(){
             return (this.mask & KE.M_CMD) > 0;
@@ -8601,32 +8606,32 @@ KE = pkg.KeyEvent = Class(IE, [
 ]),
 
 /**
- * Mouse and touch screen input event class. The input event is 
- * triggered by a mouse or touch screen. It has UID property set 
- * to zebra.ui.InputEvent.MOUSE_UID value 
+ * Mouse and touch screen input event class. The input event is
+ * triggered by a mouse or touch screen. It has UID property set
+ * to zebra.ui.InputEvent.MOUSE_UID value
  * @param {zebra.ui.Panel} target a source of the mouse input event
- * @param {Integer} id an unique ID of the mouse input event: 
- 
-        zebra.ui.MouseEvent.CLICKED    
-        zebra.ui.MouseEvent.PRESSED    
-        zebra.ui.MouseEvent.RELEASED   
-        zebra.ui.MouseEvent.ENTERED    
-        zebra.ui.MouseEvent.EXITED     
-        zebra.ui.MouseEvent.DRAGGED    
+ * @param {Integer} id an unique ID of the mouse input event:
+
+        zebra.ui.MouseEvent.CLICKED
+        zebra.ui.MouseEvent.PRESSED
+        zebra.ui.MouseEvent.RELEASED
+        zebra.ui.MouseEvent.ENTERED
+        zebra.ui.MouseEvent.EXITED
+        zebra.ui.MouseEvent.DRAGGED
         zebra.ui.MouseEvent.DRAGSTARTED
-        zebra.ui.MouseEvent.DRAGENDED  
-        zebra.ui.MouseEvent.MOVED      
-  
- * @param {Integer} ax an absolute (relatively to a canvas where the source 
- * UI component is hosted) mouse pointer x coordinate 
- * @param {Integer} ax an absolute (relatively to a canvas where the source 
+        zebra.ui.MouseEvent.DRAGENDED
+        zebra.ui.MouseEvent.MOVED
+
+ * @param {Integer} ax an absolute (relatively to a canvas where the source
+ * UI component is hosted) mouse pointer x coordinate
+ * @param {Integer} ax an absolute (relatively to a canvas where the source
  * UI component is hosted) mouse pointer y coordinate
  * @param {Integer} mask a bits mask of pressed mouse buttons:
- 
+
          zebra.ui.MouseEvent.LEFT_BUTTON
          zebra.ui.MouseEvent.RIGHT_BUTTON
-         
- * @param {Integer} clicks number of mouse button clicks 
+
+ * @param {Integer} clicks number of mouse button clicks
  * @class  zebra.ui.MouseEvent
  * @extends zebra.ui.InputEvent
  * @constructor
@@ -8692,7 +8697,7 @@ ME = pkg.MouseEvent = Class(IE, [
          * @readOnly
          * @type {Integer}
          */
-      
+
         /**
          * A bits mask of a pressed mouse button
          * @attribute mask
@@ -8701,37 +8706,62 @@ ME = pkg.MouseEvent = Class(IE, [
          */
 
         /**
-         * Reset the event properties with new values 
+         * State of modifier keys
+         * @attribute modifiers
+         * @readOnly
+         * @type {Object}
+         */
+
+        /**
+         * Reset the event properties with new values
          * @private
          * @param  {zebra.ui.Panel} target  a target component that triggers the event
          * @param  {Integer} id an unique id of the event
-         * @param  {Integer} ax an absolute (relatively to a canvas where the target 
+         * @param  {Integer} ax an absolute (relatively to a canvas where the target
          * component is hosted) x mouse cursor coordinate
-         * @param  {Integer} ay an absolute (relatively to a canvas where the target 
+         * @param  {Integer} ay an absolute (relatively to a canvas where the target
          * component is hosted) y mouse cursor coordinate
-         * @param  {Integer} mask   a pressed mouse buttons mask 
+         * @param  {Integer} mask   a pressed mouse buttons mask
          * @param  {Integer} clicks number of a button clicks
+         * @param  {Object} modifiers modifier keys state
          * @method  reset
          */
-        this.reset = function(target,id,ax,ay,mask,clicks){
+        this.reset = function(target,id,ax,ay,mask,clicks,modifiers){
             this.ID     = id;
             this.mask   = mask;
             this.clicks = clicks;
 
-            // this can speed up calculation significantly 
+            if (modifiers != null) {
+                this.modifiers  = {
+                    altKey      : modifiers.altKey,
+                    ctrlKey     : modifiers.ctrlKey,
+                    metaKey     : modifiers.metaKey,
+                    shiftKey    : modifiers.shiftKey,
+                };
+            }
+            else {
+                this.modifiers  = {
+                    altKey      : false,
+                    ctrlKey     : false,
+                    metaKey     : false,
+                    shiftKey    : false,
+                };
+            }
+
+            // this can speed up calculation significantly
             if (this.source == target && this.source.parent == target.parent && target.x == this.$px && target.y == this.$py) {
                 this.x += (ax - this.absX);
                 this.y += (ay - this.absY);
                 this.absX = ax;
                 this.absY = ay;
                 this.source = target;
-            } 
-            else 
+            }
+            else
             {
                 this.source = target;
                 this.absX = ax;
                 this.absY = ay;
-                // convert absolute location to relative location 
+                // convert absolute location to relative location
                 while(target.parent != null){
                     ax -= target.x;
                     ay -= target.y;
@@ -8750,9 +8780,9 @@ ME = pkg.MouseEvent = Class(IE, [
         };
     },
 
-    function (target,id,ax,ay,mask,clicks){
+    function (target,id,ax,ay,mask,clicks,modifiers){
         this.$super(target, id, IE.MOUSE_UID);
-        this.reset(target, id, ax, ay, mask, clicks);
+        this.reset(target, id, ax, ay, mask, clicks, modifiers);
     }
 ]);
 
@@ -8761,17 +8791,17 @@ var MDRAGGED = ME.DRAGGED, EM = null, MMOVED = ME.MOVED, MEXITED = ME.EXITED,
     context = Object.getPrototypeOf(document.createElement('canvas').getContext('2d')),
     $mousePressedEvents = {}, $keyPressedCode = -1, $keyPressedOwner = null,
     $keyPressedModifiers = 0, KE_STUB = new KE(null,  KPRESSED, 0, 'x', 0),
-    ME_STUB = new ME("", ME.PRESSED, 0, 0, 0, 1);
+    ME_STUB = new ME("", ME.PRESSED, 0, 0, 0, 1, null);
 
 pkg.paintManager = pkg.events = pkg.$mouseMoveOwner = null;
 
-// global mouse move events handler (registered by drag out a canvas surface) 
-// has to be removed every time a mouse button released with the given function 
+// global mouse move events handler (registered by drag out a canvas surface)
+// has to be removed every time a mouse button released with the given function
 function $cleanDragFix() {
     if ($temporaryWinListener != null) {
         window.removeEventListener("mousemove", $temporaryWinListener, true);
         $temporaryWinListener = null;
-    }    
+    }
 }
 
 // !!!!
@@ -8786,30 +8816,30 @@ document.addEventListener("mouseup", function(e) {
 
         // !!!!
         // Check if the event target is not the canvas itself
-        // On desktop  "mouseup" event is generated only if 
+        // On desktop  "mouseup" event is generated only if
         // you drag mouse outside a canvas and than release a mouse button
-        // At the same time in Android native browser (and may be other mobile 
-        // browsers) "mouseup" event is fired every time you touch 
-        // canvas or any other element. So check if target is not a canvas 
-        // before doing releasing, otherwise it brings to error on mobile  
+        // At the same time in Android native browser (and may be other mobile
+        // browsers) "mouseup" event is fired every time you touch
+        // canvas or any other element. So check if target is not a canvas
+        // before doing releasing, otherwise it brings to error on mobile
         if (mp.canvas != null && mp.canvas.canvas != e.target) {
             mp.pageX = e.pageX;
             mp.pageY = e.pageY;
             mp.canvas.$mouseReleased(k, mp);
         }
     }
-},  false); // false is important since if mouseUp  happens on 
-            // canvas the canvas gets the event first and than stops 
-            // propagating to prevent it  
+},  false); // false is important since if mouseUp  happens on
+            // canvas the canvas gets the event first and than stops
+            // propagating to prevent it
 
 
 // !!!
-// override alert to keep control on event sequence, it is very 
+// override alert to keep control on event sequence, it is very
 // browser dependent
 var $alert = (function(){ return this.alert; }());
 window.alert = function() {
     if ($keyPressedCode > 0) {
-        KE_STUB.reset($keyPressedOwner, KE.RELEASED, 
+        KE_STUB.reset($keyPressedOwner, KE.RELEASED,
                       $keyPressedCode, '', $keyPressedModifiers);
         EM.fireInputEvent(KE_STUB);
         $keyPressedCode = -1;
@@ -8824,7 +8854,7 @@ window.alert = function() {
 };
 
 context.setFont = function(f) {
-    f = (f.s != null ? f.s : f.toString()); 
+    f = (f.s != null ? f.s : f.toString());
     if (f != this.font) {
         this.font = f;
     }
@@ -8832,7 +8862,7 @@ context.setFont = function(f) {
 
 context.setColor = function(c) {
     if (c == null) throw new Error("Null color");
-    c = (c.s ? c.s : c.toString()); 
+    c = (c.s ? c.s : c.toString());
     if (c != this.fillStyle) this.fillStyle = c;
     if (c != this.strokeStyle) this.strokeStyle = c;
 };
@@ -8866,12 +8896,12 @@ context.ovalPath = function(x,y,w,h){
     w -= 2 * this.lineWidth;
     h -= 2 * this.lineWidth;
 
-    var kappa = 0.5522848, 
-        ox = (w / 2) * kappa, 
+    var kappa = 0.5522848,
+        ox = (w / 2) * kappa,
         oy = (h / 2) * kappa,
-        xe = x + w, 
-        ye = y + h, 
-        xm = x + w / 2, 
+        xe = x + w,
+        ye = y + h,
+        xm = x + w / 2,
         ym = y + h / 2;
     this.moveTo(x, ym);
     this.bezierCurveTo(x, ym - oy, xm - ox, y, xm, y);
@@ -8935,7 +8965,7 @@ context.drawDashLine = function(x,y,x2,y2) {
 };
 
 pkg.makeFullyVisible = function(d,c){
-    var right = d.getRight(), top = d.getTop(), bottom = d.getBottom(), 
+    var right = d.getRight(), top = d.getTop(), bottom = d.getBottom(),
         left = d.getLeft(), xx = c.x, yy = c.y, ww = c.width, hh = c.height;
     if (xx < left) xx = left;
     if (yy < top)  yy = top;
@@ -8976,14 +9006,14 @@ pkg.calcOrigin = function(x,y,w,h,px,py,t,tt,ll,bb,rr){
 };
 
 /**
- * Load an image by the given URL. 
+ * Load an image by the given URL.
  * @param  {String|Image} img an image URL or image object
- * @param  {Function} ready a call back method to be notified when the 
+ * @param  {Function} ready a call back method to be notified when the
  * image has been completely loaded or failed. The method gets three parameters
-    
+
     - an URL to the image
     - boolean loading result. true means success
-    - an image that has been loaded 
+    - an image that has been loaded
 
             // load image
             zebra.ui.loadImage("test.png", function(path, result, image) {
@@ -9001,7 +9031,7 @@ pkg.loadImage = function(img, ready) {
     if (img instanceof Image && img.complete && img.naturalWidth !== 0) {
         if (arguments.length > 1)  {
             ready(img.src, true, img);
-        }    
+        }
         return img;
     }
 
@@ -9023,8 +9053,8 @@ pkg.loadImage = function(img, ready) {
 };
 
 /**
- *  This the core UI component class. All other UI components has to be 
- *  successor of panel class. 
+ *  This the core UI component class. All other UI components has to be
+ *  successor of panel class.
 
       // instantiate panel with no arguments
       var p = new zebra.ui.Panel();
@@ -9032,78 +9062,78 @@ pkg.loadImage = function(img, ready) {
       // instantiate panel with border layout set as its layout manager
       var p = new zebra.ui.Panel(new zebra.layout.BorderLayout());
 
-      // instantiate panel with the given properties (border 
+      // instantiate panel with the given properties (border
       // layout manager, blue background and plain border)
       var p = new zebra.ui.Panel({
          layout: new zebra.ui.BorderLayout(),
          background : "blue",
          border     : "plain"
       });
- 
+
  * **Container. **
- * Panel can contains number of other UI components as its children where 
- * the children components are placed with a defined by the panel layout 
+ * Panel can contains number of other UI components as its children where
+ * the children components are placed with a defined by the panel layout
  * manager:
- 
+
       // add few children component to panel top, center and bottom parts
       // with help of border layout manager
       var p = new zebra.ui.Panel();
-      p.setLayout(new zebra.layout.BorderLayout(4)); // set layout manager to 
+      p.setLayout(new zebra.layout.BorderLayout(4)); // set layout manager to
                                                      // order children components
 
-      p.add(zebra.layout.TOP, new zebra.ui.Label("Top label")); 
-      p.add(zebra.layout.CENTER, new zebra.ui.TextArea("Text area")); 
-      p.add(zebra.layout.BOTTOM, new zebra.ui.Button("Button")); 
+      p.add(zebra.layout.TOP, new zebra.ui.Label("Top label"));
+      p.add(zebra.layout.CENTER, new zebra.ui.TextArea("Text area"));
+      p.add(zebra.layout.BOTTOM, new zebra.ui.Button("Button"));
 
  * **Events. **
- * The class provides possibility to catch various component and input 
- * events by declaring an appropriate event method handler. The most 
- * simple case you just define a method: 
+ * The class provides possibility to catch various component and input
+ * events by declaring an appropriate event method handler. The most
+ * simple case you just define a method:
 
       var p = new zebra.ui.Panel();
       p.mousePressed = function(e) {
-          // handle event here 
+          // handle event here
       };
 
 * If you prefer to create an anonymous class instance you can do it as
-* follow:  
+* follow:
 
       var p = new zebra.ui.Panel([
           function mousePressed(e) {
-              // handle event here 
+              // handle event here
           }
       ]);
 
-* One more way to add the event handler is dynamic extending of an instance 
-* class demonstrated below: 
+* One more way to add the event handler is dynamic extending of an instance
+* class demonstrated below:
 
       var p = new zebra.ui.Panel("Test");
       p.extend([
           function mousePressed(e) {
-              // handle event here 
+              // handle event here
           }
       ]);
 
- * Pay attention Zebra UI components often declare own event handlers and 
+ * Pay attention Zebra UI components often declare own event handlers and
  * in this case you can overwrite the default event handler with a new one.
- * Preventing the basic event handler execution can cause the component will 
- * work improperly. You should care about the base event handler execution 
+ * Preventing the basic event handler execution can cause the component will
+ * work improperly. You should care about the base event handler execution
  * as follow:
-     
+
       // button component declares own mouse pressed event handler
       // we have to call the original handler to keep the button component
       // properly working
       var p = new zebra.ui.Button("Test");
       p.extend([
           function mousePressed(e) {
-              this.$super(e); // call parent class event handler implementation 
-              // handle event here 
+              this.$super(e); // call parent class event handler implementation
+              // handle event here
           }
       ]);
 
  *  @class zebra.ui.Panel
- *  @param {Object|zebra.layout.Layout} [l] pass a layout manager or 
- *  number of properties that have to be applied to the instance of 
+ *  @param {Object|zebra.layout.Layout} [l] pass a layout manager or
+ *  number of properties that have to be applied to the instance of
  *  the panel class.
  *  @constructor
  *  @extends zebra.layout.Layoutable
@@ -9113,7 +9143,7 @@ pkg.loadImage = function(img, ready) {
 
 /**
  * Implement the event handler method to catch mouse pressed event.
- * The event is triggered every time a mouse button has been pressed or 
+ * The event is triggered every time a mouse button has been pressed or
  * a finger has touched a touch screen.
 
      var p = new zebra.ui.Panel();
@@ -9125,9 +9155,9 @@ pkg.loadImage = function(img, ready) {
 
 /**
  * Implement the event handler method to catch mouse released event.
- * The event is triggered every time a mouse button has been released or 
- * a finger has untouched a touch screen. 
- 
+ * The event is triggered every time a mouse button has been released or
+ * a finger has untouched a touch screen.
+
      var p = new zebra.ui.Panel();
      p.mouseReleased = function(e) { ... }; // add event handler
 
@@ -9137,9 +9167,9 @@ pkg.loadImage = function(img, ready) {
 
 /**
  * Implement the event handler method  to catch mouse moved event.
- * The event is triggered every time a mouse cursor has been moved with 
+ * The event is triggered every time a mouse cursor has been moved with
  * no a mouse button pressed.
- 
+
      var p = new zebra.ui.Panel();
      p.mouseMoved = function(e) { ... }; // add event handler
 
@@ -9149,9 +9179,9 @@ pkg.loadImage = function(img, ready) {
 
 /**
  * Implement the event handler method to catch mouse entered event.
- * The event is triggered every time a mouse cursor entered the 
- * given component. 
- 
+ * The event is triggered every time a mouse cursor entered the
+ * given component.
+
      var p = new zebra.ui.Panel();
      p.mouseEntered = function(e) { ... }; // add event handler
 
@@ -9161,9 +9191,9 @@ pkg.loadImage = function(img, ready) {
 
 /**
  * Implement the event handler method to catch mouse exited event.
- * The event is triggered every time a mouse cursor exited the given 
- * component. 
- 
+ * The event is triggered every time a mouse cursor exited the given
+ * component.
+
      var p = new zebra.ui.Panel();
      p.mouseExited = function(e) { ... }; // add event handler
 
@@ -9176,7 +9206,7 @@ pkg.loadImage = function(img, ready) {
  * The event is triggered every time a mouse button has been clicked. Click events
  * are generated only if no one mouse moved or drag events has been generated
  * in between mouse pressed -> mouse released events sequence.
- 
+
      var p = new zebra.ui.Panel();
      p.mouseClicked = function(e) { ... }; // add event handler
 
@@ -9186,9 +9216,9 @@ pkg.loadImage = function(img, ready) {
 
 /**
  * Implement the event handler method to catch mouse dragged event.
- * The event is triggered every time a mouse cursor has been moved when a mouse button 
+ * The event is triggered every time a mouse cursor has been moved when a mouse button
  * has been pressed. Or when a finger has been moved over a touch screen.
- 
+
      var p = new zebra.ui.Panel();
      p.mouseDragged = function(e) { ... }; // add event handler
 
@@ -9198,9 +9228,9 @@ pkg.loadImage = function(img, ready) {
 
 /**
  * Implement the event handler method to catch mouse drag started event.
- * The event is triggered every time a mouse cursor has been moved first time when a mouse button 
+ * The event is triggered every time a mouse cursor has been moved first time when a mouse button
  * has been pressed. Or when a finger has been moved first time over a touch screen.
- 
+
      var p = new zebra.ui.Panel();
      p.mouseDragStarted = function(e) { ... }; // add event handler
 
@@ -9210,9 +9240,9 @@ pkg.loadImage = function(img, ready) {
 
 /**
  * Implement the event handler method to catch mouse drag ended event.
- * The event is triggered every time a mouse cursor has been moved last time when a mouse button 
+ * The event is triggered every time a mouse cursor has been moved last time when a mouse button
  * has been pressed. Or when a finger has been moved last time over a touch screen.
- 
+
      var p = new zebra.ui.Panel();
      p.mouseDragEnded = function(e) { ... }; // add event handler
 
@@ -9223,7 +9253,7 @@ pkg.loadImage = function(img, ready) {
 /**
  * Implement the event handler method to catch key pressed event
  * The event is triggered every time a key has been pressed.
- 
+
      var p = new zebra.ui.Panel();
      p.keyPressed = function(e) { ... }; // add event handler
 
@@ -9234,7 +9264,7 @@ pkg.loadImage = function(img, ready) {
 /**
  * Implement the event handler method to catch key types event
  * The event is triggered every time a key has been typed.
- 
+
      var p = new zebra.ui.Panel();
      p.keyTyped = function(e) { ... }; // add event handler
 
@@ -9245,7 +9275,7 @@ pkg.loadImage = function(img, ready) {
 /**
  * Implement the event handler method to catch key released event
  * The event is triggered every time a key has been released.
- 
+
      var p = new zebra.ui.Panel();
      p.keyReleased = function(e) { ... }; // add event handler
 
@@ -9256,7 +9286,7 @@ pkg.loadImage = function(img, ready) {
 /**
  * Implement the event handler method to catch the component sized event
  * The event is triggered every time the component has been re-sized.
- 
+
      var p = new zebra.ui.Panel();
      p.compSized = function(c, pw, ph) { ... }; // add event handler
 
@@ -9268,9 +9298,9 @@ pkg.loadImage = function(img, ready) {
 
 /**
  * Implement the event handler method to catch component moved event
- * The event is triggered every time the component location has been 
+ * The event is triggered every time the component location has been
  * updated.
- 
+
      var p = new zebra.ui.Panel();
      p.compMoved = function(c, px, py) { ... }; // add event handler
 
@@ -9282,9 +9312,9 @@ pkg.loadImage = function(img, ready) {
 
 /**
  * Implement the event handler method to catch component enabled event
- * The event is triggered every time a component enabled state has been 
+ * The event is triggered every time a component enabled state has been
  * updated.
- 
+
      var p = new zebra.ui.Panel();
      p.compEnabled = function(c) { ... }; // add event handler
 
@@ -9294,9 +9324,9 @@ pkg.loadImage = function(img, ready) {
 
 /**
  * Implement the event handler method to catch component shown event
- * The event is triggered every time a component visibility state has 
+ * The event is triggered every time a component visibility state has
  * been updated.
- 
+
      var p = new zebra.ui.Panel();
      p.compShown = function(c) { ... }; // add event handler
 
@@ -9306,47 +9336,47 @@ pkg.loadImage = function(img, ready) {
 
 /**
  * Implement the event handler method to catch component added event
- * The event is triggered every time the component has been inserted into 
- * another one. 
- 
+ * The event is triggered every time the component has been inserted into
+ * another one.
+
      var p = new zebra.ui.Panel();
      p.compAdded = function(p, constr, c) { ... }; // add event handler
 
  * @param {zebra.ui.Panel} p a parent component of the component has been added
- * @param {Object} constr a layout constraints 
+ * @param {Object} constr a layout constraints
  * @param {zebra.ui.Panel} c a component that has been added
  * @event compAdded
  */
 
 /**
  * Implement the event handler method to catch component removed event
- * The event is triggered every time the component has been removed from 
+ * The event is triggered every time the component has been removed from
  * its parent UI component.
- 
+
      var p = new zebra.ui.Panel();
      p.compRemoved = function(p, i, c) { ... }; // add event handler
 
  * @param {zebra.ui.Panel} p a parent component of the component that has been removed
- * @param {Integer} i an index of removed component 
- * @param {zebra.ui.Panel} c a component that has been removed 
+ * @param {Integer} i an index of removed component
+ * @param {zebra.ui.Panel} c a component that has been removed
  * @event compRemoved
  */
 
 /**
  * Implement the event handler method to catch component focus gained event
  * The event is triggered every time a component has gained focus.
- 
+
      var p = new zebra.ui.Panel();
      p.focusGained = function(e) { ... }; // add event handler
- 
+
  * @param {zebra.ui.InputEvent} e an input event
  * @event  focusGained
  */
 
 /**
  * Implement the event handler method to catch component focus lost event
- * The event is triggered every time a component has lost focus 
- 
+ * The event is triggered every time a component has lost focus
+
      var p = new zebra.ui.Panel();
      p.focusLost = function(e) { ... }; // add event handler
 
@@ -9355,9 +9385,9 @@ pkg.loadImage = function(img, ready) {
  */
 
 /**
- * Implement the event handler method to catch children components input events 
- * 
- 
+ * Implement the event handler method to catch children components input events
+ *
+
      var p = new zebra.ui.Panel();
      p.childInputEvent = function(e) { ... }; // add event handler
 
@@ -9366,8 +9396,8 @@ pkg.loadImage = function(img, ready) {
  */
 
 /**
- * Implement the event handler method to catch children components component events 
- * 
+ * Implement the event handler method to catch children components component events
+ *
      var p = new zebra.ui.Panel();
      p.childCompEvent = function(id, src, p1, p2) { ... }; // add event handler
 
@@ -9375,27 +9405,27 @@ pkg.loadImage = function(img, ready) {
 
         zebra.ui.Panel.ENABLED
         zebra.ui.Panel.SHOWN
-        zebra.ui.Panel.MOVED  
-        zebra.ui.Panel.SIZED  
-        zebra.ui.Panel.ADDED  
-        zebra.ui.Panel.REMOVED  
- 
+        zebra.ui.Panel.MOVED
+        zebra.ui.Panel.SIZED
+        zebra.ui.Panel.ADDED
+        zebra.ui.Panel.REMOVED
+
  * @param {zebra.ui.Panel} src a component that triggers the event
- * @param {zebra.ui.Panel|Integer|Object} p1 an event first parameter that depends 
+ * @param {zebra.ui.Panel|Integer|Object} p1 an event first parameter that depends
  * on an component event that has happened
 
         if id is zebra.ui.Panel.SIZED the parameter is previous component width
-        if id is zebra.ui.Panel.MOVED the parameter is previous component x location 
-        if id is zebra.ui.Panel.ADDED the parameter is constraints a new component has been added  
+        if id is zebra.ui.Panel.MOVED the parameter is previous component x location
+        if id is zebra.ui.Panel.ADDED the parameter is constraints a new component has been added
         if id is zebra.ui.Panel.REMOVED the parameter is null
- 
- * @param {zebra.ui.Panel|Integer|Object} p2 an event second parameter depends 
+
+ * @param {zebra.ui.Panel|Integer|Object} p2 an event second parameter depends
  * on an component event that has happened
 
         if id is zebra.ui.Panel.SIZED the parameter is previous component height
-        if id is zebra.ui.Panel.MOVED the parameter is previous component y location 
-        if id is zebra.ui.Panel.ADDED the parameter is reference to the added children component  
-        if id is zebra.ui.Panel.REMOVED the parameter is reference to the removed children component  
+        if id is zebra.ui.Panel.MOVED the parameter is previous component y location
+        if id is zebra.ui.Panel.ADDED the parameter is reference to the added children component
+        if id is zebra.ui.Panel.REMOVED the parameter is reference to the removed children component
 
  * @event  childCompEvent
  */
@@ -9437,7 +9467,7 @@ var CL = pkg.Panel = Class(L.Layoutable, [
         this.top = this.left = this.right = this.bottom = 0;
 
         /**
-         * UI component enabled state  
+         * UI component enabled state
          * @attribute isEnabled
          * @default true
          * @readOnly
@@ -9462,32 +9492,32 @@ var CL = pkg.Panel = Class(L.Layoutable, [
         };
 
         /**
-         * Shortcut method to register the specific to the concrete component 
-         * events listener. For instance "zebra.ui.Button" component fires event 
+         * Shortcut method to register the specific to the concrete component
+         * events listener. For instance "zebra.ui.Button" component fires event
          * when it is pressed:
-         
+
         var b = new zebra.ui.Button("Test");
         b.bind(function() {
-            // button has been pressed 
+            // button has been pressed
         });
 
 
-         * @param {Function|Object} a listener function or an object that 
-         * declares events handler methods 
-         * @return {Function|Object} a registered listener 
+         * @param {Function|Object} a listener function or an object that
+         * declares events handler methods
+         * @return {Function|Object} a registered listener
          * @method bind
          */
-    
+
         /**
          * Shortcut method to remove the register component specific events listener
          * @param {Function|Object} a listener function to be removed
          * @method unbind
          */
-    
+
 
         /**
          * Load content of the panel UI components from the specified JSON file.
-         * @param  {String} jsonPath an URL to a JSON file that describes UI 
+         * @param  {String} jsonPath an URL to a JSON file that describes UI
          * to be loaded into the panel
          * @chainable
          * @method load
@@ -9524,8 +9554,8 @@ var CL = pkg.Panel = Class(L.Layoutable, [
         };
 
         /**
-         * Shortcut method to invalidating the component 
-         * and initiating the component repainting 
+         * Shortcut method to invalidating the component
+         * and initiating the component repainting
          * @method vrp
          */
         this.vrp = function(){
@@ -9565,7 +9595,7 @@ var CL = pkg.Panel = Class(L.Layoutable, [
         /**
          * The method is implemented to be aware about a children component
          * insertion.
-         * @param  {Integer} index an index at that a new children component 
+         * @param  {Integer} index an index at that a new children component
          * has been added
          * @param  {Object} constr a layout constraints of an inserted component
          * @param  {zebra.ui.Panel} l a children component that has been inserted
@@ -9573,7 +9603,7 @@ var CL = pkg.Panel = Class(L.Layoutable, [
          */
         this.kidAdded = function (index,constr,l){
             pkg.events.fireCompEvent(CL.ADDED, this, constr, l);
-            
+
             if (l.width > 0 && l.height > 0) {
                 l.repaint();
             }
@@ -9585,14 +9615,14 @@ var CL = pkg.Panel = Class(L.Layoutable, [
         /**
          * The method is implemented to be aware about a children component
          * removal.
-         * @param  {Integer} i an index of a removed component 
+         * @param  {Integer} i an index of a removed component
          * @param  {zebra.ui.Panel} l a removed children component
          * @method kidRemoved
          */
         this.kidRemoved = function(i,l){
             pkg.events.fireCompEvent(CL.REMOVED, this, i, l);
             if (l.isVisible === true) {
-                // TODO: some browser requires (IE10-11) one pix wider cleaning 
+                // TODO: some browser requires (IE10-11) one pix wider cleaning
                 if (l.width > 0 && l.height > 0) {
                     var dt = pkg.$applyRenderExploit === true ? 1 : 0;
                     this.repaint(l.x - dt, l.y - dt, l.width + 2*dt, l.height + 2*dt);
@@ -9601,21 +9631,21 @@ var CL = pkg.Panel = Class(L.Layoutable, [
         };
 
         /**
-         * The method is implemented to be aware the 
+         * The method is implemented to be aware the
          * component location updating
          * @param  {Integer} px a previous x coordinate of the component
          * @param  {Integer} py a previous y coordinate of the component
          * @method relocated
          */
-        this.relocated = function(px,py){ 
-            pkg.events.fireCompEvent(CL.MOVED, this, px, py); 
-        
+        this.relocated = function(px,py){
+            pkg.events.fireCompEvent(CL.MOVED, this, px, py);
+
             var p = this.parent, w = this.width, h = this.height;
             if (p != null && w > 0 && h > 0){
                 var x = this.x, y = this.y, nx = x < px ? x : px, ny = y < py ? y : py;
-                
-                //TODO: some mobile browser has bug: moving a component 
-                //      leaves 0.5 sized traces to fix it 1 pixel extra 
+
+                //TODO: some mobile browser has bug: moving a component
+                //      leaves 0.5 sized traces to fix it 1 pixel extra
                 //      has to be added to all sides of repainted rect area
                 nx--;
                 ny--;
@@ -9623,35 +9653,35 @@ var CL = pkg.Panel = Class(L.Layoutable, [
                 if (nx < 0) nx = 0;
                 if (ny < 0) ny = 0;
 
-                var w1 = p.width - nx, 
+                var w1 = p.width - nx,
                     w2 = w + (x > px ? x - px : px - x),
                     h1 = p.height - ny,
                     h2 = h + (y > py ? y - py : py - y);
 
                 // TODO: add crappy 2 for mobile (android)
-                pkg.paintManager.repaint(p, nx, ny, (w1 < w2 ? w1 : w2) + 2, 
+                pkg.paintManager.repaint(p, nx, ny, (w1 < w2 ? w1 : w2) + 2,
                                                     (h1 < h2 ? h1 : h2) + 2);
             }
         };
-        
+
         /**
-         * The method is implemented to be aware the 
+         * The method is implemented to be aware the
          * component size updating
          * @param  {Integer} pw a previous width of the component
          * @param  {Integer} ph a previous height of the component
          * @method resized
          */
-        this.resized = function(pw,ph) { 
-            pkg.events.fireCompEvent(CL.SIZED, this, pw, ph); 
+        this.resized = function(pw,ph) {
+            pkg.events.fireCompEvent(CL.SIZED, this, pw, ph);
 
             if (this.parent != null) {
-                // TODO: IE10-11 leaves traces at the left and bottom 
-                // sides when the component size is decreased, 
+                // TODO: IE10-11 leaves traces at the left and bottom
+                // sides when the component size is decreased,
                 // so it is necessary to repaint one pixel wider
                 var dt = pkg.$applyRenderExploit === true ? 1 : 0;
 
-                pkg.paintManager.repaint(this.parent, this.x - dt, this.y - dt, 
-                                        ((this.width  > pw) ? this.width  : pw) + 2*dt, 
+                pkg.paintManager.repaint(this.parent, this.x - dt, this.y - dt,
+                                        ((this.width  > pw) ? this.width  : pw) + 2*dt,
                                         ((this.height > ph) ? this.height : ph) + 2*dt );
             }
         };
@@ -9661,16 +9691,16 @@ var CL = pkg.Panel = Class(L.Layoutable, [
          * @return {Boolean} true if the component has focus
          * @method hasFocus
          */
-        this.hasFocus = function(){ 
-            return pkg.focusManager.hasFocus(this); 
+        this.hasFocus = function(){
+            return pkg.focusManager.hasFocus(this);
         };
 
         /**
          * Force the given component to catch focus if the component is focusable.
          * @method requestFocus
          */
-        this.requestFocus = function(){ 
-            pkg.focusManager.requestFocus(this); 
+        this.requestFocus = function(){
+            pkg.focusManager.requestFocus(this);
         };
 
         /**
@@ -9678,19 +9708,19 @@ var CL = pkg.Panel = Class(L.Layoutable, [
          * @param {Integer} [timeout] a timeout in milliseconds. The default value is 50
          * @method requestFocusIn
          */
-        this.requestFocusIn = function(timeout) { 
+        this.requestFocusIn = function(timeout) {
             if (arguments.length === 0) {
                 timeout = 50;
             }
             var $this = this;
             setTimeout(function () {
-                $this.requestFocus(); 
+                $this.requestFocus();
             }, timeout);
         };
 
         /**
          * Set the UI component visibility
-         * @param  {Boolean} b a visibility state 
+         * @param  {Boolean} b a visibility state
          * @method setVisible
          * @chainable
          */
@@ -9711,8 +9741,8 @@ var CL = pkg.Panel = Class(L.Layoutable, [
         };
 
         /**
-         *  Set the UI component enabled state. Using this property 
-         *  an UI component can be excluded from getting input events 
+         *  Set the UI component enabled state. Using this property
+         *  an UI component can be excluded from getting input events
          *  @param  {Boolean} b a enabled state
          *  @method setEnabled
          *  @chainable
@@ -9733,15 +9763,15 @@ var CL = pkg.Panel = Class(L.Layoutable, [
 
         /**
          * Set the UI component top, right, left, bottom paddings to the same given value
-         * @param  {Integer} v the value that will be set as top, right, left, bottom UI 
+         * @param  {Integer} v the value that will be set as top, right, left, bottom UI
          * component paddings
          * @method setPadding
          * @chainable
          */
 
         /**
-         * Set UI component top, left, bottom, right paddings. The paddings are 
-         * gaps between component border and painted area. 
+         * Set UI component top, left, bottom, right paddings. The paddings are
+         * gaps between component border and painted area.
          * @param  {Integer} top a top padding
          * @param  {Integer} left a left padding
          * @param  {Integer} bottom a bottom padding
@@ -9768,7 +9798,7 @@ var CL = pkg.Panel = Class(L.Layoutable, [
 
         /**
          * Set the border view
-         * @param  {zebra.ui.View|Function|String} v a border view or border "paint(g,x,y,w,h,c)" 
+         * @param  {zebra.ui.View|Function|String} v a border view or border "paint(g,x,y,w,h,c)"
          * rendering function or border type: "plain", "sunken", "raised", "etched"
          * @method setBorder
          * @chainable
@@ -9791,7 +9821,7 @@ var CL = pkg.Panel = Class(L.Layoutable, [
 
                 if (v && v.activate) {
                     v.activate(this.hasFocus() ?  "function": "focusoff");
-                } 
+                }
 
                 this.repaint();
             }
@@ -9799,9 +9829,9 @@ var CL = pkg.Panel = Class(L.Layoutable, [
         };
 
         /**
-         * Set the background. Background can be a color string or a zebra.ui.View class 
+         * Set the background. Background can be a color string or a zebra.ui.View class
          * instance, or a function(g,x,y,w,h,c) that paints the background:
-        
+
             // set background color
             comp.setBackground("red");
 
@@ -9815,10 +9845,10 @@ var CL = pkg.Panel = Class(L.Layoutable, [
                 g.fillRect(x,y,w,h);
                 g.drawLine(...);
                 ...
-            }); 
+            });
 
 
-         * @param  {String|zebra.ui.View|Function} v a background view, color or 
+         * @param  {String|zebra.ui.View|Function} v a background view, color or
          * background "paint(g,x,y,w,h,c)" rendering function.
          * @method setBackground
          * @chainable
@@ -9832,18 +9862,18 @@ var CL = pkg.Panel = Class(L.Layoutable, [
                 this.repaint();
             }
             return this;
-        }; 
+        };
 
         /**
          * Add the given children component or number of components to the given panel.
          * @protected
-         * @param {zebra.ui.Panel|Array|Object} a children component of number of 
+         * @param {zebra.ui.Panel|Array|Object} a children component of number of
          * components to be added. The parameter can be:
 
     - Component
     - Array of components
-    - Dictionary object where every element is a component to be added and the key of 
-    the component is stored in the dictionary is considered as the component constraints 
+    - Dictionary object where every element is a component to be added and the key of
+    the component is stored in the dictionary is considered as the component constraints
 
          * @method setKids
          */
@@ -9859,7 +9889,7 @@ var CL = pkg.Panel = Class(L.Layoutable, [
                     var a = arguments[i];
                     this.add(a.$new != null ? a.$new() : a);
                 }
-                return;                
+                return;
             }
 
             if (Array.isArray(a)) {
@@ -9884,11 +9914,11 @@ var CL = pkg.Panel = Class(L.Layoutable, [
         };
 
         /**
-         * Called whenever the UI component gets or looses focus 
+         * Called whenever the UI component gets or looses focus
          * @method focused
          */
         this.focused = function() {
-            // extents of activate method indicates it is  
+            // extents of activate method indicates it is
             if (this.border && this.border.activate) {
                 var id = this.hasFocus() ? "focuson" : "focusoff" ;
                 if (this.border.views[id]) {
@@ -9900,7 +9930,7 @@ var CL = pkg.Panel = Class(L.Layoutable, [
 
         /**
          * Request the whole UI component or part of the UI component to be repainted
-         * @param  {Integer} [x] x coordinate of the component area to be repainted  
+         * @param  {Integer} [x] x coordinate of the component area to be repainted
          * @param  {Integer} [y] y coordinate of the component area to be repainted
          * @param  {Integer} [w] width of the component area to be repainted
          * @param  {Integer} [h] height of the component area to be repainted
@@ -9929,8 +9959,8 @@ var CL = pkg.Panel = Class(L.Layoutable, [
                     var child = this.kids[size - 1];
                     if (child.isVisible === true){
                         var xx = child.x, yy = child.y;
-                        mx1 = mx1 < xx ? mx1 : xx; 
-                        my1 = my1 < yy ? my1 : yy; 
+                        mx1 = mx1 < xx ? mx1 : xx;
+                        my1 = my1 < yy ? my1 : yy;
                         mx2 = Math.max(mx2, xx + child.width);
                         my2 = Math.max(my2, yy + child.height);
                     }
@@ -9949,7 +9979,7 @@ var CL = pkg.Panel = Class(L.Layoutable, [
                 var p = this.parent;
                 p.kids.splice(p.indexOf(this), 1);
                 p.kids[p.kids.length] = this;
-                p.vrp();    
+                p.vrp();
             }
         };
 
@@ -9962,15 +9992,15 @@ var CL = pkg.Panel = Class(L.Layoutable, [
                 var p = this.parent;
                 p.kids.splice(p.indexOf(this), 1);
                 p.kids.unshift(this);
-                p.vrp();    
+                p.vrp();
             }
         };
 
         /**
-         * Set the UI component size to its preferred size 
-         * @return {Object} a preferred size applied to the component. 
+         * Set the UI component size to its preferred size
+         * @return {Object} a preferred size applied to the component.
          * The structure of the returned object is the following:
-        
+
             { width:{Integer}, height:{Integer} }
 
          * @method toPreferredSize
@@ -9982,11 +10012,11 @@ var CL = pkg.Panel = Class(L.Layoutable, [
         };
 
         this[''] = function(l) {
-            // !!! dirty trick to call super, for the sake of few milliseconds back 
+            // !!! dirty trick to call super, for the sake of few milliseconds back
             //this.$super();
             L.Layoutable.prototype[zebra.CNAME].call(this);
 
-            // apply default properties 
+            // apply default properties
             this.properties(this.$clazz);
 
             //var clazz = this.$clazz;
@@ -9996,7 +10026,7 @@ var CL = pkg.Panel = Class(L.Layoutable, [
             //         break;
             //     }
             //     clazz = clazz.$parent;
-            // } 
+            // }
 
             if (arguments.length > 0) {
                 if (instanceOf(l, L.Layout)) this.setLayout(l);
@@ -10007,18 +10037,18 @@ var CL = pkg.Panel = Class(L.Layoutable, [
 ]);
 
 /**
- * Base layer UI component. Layer is special type of UI 
- * components that is used to decouple different logical  
- * UI components types from each other. Zebra Canvas 
- * consists from number of layers where only one can be 
- * active at the given point in time. Layers are stretched 
- * to fill full canvas size. Every time an input event 
- * happens system detects an active layer by asking all 
- * layers from top to bottom. First layer that wants to 
- * catch input gets control. The typical layers examples 
+ * Base layer UI component. Layer is special type of UI
+ * components that is used to decouple different logical
+ * UI components types from each other. Zebra Canvas
+ * consists from number of layers where only one can be
+ * active at the given point in time. Layers are stretched
+ * to fill full canvas size. Every time an input event
+ * happens system detects an active layer by asking all
+ * layers from top to bottom. First layer that wants to
+ * catch input gets control. The typical layers examples
  * are window layer, popup menus layer and so on.
  * @param {String} id an unique id to identify the layer
- * @constructor  
+ * @constructor
  * @class zebra.ui.BaseLayer
  * @extends {zebra.ui.Panel}
  */
@@ -10027,35 +10057,35 @@ pkg.BaseLayer = Class(pkg.Panel, [
         /**
          *  Define the method to catch mouse pressed event and
          *  answer if the layer wants to have a control.
-         *  If the method is not defined it is considered as the 
+         *  If the method is not defined it is considered as the
          *  layer is not activated by the mouse event
          *  @param {Integer} x a x mouse cursor location
          *  @param {Integer} y a y mouse cursor location
-         *  @param {Integer} m mouse pressed button mask 
-         *  @return {Boolean} return true if the layer wants to 
+         *  @param {Integer} m mouse pressed button mask
+         *  @return {Boolean} return true if the layer wants to
          *  catch control
          *  @method layerMousePressed
          */
-        
+
         /**
          *  Define the method to catch key pressed event and
          *  answer if the layer wants to have a control.
          *  If the method is not defined it is considered
          *  as the key event doesn't activate the layer
-         *  @param {Integer} code a key code  
+         *  @param {Integer} code a key code
          *  @param {Integer} m key modifier mask
-         *  @return {Boolean} return true if the layer wants to 
+         *  @return {Boolean} return true if the layer wants to
          *  catch control
          *  @method layerKeyPressed
          */
 
         /**
-         *  Ask if the layer is active at the given location. 
-         *  If the method is not defined that means the layer 
+         *  Ask if the layer is active at the given location.
+         *  If the method is not defined that means the layer
          *  is active at any location.
-         *  @param {Integer} x a x location 
-         *  @param {Integer} y a y location 
-         *  @return {Boolean} return true if the layer is active 
+         *  @param {Integer} x a x location
+         *  @param {Integer} y a y location
+         *  @return {Boolean} return true if the layer is active
          *  at this location
          *  @method isLayerActiveAt
          */
@@ -10084,7 +10114,7 @@ pkg.BaseLayer = Class(pkg.Panel, [
         this.$super();
 
         /**
-         * Id of the layer 
+         * Id of the layer
          * @attribute id
          * @type {String}
          * @readOnly
@@ -10094,8 +10124,8 @@ pkg.BaseLayer = Class(pkg.Panel, [
 ]);
 
 /**
- *  Root layer implementation. This is the simplest UI layer implementation 
- *  where the layer always try grabbing all input event 
+ *  Root layer implementation. This is the simplest UI layer implementation
+ *  where the layer always try grabbing all input event
  *  @class zebra.ui.RootLayer
  *  @constructor
  *  @extends {zebra.ui.BaseLayer}
@@ -10105,7 +10135,7 @@ pkg.RootLayer = Class(pkg.BaseLayer, [
         this.layerMousePressed = function(x,y,m){
             return true;
         };
-        
+
         this.layerKeyPressed = function(code,m){
             return true;
         };
@@ -10113,7 +10143,7 @@ pkg.RootLayer = Class(pkg.BaseLayer, [
 ]);
 
 /**
- *  UI component to keep and render the given "zebra.ui.View" class 
+ *  UI component to keep and render the given "zebra.ui.View" class
  *  instance. The target view defines the component preferred size
  *  and the component view.
  *  @class zebra.ui.ViewPan
@@ -10123,7 +10153,7 @@ pkg.RootLayer = Class(pkg.BaseLayer, [
 pkg.ViewPan = Class(pkg.Panel, [
     function $prototype() {
         /**
-         * Reference to a view that the component visualize 
+         * Reference to a view that the component visualize
          * @attribute view
          * @type {zebra.ui.View}
          * @default null
@@ -10141,7 +10171,7 @@ pkg.ViewPan = Class(pkg.Panel, [
 
         /**
          * Set the target view to be wrapped with the UI component
-         * @param  {zebra.ui.View|Function} v a view or a rendering 
+         * @param  {zebra.ui.View|Function} v a view or a rendering
          * view "paint(g,x,y,w,h,c)" function
          * @method setView
          * @chainable
@@ -10149,7 +10179,7 @@ pkg.ViewPan = Class(pkg.Panel, [
         this.setView = function (v){
             var old = this.view;
             v = pkg.$view(v);
-            
+
             if (v != old) {
                 this.view = v;
                 this.notifyRender(old, v);
@@ -10161,7 +10191,7 @@ pkg.ViewPan = Class(pkg.Panel, [
 
         /**
          * Override the parent method to calculate preferred size
-         * basing on a target view. 
+         * basing on a target view.
          * @param  {zebra.ui.Panel} t [description]
          * @return {Object} return a target view preferred size if it is defined.
          * The returned structure is the following:
@@ -10175,9 +10205,9 @@ pkg.ViewPan = Class(pkg.Panel, [
 ]);
 
 /**
- *  Image panel UI component class. The component renders an image. 
- *  @param {String|Image} [img] a path or direct reference to an image object. 
- *  If the passed parameter is string it considered as path to an image. 
+ *  Image panel UI component class. The component renders an image.
+ *  @param {String|Image} [img] a path or direct reference to an image object.
+ *  If the passed parameter is string it considered as path to an image.
  *  In this case the image will be loaded using the passed path.
  *  @class zebra.ui.ImagePan
  *  @constructor
@@ -10202,26 +10232,26 @@ pkg.ImagePan = Class(pkg.ViewPan, [
     /**
      * Set image to be rendered in the UI component
      * @method setImage
-     * @param {String|Image|zebra.ui.Picture} img a path or direct reference to an 
-     * image or zebra.ui.Picture render. 
-     * If the passed parameter is string it considered as path to an image. 
+     * @param {String|Image|zebra.ui.Picture} img a path or direct reference to an
+     * image or zebra.ui.Picture render.
+     * If the passed parameter is string it considered as path to an image.
      * In this case the image will be loaded using the passed path
      * @chainable
      */
     function setImage(img) {
         if (img != null) {
             var $this = this, isPic = instanceOf(img, pkg.Picture), imgToLoad = isPic ? img.target : img ;
-            pkg.loadImage(imgToLoad, 
-                function(p, b, i) { 
+            pkg.loadImage(imgToLoad,
+                function(p, b, i) {
                     if (b) {
                         $this.setView(isPic ? img : new pkg.Picture(i));
-                        
+
                         // it is important to analyze if the given component has zero size
-                        // if it is true the repainting will not occur what means validation 
+                        // if it is true the repainting will not occur what means validation
                         // is also will not happen, adjust width and height to be none zero
                         if ($this.width === 0 || $this.height === 0) {
-                            $this.width  = i.width; 
-                            $this.height = i.height;                            
+                            $this.width  = i.width;
+                            $this.height = i.height;
                         }
 
                         $this.vrp();
@@ -10241,16 +10271,16 @@ pkg.ImagePan = Class(pkg.ViewPan, [
 ]);
 
 /**
- *  UI manager class. The class is widely used as base for building 
- *  various UI managers like paint, focus, event etc. Manager is 
- *  automatically registered as input and component events listener 
- *  if it implements appropriate events methods handlers 
+ *  UI manager class. The class is widely used as base for building
+ *  various UI managers like paint, focus, event etc. Manager is
+ *  automatically registered as input and component events listener
+ *  if it implements appropriate events methods handlers
  *  @class zebra.ui.Manager
  *  @constructor
  */
 pkg.Manager = Class([
     function() {
-        // FIXME: should be removed  
+        // FIXME: should be removed
         //!!! sometimes pkg.events is set to descriptor the descriptor
         //    is used to instantiate new event manager. when we do it
         //    Manager constructor is called from new phase of event manager
@@ -10263,11 +10293,11 @@ pkg.Manager = Class([
 ]);
 
 /**
- *  Paint UI manager abstract class. The class has to be used as 
- *  basis to introduce an own paint manager implementations. The 
- *  simplest implementation has to extend "zebra.ui.PaintManager" 
- *  with "paintComponent(g,c)" method. The method defines how the 
- *  given component "c" has to be rendered using 2D context "g". 
+ *  Paint UI manager abstract class. The class has to be used as
+ *  basis to introduce an own paint manager implementations. The
+ *  simplest implementation has to extend "zebra.ui.PaintManager"
+ *  with "paintComponent(g,c)" method. The method defines how the
+ *  given component "c" has to be rendered using 2D context "g".
  *  @class zebra.ui.PaintManager
  *  @extends {zebra.ui.Manager}
  */
@@ -10277,9 +10307,9 @@ pkg.PaintManager = Class(pkg.Manager, [
 
         /**
          * Ask for repainting of the given rectangular area of the specified UI component. This method
-         * doesn't do repainting immediately. It calculates the dirty area of the whole canvas and then 
-         * schedule repainting. Real repainting happens when all repaint method executions are satisfied. 
-         * @param  {zebra.ui.Panel} c an UI component that requests repainting 
+         * doesn't do repainting immediately. It calculates the dirty area of the whole canvas and then
+         * schedule repainting. Real repainting happens when all repaint method executions are satisfied.
+         * @param  {zebra.ui.Panel} c an UI component that requests repainting
          * @param  {Integer} [x] x coordinate of top-left corner of a rectangular area to be repainted
          * @param  {Integer} [y] y coordinate of top-left corner of a rectangular area to be repainted
          * @param  {Integer} [w] w width of top-left corner of a rectangular area to be repainted
@@ -10299,7 +10329,7 @@ pkg.PaintManager = Class(pkg.Manager, [
 
                 MB.intersection(r.x, r.y, r.width, r.height, x, y, w, h, r);
                 if (r.width <= 0 || r.height <= 0) return;
-                
+
                 x = r.x;
                 y = r.y;
                 w = r.width;
@@ -10336,11 +10366,11 @@ pkg.PaintManager = Class(pkg.Manager, [
                     if (w > 0 && h > 0) {
                         var da = canvas.$da;
                         if (da.width > 0) {
-                            if (x >= da.x                && 
-                                y >= da.y                && 
-                                x + w <= da.x + da.width && 
+                            if (x >= da.x                &&
+                                y >= da.y                &&
+                                x + w <= da.x + da.width &&
                                 y + h <= da.y + da.height  )
-                            { 
+                            {
                                 return;
                             }
                             MB.unite(da.x, da.y, da.width, da.height, x, y, w, h, da);
@@ -10354,9 +10384,9 @@ pkg.PaintManager = Class(pkg.Manager, [
                             $timers[canvas] = window.requestAFrame(function() {
                                 $timers[canvas] = null;
 
-                                // prevent double painting, sometimes 
-                                // width can be -1 what cause clearRect 
-                                // clean incorrectly  
+                                // prevent double painting, sometimes
+                                // width can be -1 what cause clearRect
+                                // clean incorrectly
                                 if (canvas.$da.width <= 0) {
                                     return ;
                                 }
@@ -10364,34 +10394,34 @@ pkg.PaintManager = Class(pkg.Manager, [
                                 var context = canvas.$context;
                                 canvas.validate();
                                 context.save();
-                                
+
                                 try {
                                     context.translate(canvas.x, canvas.y);
-                                    context.clipRect(canvas.$da.x, canvas.$da.y, 
+                                    context.clipRect(canvas.$da.x, canvas.$da.y,
                                                      canvas.$da.width,
-                                                     canvas.$da.height);                                  
-                                
+                                                     canvas.$da.height);
+
                                     if (canvas.bg == null) {
                                         context.save();
 
                                         context.setTransform(2, 0, 0, 2, 0, 0);
-                                        context.clearRect(canvas.$da.x, canvas.$da.y, 
+                                        context.clearRect(canvas.$da.x, canvas.$da.y,
                                                           canvas.$da.width, canvas.$da.height);
-    
+
                                         context.restore();
                                     }
 
                                     $this.paint(context, canvas);
-                                    
+
                                     canvas.$da.width = -1; //!!!
                                 }
-                                finally {  
+                                finally {
                                     context.restore();
                                 }
                             });
                         }
-                        
-                        // !!! not sure the code below is redundant, but it looks redundantly 
+
+                        // !!! not sure the code below is redundant, but it looks redundantly
                         // if (da.width > 0) {
                         //     canvas.repaint(da.x, da.y, da.width, da.height);
                         // }
@@ -10402,10 +10432,10 @@ pkg.PaintManager = Class(pkg.Manager, [
 
         this.paint = function(g,c){
             var dw = c.width, dh = c.height, ts = g.stack[g.counter]; //!!! replace getTopStack() to optimize;
-            if (dw !== 0      && 
-                dh !== 0      && 
-                ts.width > 0  && 
-                ts.height > 0 && 
+            if (dw !== 0      &&
+                dh !== 0      &&
+                ts.width > 0  &&
+                ts.height > 0 &&
                 c.isVisible === true)
             {
                 if (c.isValid === false || c.isLayoutValid === false) {
@@ -10421,16 +10451,16 @@ pkg.PaintManager = Class(pkg.Manager, [
                 var c_w = ts.width, c_h = ts.height;
                 if (c_w > 0 && c_h > 0) {
                     this.paintComponent(g, c);
-                    
+
                     var count = c.kids.length, c_x = ts.x, c_y = ts.y;
                     for(var i = 0; i < count; i++) {
                         var kid = c.kids[i];
                         if (kid.isVisible === true) {
-                            var kidX = kid.x, 
+                            var kidX = kid.x,
                                 kidY = kid.y,
-                                kidXW = kidX + kid.width,  
+                                kidXW = kidX + kid.width,
                                 c_xw  = c_x + c_w,
-                                kidYH = kidY + kid.height, 
+                                kidYH = kidY + kid.height,
                                 c_yh  = c_y + c_h,
                                 iw = (kidXW < c_xw ? kidXW : c_xw) - (kidX > c_x ? kidX : c_x),
                                 ih = (kidYH < c_yh ? kidYH : c_yh) - (kidY > c_y ? kidY : c_y);
@@ -10450,17 +10480,17 @@ pkg.PaintManager = Class(pkg.Manager, [
 ]);
 
 /**
- * Zebra UI component paint manager implementation class. Zebra 
+ * Zebra UI component paint manager implementation class. Zebra
  * implementation expects an UI component can implements:
- 
-    - "paint(g)" method to paint its face   
+
+    - "paint(g)" method to paint its face
     - "update(g)" method to fill its background
-    - "paintOnTop(g)" method to paint some decorative elements after the 
+    - "paintOnTop(g)" method to paint some decorative elements after the
     component background and face are rendered
 
- * Also the implementation expects an UI component can specify 
+ * Also the implementation expects an UI component can specify
  * background and border view. Using border view can developers change the
- * component shape by defining "ouline(...)" method  
+ * component shape by defining "ouline(...)" method
  * @constructor
  * @class  zebra.ui.PaintManImpl
  * @extends zebra.ui.PaintManager
@@ -10470,12 +10500,12 @@ pkg.PaintManImpl = Class(pkg.PaintManager, [
         this.paintComponent = function(g,c) {
             var b = c.bg != null && (c.parent == null || c.bg != c.parent.bg);
 
-            // if component defines shape and has update, [paint?] or background that 
+            // if component defines shape and has update, [paint?] or background that
             // differs from parent background try to apply the shape and than build
             // clip from the applied shape
-            if ( (c.border != null && c.border.outline != null) && 
-                 (b || c.update != null)                        && 
-                 c.border.outline(g, 0, 0, c.width, c.height, c)  ) 
+            if ( (c.border != null && c.border.outline != null) &&
+                 (b || c.update != null)                        &&
+                 c.border.outline(g, 0, 0, c.width, c.height, c)  )
             {
                 g.save();
                 g.clip();
@@ -10491,20 +10521,20 @@ pkg.PaintManImpl = Class(pkg.PaintManager, [
                 }
                 if (c.update != null) c.update(g);
             }
-         
+
             if (c.border != null) {
                 c.border.paint(g, 0, 0, c.width, c.height, c);
             }
 
             if (c.paint != null) {
-                var left   = c.getLeft(), 
-                    top    = c.getTop(), 
-                    bottom = c.getBottom(), 
+                var left   = c.getLeft(),
+                    top    = c.getTop(),
+                    bottom = c.getBottom(),
                     right  = c.getRight();
 
                 if (left + right + top + bottom > 0) {
                     var ts = g.stack[g.counter]; // replace g.getTopStack() to optimize
-                   
+
                     if (ts.width > 0 && ts.height > 0) {
                         var cx   = ts.x,
                             cy   = ts.y,
@@ -10514,7 +10544,7 @@ pkg.PaintManImpl = Class(pkg.PaintManager, [
                             cych = cy + ts.height,
                             cright = c.width - right,
                             cbottom = c.height - bottom;
-                        
+
                         g.save();
                         g.clipRect(x1, y1, (cxcw < cright  ? cxcw : cright)  - x1,
                                            (cych < cbottom ? cych : cbottom) - y1);
@@ -10523,7 +10553,7 @@ pkg.PaintManImpl = Class(pkg.PaintManager, [
                     }
                 }
                 else {
-                    c.paint(g);    
+                    c.paint(g);
                 }
             }
         };
@@ -10531,8 +10561,8 @@ pkg.PaintManImpl = Class(pkg.PaintManager, [
 ]);
 
 /**
- * Focus manager class defines the strategy of focus traversing among 
- * hierarchy of UI components. It keeps current focus owner component 
+ * Focus manager class defines the strategy of focus traversing among
+ * hierarchy of UI components. It keeps current focus owner component
  * and provides API to change current focus component
  * @class zebra.ui.FocusManager
  * @extends {zebra.ui.Manager}
@@ -10545,8 +10575,8 @@ pkg.FocusManager = Class(pkg.Manager, [
          * @readOnly
          * @type {zebra.ui.Panel}
          */
-        
-        function freeFocus(ctx, t){ 
+
+        function freeFocus(ctx, t){
             if (t == ctx.focusOwner) ctx.requestFocus(null);
         }
 
@@ -10557,58 +10587,58 @@ pkg.FocusManager = Class(pkg.Manager, [
          * @param  {zebra.ui.Panel} c a component
          * @method compEnabled
          */
-        this.compEnabled = function(c)   { 
-            if (c.isEnabled === false) freeFocus(this, c); 
+        this.compEnabled = function(c)   {
+            if (c.isEnabled === false) freeFocus(this, c);
         };
-        
+
         /**
          * Component shown event handler
          * @param  {zebra.ui.Panel} c a component
-         * @method compShown 
+         * @method compShown
          */
-        this.compShown  = function(c)   { 
-            if (c.isVisible === false) freeFocus(this, c); 
+        this.compShown  = function(c)   {
+            if (c.isVisible === false) freeFocus(this, c);
         };
-        
+
         /**
          * Component removed event handler
          * @param  {zebra.ui.Panel} p a parent
          * @param  {zebra.ui.Panel} c a component
          * @method compRemoved
          */
-        this.compRemoved = function(p, i, c) { 
-            freeFocus(this, c); 
+        this.compRemoved = function(p, i, c) {
+            freeFocus(this, c);
         };
 
         /**
-         * The method is called by a canvas that lost native focus 
+         * The method is called by a canvas that lost native focus
          * @param  {zebra.ui.zCanvas} canvas a canvas
          * @method canvasFocusLost
          * @protected
          */
         this.canvasFocusLost = function(canvas) {
-            if (this.focusOwner != null && 
-                this.focusOwner.getCanvas() == canvas) 
+            if (this.focusOwner != null &&
+                this.focusOwner.getCanvas() == canvas)
             {
                 this.requestFocus(null);
             }
         };
 
         /**
-         * The method is called by a canvas that gained native focus 
+         * The method is called by a canvas that gained native focus
          * @param  {zebra.ui.zCanvas} canvas a canvas
          * @method canvasFocusGained
          * @protected
          */
         this.canvasFocusGained = function(canvas) {
-            // !!! 
-            //  previous focus owner for native HTML element should be ignored 
-            // !!!          
-            if (canvas.$prevFocusOwner != null && 
-                zebra.instanceOf(canvas.$prevFocusOwner, pkg.HtmlElement) === false) 
+            // !!!
+            //  previous focus owner for native HTML element should be ignored
+            // !!!
+            if (canvas.$prevFocusOwner != null &&
+                zebra.instanceOf(canvas.$prevFocusOwner, pkg.HtmlElement) === false)
             {
                 var d = canvas.$prevFocusOwner.getCanvas();
-                if (d == canvas)  { 
+                if (d == canvas)  {
                     this.requestFocus(canvas.$prevFocusOwner);
                 }
                 else {
@@ -10619,9 +10649,9 @@ pkg.FocusManager = Class(pkg.Manager, [
 
         /**
          * Test if the given component is a focus owner
-         * @param  {zebra.ui.Panel} c an UI component to be tested 
+         * @param  {zebra.ui.Panel} c an UI component to be tested
          * @method hasFocus
-         * @return {Boolean} true if the given component holds focus   
+         * @return {Boolean} true if the given component holds focus
          */
         this.hasFocus = function(c) {
             return this.focusOwner == c;
@@ -10645,7 +10675,7 @@ pkg.FocusManager = Class(pkg.Manager, [
 
         /**
          * Test if the given component can catch focus
-         * @param  {zebra.ui.Panel} c an UI component to be tested 
+         * @param  {zebra.ui.Panel} c an UI component to be tested
          * @method isFocusable
          * @return {Boolean} true if the given component can catch a focus
          */
@@ -10653,7 +10683,7 @@ pkg.FocusManager = Class(pkg.Manager, [
             var d = c.getCanvas();
             //!!!
             // also we should checks whether parent isFocusable !!!
-            return d && c.isEnabled === true && c.isVisible === true && c.canHaveFocus === true || 
+            return d && c.isEnabled === true && c.isVisible === true && c.canHaveFocus === true ||
                   (typeof c.canHaveFocus == "function" && c.canHaveFocus());
         };
 
@@ -10662,11 +10692,11 @@ pkg.FocusManager = Class(pkg.Manager, [
                 var isNComposite = (instanceOf(t, Composite) === false);
                 for(var i = index; i >= 0 && i < t.kids.length; i += d) {
                     var cc = t.kids[i];
-                    if (cc.isEnabled === true && cc.isVisible === true && cc.width > 0 && cc.height > 0   && 
+                    if (cc.isEnabled === true && cc.isVisible === true && cc.width > 0 && cc.height > 0   &&
                         (isNComposite || (t.catchInput && t.catchInput(cc) === false))  &&
                         ( (cc.canHaveFocus === true || (cc.canHaveFocus !=  null  &&
-                                                        cc.canHaveFocus !== false && 
-                                                        cc.canHaveFocus())             )|| 
+                                                        cc.canHaveFocus !== false &&
+                                                        cc.canHaveFocus())             )||
                           (cc = this.fd(cc, d > 0 ? 0 : cc.kids.length - 1, d)) != null)  )
                     {
                         return cc;
@@ -10693,17 +10723,17 @@ pkg.FocusManager = Class(pkg.Manager, [
         };
 
         /**
-         * Force to pass a focus to the given UI component 
+         * Force to pass a focus to the given UI component
          * @param  {zebra.ui.Panel} c an UI component to pass a focus
          * @method requestFocus
          */
         this.requestFocus = function (c){
             if (c != this.focusOwner && (c == null || this.isFocusable(c))) {
-        
-                // if canvas where a potential focus owner component sits 
-                // doesn't  hold native focus than store the potential 
-                // focus owner in prevFocusOwner field that will be used 
-                // as soon as the canvas gets focus  
+
+                // if canvas where a potential focus owner component sits
+                // doesn't  hold native focus than store the potential
+                // focus owner in prevFocusOwner field that will be used
+                // as soon as the canvas gets focus
                 if (c != null) {
                     var canvas = c.getCanvas();
                     if (canvas.$focusGainedCounter === 0) {
@@ -10726,8 +10756,8 @@ pkg.FocusManager = Class(pkg.Manager, [
                 }
 
                 if (oldFocusOwner != null) {
-                    var ofc = oldFocusOwner.getCanvas(); 
-                    if (ofc != null) ofc.$prevFocusOwner = oldFocusOwner;    
+                    var ofc = oldFocusOwner.getCanvas();
+                    if (ofc != null) ofc.$prevFocusOwner = oldFocusOwner;
                 }
 
                 if (oldFocusOwner  != null) {
@@ -10735,7 +10765,7 @@ pkg.FocusManager = Class(pkg.Manager, [
                 }
 
                 if (this.focusOwner != null) {
-                    pkg.events.fireInputEvent(new IE(this.focusOwner, IE.FOCUS_GAINED, IE.FOCUS_UID)); 
+                    pkg.events.fireInputEvent(new IE(this.focusOwner, IE.FOCUS_GAINED, IE.FOCUS_UID));
                 }
 
                 return this.focusOwner;
@@ -10757,16 +10787,16 @@ pkg.FocusManager = Class(pkg.Manager, [
 ]);
 
 /**
- *  Command manager supports short cut keys definition and listening. The shortcuts have to be defined in 
+ *  Command manager supports short cut keys definition and listening. The shortcuts have to be defined in
  *  zebra JSON configuration files. There are two sections:
- 
+
     - **osx** to keep shortcuts for Mac OS X platform
-    - **common** to keep shortcuts for all other platforms 
+    - **common** to keep shortcuts for all other platforms
 
  *  The JSON configuration entity has simple structure:
- 
-      
-      { 
+
+
+      {
         "common": [
              {
                 "command"   : "undo_command",
@@ -10787,19 +10817,19 @@ pkg.FocusManager = Class(pkg.Manager, [
              },
              ...
         ]
-      } 
+      }
 
- *  The configuration contains list of shortcuts. Every shortcut is bound to a key combination it is triggered. 
+ *  The configuration contains list of shortcuts. Every shortcut is bound to a key combination it is triggered.
  *  Every shortcut has a name and an optional list of arguments that have to be passed to a shortcut listener method.
  *  The optional arguments can be used to differentiate two shortcuts that are bound to the same command.
  *
  *  On the component level shortcut commands can be listened by implementing method whose name equals to shortcut name.
- *  Pay attention to catch shortcut command your component has to be focusable and holds focus at the given time. 
+ *  Pay attention to catch shortcut command your component has to be focusable and holds focus at the given time.
  *  For instance, to catch "undo_command"  do the following:
- 
+
         var pan = new zebra.ui.Panel([
             function redo_command() {
-                // handle shortcut here 
+                // handle shortcut here
             },
 
             // visualize the component gets focus
@@ -10819,7 +10849,7 @@ pkg.FocusManager = Class(pkg.Manager, [
  */
 
 /**
- * Shortcut event is handled by registering a method handler with shortcut manager. The manager is accessed as 
+ * Shortcut event is handled by registering a method handler with shortcut manager. The manager is accessed as
  * "zebra.ui.commandManager" static variable:
 
         zebra.ui.commandManager.bind(function (e) {
@@ -10837,17 +10867,17 @@ pkg.CommandManager = Class(pkg.Manager, [
          * Key pressed event handler.
          * @param  {zebra.ui.KeyEvent} e a mouse event
          * @method keyPressed
-         */        
+         */
         this.keyPressed = function(e) {
-            var fo = pkg.focusManager.focusOwner; 
+            var fo = pkg.focusManager.focusOwner;
             if (fo != null && this.keyCommands[e.code]) {
-                var c = this.keyCommands[e.code]; 
+                var c = this.keyCommands[e.code];
                 if (c && c[e.mask] != null) {
                     c = c[e.mask];
                     this._.fired(c);
                     if (fo[c.command]) {
                          if (c.args && c.args.length > 0) fo[c.command].apply(fo, c.args);
-                         else fo[c.command]();    
+                         else fo[c.command]();
                     }
                 }
             }
@@ -10857,18 +10887,18 @@ pkg.CommandManager = Class(pkg.Manager, [
             var m = 0, c = 0, r = k.split("+");
             for(var i = 0; i < r.length; i++) {
                 var ch = r[i].trim().toUpperCase();
-                if (KE.hasOwnProperty("M_" + ch)) { 
+                if (KE.hasOwnProperty("M_" + ch)) {
                     m += KE["M_" + ch];
                     continue;
                 }
 
-                if (KE.hasOwnProperty(ch)) { 
+                if (KE.hasOwnProperty(ch)) {
                     c = KE[ch];
                     continue;
                 }
 
-                if (zebra.isNumber(ch)) { 
-                    c = ch; 
+                if (zebra.isNumber(ch)) {
+                    c = ch;
                 }
             }
             return [m, c];
@@ -10876,7 +10906,7 @@ pkg.CommandManager = Class(pkg.Manager, [
 
         this.setCommands = function(commands) {
             for(var i=0; i < commands.length; i++) {
-                var c = commands[i], p = this.parseKey(c.key), v = this.keyCommands[p[1]];            
+                var c = commands[i], p = this.parseKey(c.key), v = this.keyCommands[p[1]];
 
                 if (v && v[p[0]]) {
                     throw Error("Duplicated command: '" + c + "'");
@@ -10888,13 +10918,13 @@ pkg.CommandManager = Class(pkg.Manager, [
 
                 v[p[0]] = c;
                 this.keyCommands[p[1]] = v;
-            }               
+            }
         };
     },
 
     function(commands){
         this.$super();
-        this.keyCommands = {}; 
+        this.keyCommands = {};
         this._ = new zebra.util.Listeners("commandFired");
 
 
@@ -10906,22 +10936,22 @@ pkg.CommandManager = Class(pkg.Manager, [
 ]);
 
 /**
- * Cursor manager class. Allows developers to control mouse cursor type by implementing an own 
- * getCursorType method or by specifying a cursor by cursorType field. Imagine an UI component 
- * needs to change cursor type. It 
+ * Cursor manager class. Allows developers to control mouse cursor type by implementing an own
+ * getCursorType method or by specifying a cursor by cursorType field. Imagine an UI component
+ * needs to change cursor type. It
  *  can be done by one of the following way:
-        
-    - **Implement getCursorType method by the component itself if the cursor type depends on cursor location** 
+
+    - **Implement getCursorType method by the component itself if the cursor type depends on cursor location**
 
           var p = new zebra.ui.Panel([
-               // implement getCursorType method to set required 
-               // mouse cursor type 
+               // implement getCursorType method to set required
+               // mouse cursor type
                function getCursorType(target, x, y) {
                    return zebra.ui.Cursor.WAIT;
                }
           ]);
 
-    - **Define "cursorType" property in component if the cursor type doesn't depend on cursor location ** 
+    - **Define "cursorType" property in component if the cursor type doesn't depend on cursor location **
 
           var myPanel = new zebra.ui.Panel();
           ...
@@ -10937,7 +10967,7 @@ pkg.CursorManager = Class(pkg.Manager, [
          * Define mouse moved events handler.
          * @param  {zebra.ui.MouseEvent} e a mouse event
          * @method mouseMoved
-         */        
+         */
         this.mouseMoved = function(e){
             if (this.isFunc === true) {
                 this.cursorType = this.target.getCursorType(this.target, e.x, e.y);
@@ -10950,25 +10980,25 @@ pkg.CursorManager = Class(pkg.Manager, [
          * Define mouse entered events handler.
          * @param  {zebra.ui.MouseEvent} e a mouse event
          * @method mouseEntered
-         */                
+         */
         this.mouseEntered = function(e){
             if (e.source.cursorType != null || e.source.getCursorType != null) {
                 this.isFunc = (e.source.getCursorType != null);
                 this.target = e.source;
                 this.canvas = this.target.getCanvas().canvas;
-                this.cursorType = this.isFunc === true ? this.target.getCursorType(this.target, e.x, e.y) 
+                this.cursorType = this.isFunc === true ? this.target.getCursorType(this.target, e.x, e.y)
                                                        : this.target.cursorType;
-                
+
                 this.canvas.style.cursor = (this.cursorType == null) ? "default"
                                                                      : this.cursorType;
             }
         };
-        
+
         /**
          * Define mouse exited events handler.
          * @param  {zebra.ui.MouseEvent} e a mouse event
          * @method mouseExited
-         */                
+         */
         this.mouseExited  = function(e){
             if (this.target != null) {
                 this.cursorType = "default";
@@ -10977,12 +11007,12 @@ pkg.CursorManager = Class(pkg.Manager, [
                 this.isFunc = false;
             }
         };
-        
+
         /**
          * Define mouse dragged events handler.
          * @param  {zebra.ui.MouseEvent} e a mouse event
          * @method mouseDragged
-         */                
+         */
         this.mouseDragged = function(e) {
             if (this.isFunc === true) {
                 this.cursorType = this.target.getCursorType(this.target, e.x, e.y);
@@ -10994,7 +11024,7 @@ pkg.CursorManager = Class(pkg.Manager, [
 
     function(){
         this.$super();
-   
+
         /**
          * Current cursor type
          * @attribute cursorType
@@ -11011,8 +11041,8 @@ pkg.CursorManager = Class(pkg.Manager, [
 
 /**
  * Event manager class. One of the key zebra manager that is responsible for
- * distributing various events in zebra UI. The manager provides number of 
- * methods to register global events listeners.   
+ * distributing various events in zebra UI. The manager provides number of
+ * methods to register global events listeners.
  * @class zebra.ui.EventManager
  * @constructor
  * @extends {zebra.ui.Manager}
@@ -11024,7 +11054,7 @@ pkg.EventManager = Class(pkg.Manager, [
         IEHM[KE.TYPED]          = 'keyTyped';
         IEHM[KE.RELEASED]       = 'keyReleased';
         IEHM[KE.PRESSED]        = 'keyPressed';
-        
+
         IEHM[ME.DRAGGED]        = 'mouseDragged';
         IEHM[ME.DRAGSTARTED]    = 'mouseDragStarted';
         IEHM[ME.DRAGENDED]      = 'mouseDragEnded';
@@ -11060,13 +11090,13 @@ pkg.EventManager = Class(pkg.Manager, [
 
 
             if (src[n] != null) {
-                src[n].call(src, src, p1, p2);            
+                src[n].call(src, src, p1, p2);
             }
 
             for(var i = 0;i < this.c_l.length; i++) {
                 var t = this.c_l[i];
-                if (t[n] != null) t[n].call(t, src, p1, p2);            
-            } 
+                if (t[n] != null) t[n].call(t, src, p1, p2);
+            }
 
             for(var t = src.parent;t != null; t = t.parent){
                 if (t.childCompEvent != null) {
@@ -11076,23 +11106,23 @@ pkg.EventManager = Class(pkg.Manager, [
         };
 
         // destination is component itself or one of his composite parent.
-        // composite component is a component that grab control from his 
+        // composite component is a component that grab control from his
         // children component. to make a component composite
-        // it has to implement Composite interface. If composite component 
+        // it has to implement Composite interface. If composite component
         // has catchInput method it will be called
         // to clarify if the composite component takes control for the given kid.
-        // composite components can be embedded (parent composite can take 
-        // control on its child composite component) 
+        // composite components can be embedded (parent composite can take
+        // control on its child composite component)
         this.getEventDestination = function(c) {
             if (c == null) return null;
             var cp = c, p = c;
             while ((p = p.parent) != null) {
-                // !!! instanceOf is replaced with 
-                // !!! dirty trick since mouse event is fired very intensive 
+                // !!! instanceOf is replaced with
+                // !!! dirty trick since mouse event is fired very intensive
                 if ( p.$clazz != null &&
                      p.$clazz.$parents != null &&
                      p.$clazz.$parents[Composite] == true &&
-                    (p.catchInput == null || p.catchInput(cp))) 
+                    (p.catchInput == null || p.catchInput(cp)))
                 {
                     cp = p;
                 }
@@ -11108,9 +11138,9 @@ pkg.EventManager = Class(pkg.Manager, [
                         t[k].call(t, e);
                     }
 
-                    // for efficiency we have to avoid passing mouse 
+                    // for efficiency we have to avoid passing mouse
                     // moved and dragged events to children listener
-                    // so pass it only to global listeners and return 
+                    // so pass it only to global listeners and return
                     if (id > 25) {
                         for(var i = 0; i < this.m_l.length; i++) {
                             var tt = this.m_l[i];
@@ -11153,12 +11183,12 @@ pkg.EventManager = Class(pkg.Manager, [
         };
 
         /**
-         * Register global event listener. The listener will 
-         * get events according to event methods handlers it 
-         * implements. For instance to listen key and 
-         * the passed listener should implements one of 
-         * key event handler method: 
-                
+         * Register global event listener. The listener will
+         * get events according to event methods handlers it
+         * implements. For instance to listen key and
+         * the passed listener should implements one of
+         * key event handler method:
+
 
         // implement and register global key and mouse listener
         zebra.ui.events.addListener({
@@ -11168,13 +11198,13 @@ pkg.EventManager = Class(pkg.Manager, [
                 ...
             }
             ...
-        }); 
+        });
 
-         * @param  {Object} l 
+         * @param  {Object} l
          * @method  addListener
          */
-        this.addListener = function (l) { 
-            if (this.$hasMethod(l, CL.ENABLED, CL.REMOVED)) { 
+        this.addListener = function (l) {
+            if (this.$hasMethod(l, CL.ENABLED, CL.REMOVED)) {
                 this.addComponentListener(l);
             }
 
@@ -11192,10 +11222,10 @@ pkg.EventManager = Class(pkg.Manager, [
         };
 
         /**
-         * Un-register the global listener. The method detects which listener interfaces 
+         * Un-register the global listener. The method detects which listener interfaces
          * the passed listener implements and un-registers its.
          * @param  {Object} l a listener
-         * @return {Boolean} true if the listener has been removed successfully 
+         * @return {Boolean} true if the listener has been removed successfully
          * @method removeListener
          */
         this.removeListener = function (l) {
@@ -11208,18 +11238,18 @@ pkg.EventManager = Class(pkg.Manager, [
         /**
          * Register global component listener
          * @param  {Object} l a component listener
-         * @return {Boolean} true if the listener has been successfully 
+         * @return {Boolean} true if the listener has been successfully
          * added
          * @method addComponentListener
          */
         this.addComponentListener = function (l) {
             return this.a_(this.c_l, l);
         };
-  
+
         /**
          * Un-register global component listener
          * @param  {Object} l a component listener
-         * @return {Boolean} true if the listener has been removed successfully 
+         * @return {Boolean} true if the listener has been removed successfully
          * @method removeFocusListener
          */
         this.removeComponentListener = function(l){
@@ -11229,7 +11259,7 @@ pkg.EventManager = Class(pkg.Manager, [
         /**
          * Register global mouse listener
          * @param  {Object} l a mouse listener
-         * @return {Boolean} true if the listener has been successfully 
+         * @return {Boolean} true if the listener has been successfully
          * added
          * @method addMouseListener
          */
@@ -11240,7 +11270,7 @@ pkg.EventManager = Class(pkg.Manager, [
         /**
          * Un-register global mouse listener
          * @param  {Object} l a mouse listener
-         * @return {Boolean} true if the listener has been removed successfully 
+         * @return {Boolean} true if the listener has been removed successfully
          * @method removeMouseListener
          */
         this.removeMouseListener = function(l){
@@ -11250,18 +11280,18 @@ pkg.EventManager = Class(pkg.Manager, [
         /**
          * Register global focus listener
          * @param  {Object} l a focus listener
-         * @return {Boolean} true if the listener has been successfully 
+         * @return {Boolean} true if the listener has been successfully
          * added
          * @method addFocusListener
          */
         this.addFocusListener = function (l){
             return this.a_(this.f_l, l);
         };
-       
+
        /**
         * Un-register global focus listener
         * @param  {Object} l a focus listener
-        * @return {Boolean} true if the listener has been removed successfully 
+        * @return {Boolean} true if the listener has been removed successfully
         * @method removeFocusListener
         */
         this.removeFocusListener = function (l) {
@@ -11271,18 +11301,18 @@ pkg.EventManager = Class(pkg.Manager, [
         /**
          * Register global key listener
          * @param  {Object} l a key listener
-         * @return {Boolean} true if the listener has been successfully 
+         * @return {Boolean} true if the listener has been successfully
          * added
          * @method addKeyListener
          */
         this.addKeyListener = function(l){
             return this.a_(this.k_l, l);
         };
-       
+
         /**
          * Un-register global key listener
          * @param  {Object} l a key listener
-         * @return {Boolean} true if the listener has been removed successfully 
+         * @return {Boolean} true if the listener has been removed successfully
          * @method removeKeyListener
          */
         this.removeKeyListener  = function (l){
@@ -11291,10 +11321,10 @@ pkg.EventManager = Class(pkg.Manager, [
 
         this.a_ = function(c, l) {
             if (c.indexOf(l) >= 0) return false;
-            c.push(l); 
+            c.push(l);
             return true;
         };
-        
+
         this.r_ = function(c, l) {
             var i = c.indexOf(l);
             if (i < 0) return false;
@@ -11313,38 +11343,38 @@ pkg.EventManager = Class(pkg.Manager, [
 ]);
 
 /**
- *  zCanvas zebra UI component class. This is one of the key 
- *  class everybody has to use to start building an UI. The class is a wrapper  
- *  for HTML Canvas element. Internally it catches all native HTML Canvas 
- *  events and translates its into Zebra UI events. 
+ *  zCanvas zebra UI component class. This is one of the key
+ *  class everybody has to use to start building an UI. The class is a wrapper
+ *  for HTML Canvas element. Internally it catches all native HTML Canvas
+ *  events and translates its into Zebra UI events.
  *
- *  zCanvas instantiation triggers a new HTML Canvas will be created 
+ *  zCanvas instantiation triggers a new HTML Canvas will be created
  *  and added to HTML DOM tree.  It happens if developer doesn't pass
- *  an HTML Canvas element reference or an ID of existing HTML Canvas 
- *  element If developers need to re-use an existent in DOM tree canvas 
- *  element they have to pass id of the canvas that has to be used as basis 
+ *  an HTML Canvas element reference or an ID of existing HTML Canvas
+ *  element If developers need to re-use an existent in DOM tree canvas
+ *  element they have to pass id of the canvas that has to be used as basis
  *  for zebra UI creation or reference to a HTML Canvas element:
- 
+
         // a new HTML canvas element is created and added into HTML DOM tree
         var canvas = zebra.ui.zCanvas();
 
         // a new HTML canvas element is created into HTML DOM tree
-        var canvas = zebra.ui.zCanvas(400,500);  // pass canvas size 
+        var canvas = zebra.ui.zCanvas(400,500);  // pass canvas size
 
-        // stick to existent HTML canvas element 
-        var canvas = zebra.ui.zCanvas("ExistentCanvasID");  
+        // stick to existent HTML canvas element
+        var canvas = zebra.ui.zCanvas("ExistentCanvasID");
 
- *  The zCanvas has layered structure. Every layer is responsible for 
+ *  The zCanvas has layered structure. Every layer is responsible for
  *  showing and controlling a dedicated type of UI elements like windows
- *  pop-up menus, tool tips and so on. Developers have to build an own UI 
- *  hierarchy on the canvas root layer. The layer is standard UI panel 
- *  that is accessible as zCanvas component instance "root" field. 
-        
+ *  pop-up menus, tool tips and so on. Developers have to build an own UI
+ *  hierarchy on the canvas root layer. The layer is standard UI panel
+ *  that is accessible as zCanvas component instance "root" field.
+
         // create canvas
-        var canvas = zebra.ui.zCanvas(400,500); 
-        
-        // save reference to canvas root layer where 
-        // hierarchy of UI components have to be hosted 
+        var canvas = zebra.ui.zCanvas(400,500);
+
+        // save reference to canvas root layer where
+        // hierarchy of UI components have to be hosted
         var root = canvas.root;
 
         // fill root with UI components
@@ -11355,18 +11385,18 @@ pkg.EventManager = Class(pkg.Manager, [
  *  @class zebra.ui.zCanvas
  *  @extends {zebra.ui.Panel}
  *  @constructor
- *  @param {String|Canvas} [element] an ID of a HTML canvas element or 
- *  reference to an HTML Canvas element. 
+ *  @param {String|Canvas} [element] an ID of a HTML canvas element or
+ *  reference to an HTML Canvas element.
  *  @param {Integer} [width] a width of an HTML canvas element
  *  @param {Integer} [height] a height of an HTML canvas element
  */
 
 /**
  * Implement the event handler method  to catch canvas initialized event.
- * The event is triggered once the canvas has been initiated and all properties 
- * listeners of the canvas are set upped. The event can be used to load 
- * saved data.  
- 
+ * The event is triggered once the canvas has been initiated and all properties
+ * listeners of the canvas are set upped. The event can be used to load
+ * saved data.
+
      var p = new zebra.ui.zCanvas(300, 300, [
           function canvasInitialized() {
               // do something
@@ -11382,7 +11412,7 @@ pkg.zCanvas = Class(pkg.Panel, [
         this.$prevFocusOwner = null;
 
         //!!! flag to block wrongly coming double on focus
-        //!!! events 
+        //!!! events
         this.$focusGainedCounter = 0;
 
         function km(e) {
@@ -11421,28 +11451,28 @@ pkg.zCanvas = Class(pkg.Panel, [
             var code = e.keyCode, m = km(e), b = false;
             for(var i = this.kids.length - 1;i >= 0; i--){
                 var l = this.kids[i];
-                if (l.layerKeyPressed && l.layerKeyPressed(code, m)){ 
+                if (l.layerKeyPressed && l.layerKeyPressed(code, m)){
                     break;
                 }
             }
 
             var focusOwner = pkg.focusManager.focusOwner;
-            if (pkg.clipboardTriggerKey > 0          && 
-                e.keyCode == pkg.clipboardTriggerKey && 
-                focusOwner != null                   && 
-                instanceOf(focusOwner, CopyCutPaste)   ) 
+            if (pkg.clipboardTriggerKey > 0          &&
+                e.keyCode == pkg.clipboardTriggerKey &&
+                focusOwner != null                   &&
+                instanceOf(focusOwner, CopyCutPaste)   )
             {
-                $clipboardCanvas = this;  
+                $clipboardCanvas = this;
                 $clipboard.style.display = "block";
                 this.canvas.onfocus = this.canvas.onblur = null;
-                
-                // value has to be set, otherwise some browsers (Safari) do not generate 
+
+                // value has to be set, otherwise some browsers (Safari) do not generate
                 // "copy" event
                 $clipboard.value="1";
 
                 $clipboard.select();
-                $clipboard.focus();                
-                return;        
+                $clipboard.focus();
+                return;
             }
 
             $keyPressedOwner     = focusOwner;
@@ -11458,8 +11488,8 @@ pkg.zCanvas = Class(pkg.Panel, [
                 }
             }
 
-            //!!!! 
-            if ((code < 47 && code != 32) || b) { 
+            //!!!!
+            if ((code < 47 && code != 32) || b) {
                 e.preventDefault();
             }
         };
@@ -11477,7 +11507,7 @@ pkg.zCanvas = Class(pkg.Panel, [
         this.$mouseEntered = function(id, e) {
             var mp = $mousePressedEvents[id];
 
-            // remove any previously registered listener if 
+            // remove any previously registered listener if
             //  -- a mouse button has been pressed
             //  -- a mouse button has been pressed on the canvas we have entered
             if (mp != null && mp.canvas != null && mp.canvas.canvas == e.target) {
@@ -11486,7 +11516,7 @@ pkg.zCanvas = Class(pkg.Panel, [
 
             // !!!
             // quick and dirty fix
-            // try to track a situation when the canvas has been moved 
+            // try to track a situation when the canvas has been moved
             this.recalcOffset();
 
             // if a button has not been pressed handle mouse entered to detect
@@ -11494,24 +11524,30 @@ pkg.zCanvas = Class(pkg.Panel, [
             // mouse entered event to it
             if (mp == null || mp.canvas == null) {
                 var x = $meX(e, this), y = $meY(e, this), d = this.getComponentAt(x, y);
+                var modifiers  = {
+                    altKey      : e.altKey,
+                    ctrlKey     : e.ctrlKey,
+                    metaKey     : e.metaKey,
+                    shiftKey    : e.shiftKey,
+                };
 
                 // also correct current component on that mouse pointer is located
                 if (d != pkg.$mouseMoveOwner) {
                     // if mouse owner is not null but doesn't match new owner
-                    // generate mouse exit and clean mouse owner 
+                    // generate mouse exit and clean mouse owner
                     if (pkg.$mouseMoveOwner != null) {
                         var prev = pkg.$mouseMoveOwner;
                         pkg.$mouseMoveOwner = null;
 
-                        ME_STUB.reset(prev, MEXITED, x, y, -1, 0);
+                        ME_STUB.reset(prev, MEXITED, x, y, -1, 0, modifiers);
                         EM.fireInputEvent(ME_STUB);
                     }
 
-                    // if new mouse owner is not null and enabled 
+                    // if new mouse owner is not null and enabled
                     // generate mouse entered event ans set new mouse owner
                     if (d != null && d.isEnabled === true){
                         pkg.$mouseMoveOwner = d;
-                        ME_STUB.reset(d, MENTERED, x, y, -1, 0);
+                        ME_STUB.reset(d, MENTERED, x, y, -1, 0, modifiers);
                         EM.fireInputEvent(ME_STUB);
                     }
                 }
@@ -11521,31 +11557,39 @@ pkg.zCanvas = Class(pkg.Panel, [
         this.$mouseExited = function (id, e) {
             var mp = $mousePressedEvents[id];
 
-            // if a mouse button has not been pressed and current mouse owner 
-            // component is not null, flush current mouse owner and send 
-            // mouse exited event to him 
+            var modifiers  = {
+                altKey      : e.altKey,
+                ctrlKey     : e.ctrlKey,
+                metaKey     : e.metaKey,
+                shiftKey    : e.shiftKey,
+            };
+
+            // if a mouse button has not been pressed and current mouse owner
+            // component is not null, flush current mouse owner and send
+            // mouse exited event to him
             if (mp == null || mp.canvas == null) {
                 if (pkg.$mouseMoveOwner != null) {
                     var p = pkg.$mouseMoveOwner;
                     pkg.$mouseMoveOwner = null;
 
-                    ME_STUB.reset(p, MEXITED, $meX(e, this), $meY(e, this), -1, 0);
+                    ME_STUB.reset(p, MEXITED, $meX(e, this), $meY(e, this), -1, 0, modifiers);
                     EM.fireInputEvent(ME_STUB);
                 }
             }
             else {
-                // if a button has been pressed but the mouse cursor is outside of 
+                // if a button has been pressed but the mouse cursor is outside of
                 // the canvas temporary listen mouse moved events from window
-                // since canvas cannot perform mouse moved events if mouse cursor 
+                // since canvas cannot perform mouse moved events if mouse cursor
                 // is outside of canvas element surface
                 if ($temporaryWinListener == null && ME_STUB.touch == null) {  // !!! ignore touchscreen devices
                     var $this = this;
                     $temporaryWinListener = function(ee) {
-                        ee.stopPropagation();          
+                        ee.stopPropagation();
                         $this.$mouseMoved(id, {
                             pageX : ee.pageX,
                             pageY : ee.pageY,
-                            target: e.target
+                            target: e.target,
+                            modifiers: modifiers,
                         });
                         ee.preventDefault();
                     };
@@ -11563,7 +11607,7 @@ pkg.zCanvas = Class(pkg.Panel, [
          *             pageX : {Integer},
          *             pageY : {Integer},
          *             target: {HTMLElement}
-         *         } 
+         *         }
          * @protected
          * @method $mouseMoved
          */
@@ -11571,11 +11615,11 @@ pkg.zCanvas = Class(pkg.Panel, [
             // get appropriate mousePressed event by event id
             var mp = $mousePressedEvents[id];
 
-            // mouse button has been pressed and pressed target zebra component exists  
-            // emulate mouse dragging events if mouse has moved on the canvas where mouse 
+            // mouse button has been pressed and pressed target zebra component exists
+            // emulate mouse dragging events if mouse has moved on the canvas where mouse
             // pressed event occurred
             if (mp != null && mp.canvas != null) {
-                // target component exits and mouse cursor moved on the same 
+                // target component exits and mouse cursor moved on the same
                 // canvas where mouse pressed occurred
                 if (mp.component != null && mp.canvas.canvas == e.target) {
 
@@ -11585,50 +11629,62 @@ pkg.zCanvas = Class(pkg.Panel, [
                     var x = this.$context.tX(e.pageX - this.offx, e.pageY - this.offy),
                         y = this.$context.tY(e.pageX - this.offx, e.pageY - this.offy),
                         m = mp.button;
+                    var modifiers  = {
+                        altKey      : e.altKey,
+                        ctrlKey     : e.ctrlKey,
+                        metaKey     : e.metaKey,
+                        shiftKey    : e.shiftKey,
+                    };
 
-                    // if drag events has not been initiated yet generate mouse 
+                    // if drag events has not been initiated yet generate mouse
                     // start dragging event
                     if (mp.draggedComponent == null) {
 
-                        // check if zebra mouse moved event has already occurred 
-                        // if it is true set mouse dragged target component to 
-                        // the mouse moved target component otherwise compute 
-                        // the target component basing on mouse moved event location  
+                        // check if zebra mouse moved event has already occurred
+                        // if it is true set mouse dragged target component to
+                        // the mouse moved target component otherwise compute
+                        // the target component basing on mouse moved event location
 
                         // !!!!
                         // for the sake of performance $meX(e, this) and $meY(e, this)
                         // methods calls are replaced with direct code
-                        var xx = this.$context.tX(mp.pageX - this.offx, mp.pageY - this.offy), 
+                        var xx = this.$context.tX(mp.pageX - this.offx, mp.pageY - this.offy),
                             yy = this.$context.tY(mp.pageX - this.offx, mp.pageY - this.offy),
                             d  = (pkg.$mouseMoveOwner == null) ? this.getComponentAt(xx, yy)
                                                                : pkg.$mouseMoveOwner;
 
-                        // if target component can be detected fire mouse start dragging and 
-                        // mouse dragged events to the component  
+                        // if target component can be detected fire mouse start dragging and
+                        // mouse dragged events to the component
                         if (d != null && d.isEnabled === true) {
                             mp.draggedComponent = d;
+                            var modifiers  = {
+                                altKey      : mp.modifiers.altKey,
+                                ctrlKey     : mp.modifiers.ctrlKey,
+                                metaKey     : mp.modifiers.metaKey,
+                                shiftKey    : mp.modifiers.shiftKey,
+                            };
 
-                            ME_STUB.reset(d, ME.DRAGSTARTED, xx, yy, m, 0);
+                            ME_STUB.reset(d, ME.DRAGSTARTED, xx, yy, m, 0, modifiers);
                             EM.fireInputEvent(ME_STUB);
 
-                            // if mouse cursor has been moved mouse dragged 
+                            // if mouse cursor has been moved mouse dragged
                             // event has to be generated
                             if (xx != x || yy != y) {
-                                ME_STUB.reset(d, MDRAGGED, x, y, m, 0);
+                                ME_STUB.reset(d, MDRAGGED, x, y, m, 0, modifiers);
                                 EM.fireInputEvent(ME_STUB);
                             }
                         }
                     }
                     else {
-                        // the drag event has already occurred before, just send 
-                        // next dragged event to target zebra component 
-                        ME_STUB.reset(mp.draggedComponent, MDRAGGED, x, y, m, 0);
+                        // the drag event has already occurred before, just send
+                        // next dragged event to target zebra component
+                        ME_STUB.reset(mp.draggedComponent, MDRAGGED, x, y, m, 0, modifiers);
                         EM.fireInputEvent(ME_STUB);
                     }
                 }
             }
             else {
-             
+
                 // if a mouse button has not been pressed handle the normal mouse moved event
 
                 // !!!!
@@ -11636,7 +11692,13 @@ pkg.zCanvas = Class(pkg.Panel, [
                 // methods calls are replaced with direct code
                 var x = this.$context.tX(e.pageX - this.offx, e.pageY - this.offy),
                     y = this.$context.tY(e.pageX - this.offx, e.pageY - this.offy),
-                    d = this.getComponentAt(x, y); 
+                    d = this.getComponentAt(x, y);
+                var modifiers  = {
+                    altKey      : e.altKey,
+                    ctrlKey     : e.ctrlKey,
+                    metaKey     : e.metaKey,
+                    shiftKey    : e.shiftKey,
+                };
 
                 if (pkg.$mouseMoveOwner != null) {
                     if (d != pkg.$mouseMoveOwner) {
@@ -11644,18 +11706,18 @@ pkg.zCanvas = Class(pkg.Panel, [
 
                         pkg.$mouseMoveOwner = null;
 
-                        ME_STUB.reset(old, MEXITED, x, y, -1, 0);
+                        ME_STUB.reset(old, MEXITED, x, y, -1, 0, modifiers);
                         EM.fireInputEvent(ME_STUB);
 
                         if (d != null && d.isEnabled === true) {
                             pkg.$mouseMoveOwner = d;
-                            ME_STUB.reset(pkg.$mouseMoveOwner, MENTERED, x, y, -1, 0);
+                            ME_STUB.reset(pkg.$mouseMoveOwner, MENTERED, x, y, -1, 0, modifiers);
                             EM.fireInputEvent(ME_STUB);
                         }
                     }
                     else {
                         if (d != null && d.isEnabled === true) {
-                            ME_STUB.reset(d, MMOVED, x, y, -1, 0);
+                            ME_STUB.reset(d, MMOVED, x, y, -1, 0, modifiers);
                             EM.fireInputEvent(ME_STUB);
                         }
                     }
@@ -11663,7 +11725,7 @@ pkg.zCanvas = Class(pkg.Panel, [
                 else {
                     if (d != null && d.isEnabled === true) {
                         pkg.$mouseMoveOwner = d;
-                        ME_STUB.reset(d, MENTERED, x, y, -1, 0);
+                        ME_STUB.reset(d, MENTERED, x, y, -1, 0, modifiers);
                         EM.fireInputEvent(ME_STUB);
                     }
                 }
@@ -11673,43 +11735,49 @@ pkg.zCanvas = Class(pkg.Panel, [
         this.$mouseReleased = function(id, e){
             var mp = $mousePressedEvents[id];
 
-            // handle it only if appropriate mouse pressed has occurred 
-            if (mp != null && mp.canvas != null) {   
+            // handle it only if appropriate mouse pressed has occurred
+            if (mp != null && mp.canvas != null) {
                 var x = $meX(e, this), y = $meY(e, this), po = mp.component;
-               
-                // if a component has been dragged send end dragged event to it to 
+                var modifiers  = {
+                    altKey      : e.altKey,
+                    ctrlKey     : e.ctrlKey,
+                    metaKey     : e.metaKey,
+                    shiftKey    : e.shiftKey,
+                };
+
+                // if a component has been dragged send end dragged event to it to
                 // complete dragging
                 if (mp.draggedComponent != null){
-                    ME_STUB.reset(mp.draggedComponent, ME.DRAGENDED, x, y, mp.button, 0);
+                    ME_STUB.reset(mp.draggedComponent, ME.DRAGENDED, x, y, mp.button, 0, modifiers);
                     EM.fireInputEvent(ME_STUB);
                 }
 
-                // mouse pressed has not null target zebra component 
+                // mouse pressed has not null target zebra component
                 // send mouse released and mouse clicked (if necessary)
                 // to him
                 if (po != null) {
                     // generate mouse click if no mouse drag event has been generated
                     if (mp.draggedComponent == null && (e.touch == null || e.touch.group == null)) {
-                        ME_STUB.reset(po, ME.CLICKED, x, y, mp.button, mp.clicks);
+                        ME_STUB.reset(po, ME.CLICKED, x, y, mp.button, mp.clicks, modifiers);
                         EM.fireInputEvent(ME_STUB);
                     }
-                    
+
                     // send mouse released to zebra target component
-                    ME_STUB.reset(po, ME.RELEASED, x, y, mp.button, mp.clicks);
+                    ME_STUB.reset(po, ME.RELEASED, x, y, mp.button, mp.clicks, modifiers);
                     EM.fireInputEvent(ME_STUB);
 
-                    //  make sure it is originally a touch event 
-                    if (ME_STUB.touch != null) { 
-                        ME_STUB.reset(po, ME.EXITED, x, y, mp.button, mp.clicks);
+                    //  make sure it is originally a touch event
+                    if (ME_STUB.touch != null) {
+                        ME_STUB.reset(po, ME.EXITED, x, y, mp.button, mp.clicks, modifiers);
                         EM.fireInputEvent(ME_STUB);
                     }
                 }
 
                 // mouse released can happen at new location, so move owner has to be corrected
-                // and mouse exited entered event has to be generated. 
+                // and mouse exited entered event has to be generated.
                 // the correction takes effect if we have just completed dragging or mouse pressed
-                // event target doesn't match pkg.$mouseMoveOwner   
-                if (ME_STUB.touch == null) {    
+                // event target doesn't match pkg.$mouseMoveOwner
+                if (ME_STUB.touch == null) {
                     var mo = pkg.$mouseMoveOwner;
                     if (mp.draggedComponent != null || (po != null && po != mo)) {
                         var nd = this.getComponentAt(x, y);
@@ -11717,13 +11785,13 @@ pkg.zCanvas = Class(pkg.Panel, [
                         if (nd != mo) {
                             if (mo != null) {
                                 pkg.$mouseMoveOwner = null;
-                                ME_STUB.reset(mo, MEXITED, x, y, -1, 0);
+                                ME_STUB.reset(mo, MEXITED, x, y, -1, 0, modifiers);
                                 EM.fireInputEvent(ME_STUB);
                             }
 
                             if (nd != null && nd.isEnabled === true){
                                 pkg.$mouseMoveOwner = nd;
-                                ME_STUB.reset(nd, MENTERED, x, y, -1, 0);
+                                ME_STUB.reset(nd, MENTERED, x, y, -1, 0, modifiers);
                                 EM.fireInputEvent(ME_STUB);
                             }
                         }
@@ -11737,14 +11805,20 @@ pkg.zCanvas = Class(pkg.Panel, [
         };
 
         this.$mousePressed = function(id, e, button) {
-           // release mouse pressed if it has not happened before but was not released
+            // release mouse pressed if it has not happened before but was not released
             var mp = $mousePressedEvents[id];
             if (mp != null && mp.canvas != null) {
                 this.$mouseReleased(id, mp);
             }
 
-            // store mouse pressed event 
+            // store mouse pressed event
             var clicks = mp != null && (new Date().getTime() - mp.time) <= pkg.doubleClickDelta ? 2 : 1 ;
+            var modifiers  = {
+                altKey      : e.altKey,
+                ctrlKey     : e.ctrlKey,
+                metaKey     : e.metaKey,
+                shiftKey    : e.shiftKey,
+            };
             mp = $mousePressedEvents[id] = {
                 pageX       : e.pageX,
                 pageY       : e.pageY,
@@ -11755,7 +11829,8 @@ pkg.zCanvas = Class(pkg.Panel, [
                 component   : null,
                 mouseDragged: null,
                 time        : (new Date()).getTime(),
-                clicks      : clicks
+                clicks      : clicks,
+                modifiers   : modifiers,
             };
 
             var x = $meX(e, this), y = $meY(e, this), tl = null;
@@ -11775,25 +11850,25 @@ pkg.zCanvas = Class(pkg.Panel, [
                 mp.component = d;
 
                 // make sure it was touch event to emulate mouse entered event
-                if (ME_STUB.touch != null) { 
-                    ME_STUB.reset(d, ME.ENTERED, x, y, button, clicks);
+                if (ME_STUB.touch != null) {
+                    ME_STUB.reset(d, ME.ENTERED, x, y, button, clicks, modifiers);
                     EM.fireInputEvent(ME_STUB);
                 }
 
-                ME_STUB.reset(d, ME.PRESSED, x, y, button, clicks);
+                ME_STUB.reset(d, ME.PRESSED, x, y, button, clicks, modifiers);
                 EM.fireInputEvent(ME_STUB);
             }
 
-            //!!! this prevent DOM elements selection on the page 
+            //!!! this prevent DOM elements selection on the page
             //!!! this code should be still double checked
             //!!!! THIS CODE BRINGS SOME PROBLEM TO IE. IF CURSOR IN ADDRESS TAB PRESSING ON CANVAS
-            //!!!! GIVES FOCUS TO CANVAS BUT KEY EVENT GOES TO ADDRESS BAR 
+            //!!!! GIVES FOCUS TO CANVAS BUT KEY EVENT GOES TO ADDRESS BAR
             //e.preventDefault();
 
-            // on mobile devices this force to leave edit component by grabbing focus from 
+            // on mobile devices this force to leave edit component by grabbing focus from
             // the editor component (input text field)
             if (document.activeElement != this.canvas) {
-                this.canvas.focus();  
+                this.canvas.focus();
             }
         };
 
@@ -11822,15 +11897,15 @@ pkg.zCanvas = Class(pkg.Panel, [
         };
 
         /**
-         * Get the canvas layer by the specified layer ID. Layer is a children component 
+         * Get the canvas layer by the specified layer ID. Layer is a children component
          * of the canvas UI component. Every layer has an ID assigned to it the method
-         * actually allows developers to get the canvas children component by its ID 
+         * actually allows developers to get the canvas children component by its ID
          * @param  {String} id a layer ID
          * @return {zebra.ui.Panel} a layer (children) component
          * @method getLayer
          */
-        this.getLayer = function(id) { 
-            return this[id]; 
+        this.getLayer = function(id) {
+            return this[id];
         };
 
         /**
@@ -11849,7 +11924,7 @@ pkg.zCanvas = Class(pkg.Panel, [
          * Set HTML Canvas element hosted by the UI component attribute
          * @protected
          * @method setAttribute
-         * @param {String} name an attribute name 
+         * @param {String} name an attribute name
          * @param {String} value an attribute value
          */
         this.setAttribute = function(name, value) {
@@ -11857,22 +11932,22 @@ pkg.zCanvas = Class(pkg.Panel, [
         };
 
         // override relocated and resized
-        // to prevent unnecessary repainting 
-        this.relocated = function(px,py) { 
-            pkg.events.fireCompEvent(CL.MOVED, this, px, py); 
+        // to prevent unnecessary repainting
+        this.relocated = function(px,py) {
+            pkg.events.fireCompEvent(CL.MOVED, this, px, py);
         };
 
-        this.resized = function(pw,ph) { 
-            pkg.events.fireCompEvent(CL.SIZED, this, pw, ph); 
+        this.resized = function(pw,ph) {
+            pkg.events.fireCompEvent(CL.SIZED, this, pw, ph);
         };
 
-        // override parent class repaint() method since the necessity 
+        // override parent class repaint() method since the necessity
         // of the canvas element repainting should not be analyzed
-        // basing on DOM 
+        // basing on DOM
         this.repaint = function(x,y,w,h) {
-            // if the canvas element has no parent nothing 
-            // should be redrawn 
-            if ((document.contains != null && 
+            // if the canvas element has no parent nothing
+            // should be redrawn
+            if ((document.contains != null &&
                  document.contains(this.canvas) === false)||
                  this.canvas.style.visibility == "hidden"   )
             {
@@ -11888,8 +11963,8 @@ pkg.zCanvas = Class(pkg.Panel, [
             if (w > 0 && h > 0 && pkg.paintManager != null) {
                 pkg.paintManager.repaint(this, x,y,w,h);
             }
-        };   
-   
+        };
+
         this.setFeatures = function() {
            for (var i=0; i < arguments.length; i++) {
                new (Class.forName(arguments[i]))(this);
@@ -11897,18 +11972,18 @@ pkg.zCanvas = Class(pkg.Panel, [
         };
     },
 
-    function() { 
+    function() {
         this.$this(400, 400);
     },
 
     function(w, h) {
         var e = document.createElement("canvas");
         e.setAttribute("class", "zebcanvas");
-        e.setAttribute("id", this.toString()); 
+        e.setAttribute("id", this.toString());
         e.onselectstart = function() { return false };
         this.$this(e, w, h);
     },
-    
+
     function(element) {
         this.$this(element, -1, -1);
     },
@@ -11917,7 +11992,7 @@ pkg.zCanvas = Class(pkg.Panel, [
         var $this = this;
 
         //  TODO:
-        //  touch event listeners have to be taking also 
+        //  touch event listeners have to be taking also
         //  in account
         this.$nativeListeners = {
             "onmousemove": null,
@@ -11931,16 +12006,16 @@ pkg.zCanvas = Class(pkg.Panel, [
         };
 
         /**
-         * Reference to HTML Canvas element  where the zebra canvas UI 
-         * components are hosted 
+         * Reference to HTML Canvas element  where the zebra canvas UI
+         * components are hosted
          * @protected
          * @readOnly
          * @attribute canvas
          * @type {Canvas}
          */
 
-        //!!! canvas field  has to be set before super 
-        if (zebra.isString(element)) { 
+        //!!! canvas field  has to be set before super
+        if (zebra.isString(element)) {
             this.canvas = document.getElementById(element);
 
             if (this.canvas == null) {
@@ -11959,8 +12034,8 @@ pkg.zCanvas = Class(pkg.Panel, [
         if (w < 0) w = this.canvas.offsetWidth;
         if (h < 0) h = this.canvas.offsetHeight;
 
-        //!!! Pay attention IE9 handles padding incorrectly 
-        //!!! the padding has to be set to 0px by appropriate 
+        //!!! Pay attention IE9 handles padding incorrectly
+        //!!! the padding has to be set to 0px by appropriate
         //!!! style sheet getPropertySetter
         if (this.canvas.getAttribute("tabindex") === null) {
             this.canvas.setAttribute("tabindex", "1");
@@ -11970,11 +12045,11 @@ pkg.zCanvas = Class(pkg.Panel, [
          * Keeps rectangular "dirty" area of the canvas component
          * @private
          * @attribute $da
-         * @type {Object} 
+         * @type {Object}
                 { x:Integer, y:Integer, width:Integer, height:Integer }
          */
         this.$da = { x: 0, y: 0, width: -1, height: 0 };
-    
+
         if (zebra.isTouchable) {
             new pkg.TouchHandler(this.canvas, [
                 function $prototype() {
@@ -11982,62 +12057,62 @@ pkg.zCanvas = Class(pkg.Panel, [
                         ME_STUB.touch          = e;
                         ME_STUB.touches        = this.touches;
                         ME_STUB.touchCounter   = this.touchCounter;
-                        $this.$mousePressed(e.identifier, e, 
-                                           this.touchCounter == 1 ? ME.LEFT_BUTTON 
-                                                                  : (e.group != null && e.group.size == 2 && e.group.index == 1 ? ME.RIGHT_BUTTON : 0)); 
+                        $this.$mousePressed(e.identifier, e,
+                                           this.touchCounter == 1 ? ME.LEFT_BUTTON
+                                                                  : (e.group != null && e.group.size == 2 && e.group.index == 1 ? ME.RIGHT_BUTTON : 0));
                     };
 
                     this.ended = function(e) {
                         ME_STUB.touch          = e;
                         ME_STUB.touches        = this.touches;
-                        ME_STUB.touchCounter   = this.touchCounter; 
-                        $this.$mouseReleased(e.identifier, e); 
+                        ME_STUB.touchCounter   = this.touchCounter;
+                        $this.$mouseReleased(e.identifier, e);
                     };
 
                     this.moved = function(e) {
                         ME_STUB.touch          = e;
                         ME_STUB.touches        = this.touches;
                         ME_STUB.touchCounter   = this.touchCounter;
-                        $this.$mouseMoved(e.identifier, e);  
-                    };                    
+                        $this.$mouseMoved(e.identifier, e);
+                    };
                 }
-            ]);  
+            ]);
         }
         else {
             var oldPX = -1, oldPY = -1;
-            this.canvas.onmousemove = function(e) { 
+            this.canvas.onmousemove = function(e) {
                 // ignore extra mouse moved event appearing in IE
                 if (oldPY != e.pageY || oldPX != e.pageX) {
                     oldPX = e.pageX;
                     oldPY = e.pageY;
-                    $this.$mouseMoved(1, e);   
+                    $this.$mouseMoved(1, e);
                 }
                 e.stopPropagation();
             };
-            
-            this.canvas.onmousedown = function(e) { 
+
+            this.canvas.onmousedown = function(e) {
                 $this.$mousePressed(1, e, e.button === 0 ? ME.LEFT_BUTTON
-                                                        : (e.button == 2 ? ME.RIGHT_BUTTON : 0)); 
+                                                        : (e.button == 2 ? ME.RIGHT_BUTTON : 0));
                 e.stopPropagation();
             };
-            
+
             this.canvas.onmouseup = function(e) {
                 $cleanDragFix();
                 $this.$mouseReleased(1, e);
-                e.stopPropagation();                
-            };
-
-            this.canvas.onmouseover = function(e) { 
-                $this.$mouseEntered(1, e); 
                 e.stopPropagation();
             };
-            
-            this.canvas.onmouseout = function(e) { 
-                $this.$mouseExited(1, e);  
+
+            this.canvas.onmouseover = function(e) {
+                $this.$mouseEntered(1, e);
+                e.stopPropagation();
+            };
+
+            this.canvas.onmouseout = function(e) {
+                $this.$mouseExited(1, e);
                 oldPX = oldPY = -1;
                 e.stopPropagation();
             };
-            
+
             this.canvas.oncontextmenu = function(e) {
                 e.preventDefault();
             };
@@ -12048,10 +12123,10 @@ pkg.zCanvas = Class(pkg.Panel, [
             };
 
             this.canvas.onkeyup = function(e) {
-                $this.$keyReleased(e); 
+                $this.$keyReleased(e);
                 e.stopPropagation();
             };
-            
+
             this.canvas.onkeypress = function(e) {
                 $this.$keyTyped(e);
                 e.stopPropagation();
@@ -12068,7 +12143,7 @@ pkg.zCanvas = Class(pkg.Panel, [
                 pkg.focusManager.canvasFocusGained($this);
             }
         };
-        
+
         this.canvas.onblur = function(e) {
             //!!! sometimes focus lost comes incorrectly
             //    ignore focus lost if canvas still holds focus
@@ -12095,7 +12170,7 @@ pkg.zCanvas = Class(pkg.Panel, [
 
         this.setSize(w, h);
 
-        // sync canvas visibility with what canvas style says 
+        // sync canvas visibility with what canvas style says
         var cvis = (this.canvas.style.visibility == "hidden" ? false : true);
         if (this.isVisible != cvis) {
             this.setVisible(cvis);
@@ -12109,35 +12184,35 @@ pkg.zCanvas = Class(pkg.Panel, [
     function setLocation(x, y) {
         this.canvas.style.top  = y + "px";
         this.canvas.style.left = x + "px";
-        this.canvas.style.position = "absolute";  
+        this.canvas.style.position = "absolute";
         this.recalcOffset();
         return this;
     },
 
     function setSize(w, h) {
         if (this.width != w || h != this.height) {
-            var pw  = this.width, 
-                ph  = this.height, 
+            var pw  = this.width,
+                ph  = this.height,
                 ctx = pkg.$canvas.size(this.canvas, w, h);
-            
+
             this.$context = ctx;
             if (this.$context.textBaseline != "top" ) {
                 this.$context.textBaseline = "top";
             }
-            
+
 
             // canvas has one instance of context, the code below
-            // test if the context has been already full filled 
-            // with necessary methods and if it is true reset and 
+            // test if the context has been already full filled
+            // with necessary methods and if it is true reset and
             // returns canvas
             if (typeof ctx.tX !== "undefined") {
                 ctx.reset(w, h);
-            } 
+            }
             else {
                 // customize context with number of new methods
                 //var proto = ctx.constructor.prototype;
-                var $scale     = ctx.scale, 
-                    $translate = ctx.translate, 
+                var $scale     = ctx.scale,
+                    $translate = ctx.translate,
                     $rotate    = ctx.rotate,
                     $save      = ctx.save,
                     $restore   = ctx.restore;
@@ -12163,12 +12238,12 @@ pkg.zCanvas = Class(pkg.Panel, [
                 }
                 ctx.reset(w, h);
 
-                ctx.getTopStack = function() { 
-                    return this.stack[this.counter]; 
+                ctx.getTopStack = function() {
+                    return this.stack[this.counter];
                 };
 
                 ctx.tX = function(x, y) {
-                    var c = this.stack[this.counter], b = (c.sx != 1 || c.sy != 1 || c.rotateVal !== 0);        
+                    var c = this.stack[this.counter], b = (c.sx != 1 || c.sy != 1 || c.rotateVal !== 0);
                     return (b ?  (((c.crot * x + y * c.srot)/c.sx + 0.5) | 0) : x) - c.dx;
                 };
 
@@ -12224,7 +12299,7 @@ pkg.zCanvas = Class(pkg.Panel, [
                 };
 
                 ctx.restore = function() {
-                    if (this.counter === 0) { 
+                    if (this.counter === 0) {
                         throw new Error("Context restore history is empty");
                     }
 
@@ -12236,7 +12311,7 @@ pkg.zCanvas = Class(pkg.Panel, [
                 ctx.clipRect = function(x,y,w,h){
                     var c = this.stack[this.counter];
                     if (c.x != x || y != c.y || w != c.width || h != c.height) {
-                        var xx = c.x, yy = c.y, 
+                        var xx = c.x, yy = c.y,
                             ww = c.width, hh = c.height,
                             xw = x + w, xxww = xx + ww,
                             yh = y + h, yyhh = yy + hh;
@@ -12263,17 +12338,17 @@ pkg.zCanvas = Class(pkg.Panel, [
            // if (zebra.isTouchable) {
            //      the strange fix for Android native browser
            //      that can render text blurry before you click
-           //      it happens because the browser auto-fit option 
+           //      it happens because the browser auto-fit option
            //      var $this = this;
            //      setTimeout(function() {
            //          $this.invalidate();
            //          $this.validate();
            //          $this.repaint();
-           //      }, 200);  
+           //      }, 200);
            //  }
            //  else {
                 this.invalidate();
-                this.validate();      
+                this.validate();
                 this.repaint();
             // }
 
@@ -12281,15 +12356,15 @@ pkg.zCanvas = Class(pkg.Panel, [
                 this.resized(pw, ph);
             }
 
-            // let know to other zebra canvases that 
-            // the size of an element on the page has 
-            // been updated and they have to correct 
-            // its anchor. 
+            // let know to other zebra canvases that
+            // the size of an element on the page has
+            // been updated and they have to correct
+            // its anchor.
             pkg.$elBoundsUpdated();
 
-            // sometimes changing size can bring to changing canvas location 
+            // sometimes changing size can bring to changing canvas location
             // it is required to recalculate offsets
-//            this.recalcOffset(); 
+//            this.recalcOffset();
         }
 
         return this;
@@ -12301,8 +12376,8 @@ pkg.zCanvas = Class(pkg.Panel, [
      */
     function fullScreen() {
         /**
-         * Indicate if the canvas has to be stretched to 
-         * fill the whole screen area. 
+         * Indicate if the canvas has to be stretched to
+         * fill the whole screen area.
          * @type {Boolean}
          * @attribute isFullScreen
          * @readOnly
@@ -12311,29 +12386,29 @@ pkg.zCanvas = Class(pkg.Panel, [
         this.setLocation(0,0);
 
         var ws = pkg.$windowSize();
-        this.setSize(ws.width, ws.height);    
+        this.setSize(ws.width, ws.height);
     },
 
     function setEnabled(b) {
         if (this.isEnabled != b) {
             // !!!
             // Since disabled state for Canvas element doesn't work
-            // we have to emulate it via canvas listeners removal 
-            // 
+            // we have to emulate it via canvas listeners removal
+            //
             for(var k in this.$nativeListeners) {
                 if (b) {
-                    this.canvas[k] = this.$nativeListeners[k];  
+                    this.canvas[k] = this.$nativeListeners[k];
                     this.$nativeListeners[k] = null;
                 }
                 else {
-                    this.$nativeListeners[k] = this.canvas[k];  
-                    this.canvas[k] = null;            
+                    this.$nativeListeners[k] = this.canvas[k];
+                    this.canvas[k] = null;
                 }
             }
 
             // have to be decided if super has to be called
             //this.$super(b);
-        
+
             this.isEnabled = b;
         }
         return this;
@@ -12359,7 +12434,7 @@ pkg.zCanvas = Class(pkg.Panel, [
     function kidAdded(i,constr,c){
         if (typeof this[c.id] !== "undefined") {
             throw new Error("Layer '" + c.id + "' already exist");
-        } 
+        }
         this[c.id] = c;
         this.$super(i, constr, c);
     },
@@ -12378,13 +12453,13 @@ pkg.zCanvas = Class(pkg.Panel, [
 
 zebra.ready(
     // dynamic HTML DOM tree has to be placed to separated function
-    // that has to be first in ready list. the function make 
-    // the page loading busy before necessary dynamically 
-    // inserted elements will be ready. 
+    // that has to be first in ready list. the function make
+    // the page loading busy before necessary dynamically
+    // inserted elements will be ready.
     function() {
         zebra.busy();
         $fmCanvas = document.createElement("canvas").getContext("2d");
-        
+
         var e = document.getElementById("zebra.fm");
         if (e == null) {
             e = document.createElement("div");
@@ -12400,7 +12475,7 @@ zebra.ready(
         // the next function passed to zebra.ready() will be blocked
         // till the picture is completely loaded
         $fmImage.onload = function() {
-           zebra.ready();    
+           zebra.ready();
         };
 
         // set 1x1 transparent picture
@@ -12413,7 +12488,7 @@ zebra.ready(
             pkg.$configuration = new pkg.Bag(pkg);
 
             var p = zebra()['zebra.json'];
-            pkg.$configuration.loadByUrl(p ? p 
+            pkg.$configuration.loadByUrl(p ? p
                                            : pkg.$url.join("canvas.json"), false);
 
             while($configurators.length > 0) {
@@ -12422,7 +12497,7 @@ zebra.ready(
 
             pkg.$configuration.end();
 
-            // store ref to event manager 
+            // store ref to event manager
             EM = pkg.events;
 
             if (pkg.clipboardTriggerKey > 0) {
@@ -12435,7 +12510,7 @@ zebra.ready(
                     $clipboard.value="1";
                     $clipboard.select();
                 };
-                
+
                 $clipboard.onkeyup = function(ee) {
                     if (ee.keyCode == pkg.clipboardTriggerKey) {
                         $clipboard.style.display = "none";
@@ -12446,12 +12521,12 @@ zebra.ready(
                     $clipboardCanvas.$keyReleased(ee);
                 };
 
-                $clipboard.onblur = function() {  
+                $clipboard.onblur = function() {
                     this.value="";
                     this.style.display="none";
 
                     //!!! pass focus back to canvas
-                    //    it has to be done for the case when cmd+TAB (switch from browser to 
+                    //    it has to be done for the case when cmd+TAB (switch from browser to
                     //    another application)
                     $clipboardCanvas.canvas.focus();
                 };
@@ -12473,7 +12548,7 @@ zebra.ready(
 
                 if (zebra.isFF) {
                     $clipboard.addEventListener ("input", function(ee) {
-                        if (pkg.focusManager.focusOwner && 
+                        if (pkg.focusManager.focusOwner &&
                             pkg.focusManager.focusOwner.paste)
                         {
                             pkg.focusManager.focusOwner.paste($clipboard.value);
@@ -12490,20 +12565,20 @@ zebra.ready(
                         $clipboard.value="";
                     }
                 }
-                document.body.appendChild($clipboard);            
+                document.body.appendChild($clipboard);
             }
-        
+
             //!!!
-            // IE9 has an error: first mouse press formally pass focus to 
-            // canvas, but actually it doesn't get key events. To fix it 
-            // it is necessary to pass focus explicitly to window  
+            // IE9 has an error: first mouse press formally pass focus to
+            // canvas, but actually it doesn't get key events. To fix it
+            // it is necessary to pass focus explicitly to window
             if (zebra.isIE) window.focus();
         }
         catch(e) {
             ///!!!!! for some reason throwing exception is not appeared in console.
             //       but it has side effect to the system, what causes other exception
             //       that is not relevant to initial one
-            
+
             console.log(e.stack ? e.stack : e);
             throw new Error(e.toString());
         }
@@ -12519,14 +12594,14 @@ zebra.ready(
 
 (function(pkg, Class) {
 
-// redefine configuration 
+// redefine configuration
 zebra()["zebra.json"] = pkg.$url.join("zebra.json");
 
 /**
  * @module  ui
  */
 
-var MB = zebra.util, ME = pkg.MouseEvent, Cursor = pkg.Cursor, View = pkg.View, 
+var MB = zebra.util, ME = pkg.MouseEvent, Cursor = pkg.Cursor, View = pkg.View,
     Listeners = zebra.util.Listeners, KE = pkg.KeyEvent, L = zebra.layout,
     task = zebra.util.task, instanceOf = zebra.instanceOf,
     $invalidA = "Invalid alignment",
@@ -12552,7 +12627,7 @@ pkg.$ViewsSetter = function (v){
 pkg.CompRender = Class(pkg.Render, [
     function $prototype() {
         /**
-         * Get preferred size of the render. The method doesn't calculates 
+         * Get preferred size of the render. The method doesn't calculates
          * preferred size it simply calls the target component "getPreferredSize"
          * method.
          * @method getPreferredSize
@@ -12589,9 +12664,9 @@ pkg.CompRender = Class(pkg.Render, [
 ]);
 
 /**
- * Line UI component class. Draw series of vertical or horizontal lines of using 
- * the given line width and color. Vertical or horizontal line rendering s selected 
- * depending on the line component size: if height is greater than width than vertical 
+ * Line UI component class. Draw series of vertical or horizontal lines of using
+ * the given line width and color. Vertical or horizontal line rendering s selected
+ * depending on the line component size: if height is greater than width than vertical
  * line will be rendered.
  * @constructor
  * @class zebra.ui.Line
@@ -12600,7 +12675,7 @@ pkg.CompRender = Class(pkg.Render, [
 pkg.Line = Class(pkg.Panel, [
     function() {
         /**
-         * Line colors 
+         * Line colors
          * @attribute lineColors
          * @type {Array}
          * @readOnly
@@ -12612,7 +12687,7 @@ pkg.Line = Class(pkg.Panel, [
 
     function $prototype() {
         /**
-         * Line width 
+         * Line width
          * @attribute lineWidth
          * @type {Integer}
          * @default 1
@@ -12621,7 +12696,7 @@ pkg.Line = Class(pkg.Panel, [
 
         /**
          * Set set of colors to be used to paint the line. Number of colors defines the number of
-         * lines to be painted. 
+         * lines to be painted.
          * @param {String} colors* colors
          * @method setLineColors
          */
@@ -12633,13 +12708,13 @@ pkg.Line = Class(pkg.Panel, [
         };
 
         this.paint = function(g) {
-            var isHor  = this.width > this.height, 
+            var isHor  = this.width > this.height,
                 left   = this.getLeft(),
                 right  = this.getRight(),
                 top    = this.getTop(),
                 bottom = this.getBottom(),
-                xy     = isHor ? top : left; 
-            
+                xy     = isHor ? top : left;
+
             for(var i=0; i < this.lineColors.length; i++) {
                 if (this.lineColors[i] != null) {
                     g.setColor(this.lineColors[i]);
@@ -12650,19 +12725,19 @@ pkg.Line = Class(pkg.Panel, [
                         g.drawLine(xy, top, xy, this.height - top - bottom, this.lineWidth);
                     }
                 }
-                xy += this.lineWidth;                
+                xy += this.lineWidth;
             }
         };
 
         this.calcPreferredSize = function(target) {
             var s = this.lineColors.length * this.lineWidth;
-            return { width: s, height:s};  
+            return { width: s, height:s};
         };
     }
 ]);
 
 /**
- * Lightweight implementation of single line string render. The render requires 
+ * Lightweight implementation of single line string render. The render requires
  * a simple string as a target object.
  * @param {String} str a string to be rendered
  * @param {zebra.ui.Font} [font] a text font
@@ -12680,7 +12755,7 @@ pkg.StringRender = Class(pkg.Render, [
             this.setTarget(txt);
 
             /**
-             * Font to be used to render the target string 
+             * Font to be used to render the target string
              * @attribute font
              * @readOnly
              * @type {zebra.ui.Font}
@@ -12688,7 +12763,7 @@ pkg.StringRender = Class(pkg.Render, [
             this.font = font != null ? font : pkg.StringRender.font ;
 
             /**
-             * Color to be used to render the target string 
+             * Color to be used to render the target string
              * @readOnly
              * @attribute color
              * @type {String}
@@ -12701,10 +12776,10 @@ pkg.StringRender = Class(pkg.Render, [
         };
 
         /**
-         * Set the rendered text font.  
-         * @param  {String|zebra.ui.Font} f a font as CSS string or 
-         * zebra.ui.Font class instance 
-         * @return {Boolean} return true if a text font has been updated 
+         * Set the rendered text font.
+         * @param  {String|zebra.ui.Font} f a font as CSS string or
+         * zebra.ui.Font class instance
+         * @return {Boolean} return true if a text font has been updated
          * @method setFont
          */
         this.setFont = function(f){
@@ -12720,13 +12795,13 @@ pkg.StringRender = Class(pkg.Render, [
             }
             return false;
         };
-        
+
         this.paint = function(g,x,y,w,h,d) {
             if (this.font.s != g.font) g.setFont(this.font);
             if (this.color != g.fillStyle) g.fillStyle = this.color;
 
             if (d != null && d.isEnabled === false) {
-                g.fillStyle = d != null && d.disabledColor != null ? d.disabledColor 
+                g.fillStyle = d != null && d.disabledColor != null ? d.disabledColor
                                                                    : pkg.StringRender.disabledColor;
             }
 
@@ -12737,12 +12812,12 @@ pkg.StringRender = Class(pkg.Render, [
             if (this.stringWidth < 0) {
                 this.stringWidth = this.font.stringWidth(this.target);
             }
-            return { width: this.stringWidth, height: this.font.height };                     
+            return { width: this.stringWidth, height: this.font.height };
         };
 
         /**
          * Return a string that is rendered by this class
-         * @return  {String} a string 
+         * @return  {String} a string
          * @method getValue
          */
         this.getValue = function(){
@@ -12750,9 +12825,9 @@ pkg.StringRender = Class(pkg.Render, [
         };
 
         /**
-         * Set rendered text color 
+         * Set rendered text color
          * @param  {String} c a text color
-         * @return {Boolean} return true if a text color has been updated 
+         * @return {Boolean} return true if a text color has been updated
          * @method setColor
          */
         this.setColor = function(c){
@@ -12774,7 +12849,7 @@ pkg.StringRender = Class(pkg.Render, [
 
         this.targetWasChanged = function(o, n) {
             this.stringWidth = -1;
-            if (this.owner != null) this.owner.invalidate(); 
+            if (this.owner != null) this.owner.invalidate();
         };
     }
 ]);
@@ -12782,7 +12857,7 @@ pkg.StringRender = Class(pkg.Render, [
 /**
  * Text render that expects and draws a text model or a string as its target
  * @class zebra.ui.TextRender
- * @constructor 
+ * @constructor
  * @extends zebra.ui.Render
  * @param  {String|zebra.data.TextModel} text a text as string or text model object
  */
@@ -12799,7 +12874,7 @@ pkg.TextRender = Class(pkg.Render, zebra.util.Position.Metric, [
         this.owner = null;
 
         /**
-         * Get a line indent 
+         * Get a line indent
          * @default 1
          * @return {Integer} line indent
          * @method getLineIndent
@@ -12834,7 +12909,7 @@ pkg.TextRender = Class(pkg.Render, zebra.util.Position.Metric, [
         this.getMaxOffset = function() {
             return this.target.getTextLength();
         };
-        
+
         /**
          * Called whenever an owner UI component has been changed
          * @param  {zebra.ui.Panel} v a new owner UI component
@@ -12843,7 +12918,7 @@ pkg.TextRender = Class(pkg.Render, zebra.util.Position.Metric, [
         this.ownerChanged  = function(v) {
             this.owner = v;
         };
-        
+
         /**
          * Paint the specified text line
          * @param  {2DContext} g graphical 2D context
@@ -12853,10 +12928,10 @@ pkg.TextRender = Class(pkg.Render, zebra.util.Position.Metric, [
          * @param  {zebra.ui.Panel} d an UI component on that the line has to be rendered
          * @method paintLine
          */
-        this.paintLine = function(g,x,y,line,d) { 
+        this.paintLine = function(g,x,y,line,d) {
             g.fillText(this.getLine(line), x, y);
         };
-        
+
         /**
          * Get text line by the given line number
          * @param  {Integer} r a line number
@@ -12924,22 +12999,22 @@ pkg.TextRender = Class(pkg.Render, zebra.util.Position.Metric, [
         };
 
         /**
-         * Text model update listener handler 
+         * Text model update listener handler
          * @param  {zebra.data.TextModel} src text model object
-         * @param  {Boolean} b 
-         * @param  {Integer} off an offset starting from that 
-         * the text has been updated 
-         * @param  {Integer} size a size (in character) of text part that 
-         * has been updated 
+         * @param  {Boolean} b
+         * @param  {Integer} off an offset starting from that
+         * the text has been updated
+         * @param  {Integer} size a size (in character) of text part that
+         * has been updated
          * @param  {Integer} ful a first affected by the given update line
-         * @param  {Integer} updatedLines a number of text lines that have 
-         * been affected by text updating 
+         * @param  {Integer} updatedLines a number of text lines that have
+         * been affected by text updating
          * @method textUpdated
          */
         this.textUpdated = function(src,b,off,size,ful,updatedLines){
             if (b === false) {
                 if (this.lines > 0) {
-                    var p1 = ful - this.startLine, 
+                    var p1 = ful - this.startLine,
                         p2 = this.startLine + this.lines - ful - updatedLines;
                     this.lines = ((p1 > 0) ? p1 : 0) + ((p2 > 0) ? p2 : 0) + 1;
                     this.startLine = this.startLine < ful ? this.startLine : ful;
@@ -12962,9 +13037,9 @@ pkg.TextRender = Class(pkg.Render, zebra.util.Position.Metric, [
         };
 
         /**
-         * Invalidate metrics for the specified range of lines. 
+         * Invalidate metrics for the specified range of lines.
          * @param  {Integer} start first line to be invalidated
-         * @param  {Integer} size  number of lines to be invalidated 
+         * @param  {Integer} size  number of lines to be invalidated
          * @method invalidate
          * @private
          */
@@ -13063,16 +13138,16 @@ pkg.TextRender = Class(pkg.Render, zebra.util.Position.Metric, [
         };
 
         /**
-         * Paint the specified text selection of the given line. The area 
+         * Paint the specified text selection of the given line. The area
          * where selection has to be rendered is denoted with the given
          * rectangular area.
          * @param  {2DContext} g a canvas graphical context
-         * @param  {Integer} x a x coordinate of selection rectangular area  
-         * @param  {Integer} y a y coordinate of selection rectangular area  
-         * @param  {Integer} w a width of of selection rectangular area  
-         * @param  {Integer} h a height of of selection rectangular area  
+         * @param  {Integer} x a x coordinate of selection rectangular area
+         * @param  {Integer} y a y coordinate of selection rectangular area
+         * @param  {Integer} w a width of of selection rectangular area
+         * @param  {Integer} h a height of of selection rectangular area
          * @param  {Integer} line [description]
-         * @param  {zebra.ui.Panel} d a target UI component where the text 
+         * @param  {zebra.ui.Panel} d a target UI component where the text
          * has to be rendered
          * @protected
          * @method paintSelection
@@ -13083,7 +13158,7 @@ pkg.TextRender = Class(pkg.Render, zebra.util.Position.Metric, [
         };
 
         /**
-         * Set the text model content 
+         * Set the text model content
          * @param  {String} s a text as string object
          * @method setValue
          */
@@ -13092,10 +13167,10 @@ pkg.TextRender = Class(pkg.Render, zebra.util.Position.Metric, [
         };
 
         /**
-         * Set the rendered text font.  
-         * @param  {String|zebra.ui.Font} f a font as CSS string or 
-         * zebra.ui.Font class instance 
-         * @return {Boolean} return true if a text font has been updated 
+         * Set the rendered text font.
+         * @param  {String|zebra.ui.Font} f a font as CSS string or
+         * zebra.ui.Font class instance
+         * @return {Boolean} return true if a text font has been updated
          * @method setFont
          */
         this.setFont = function(f){
@@ -13110,9 +13185,9 @@ pkg.TextRender = Class(pkg.Render, zebra.util.Position.Metric, [
         };
 
         /**
-         * Set rendered text color 
+         * Set rendered text color
          * @param  {String} c a text color
-         * @return {Boolean} return true if a text color has been updated 
+         * @return {Boolean} return true if a text color has been updated
          * @method setColor
          */
         this.setColor = function(c){
@@ -13123,7 +13198,7 @@ pkg.TextRender = Class(pkg.Render, zebra.util.Position.Metric, [
             return false;
         };
 
-        // speed up constructor by avoiding super execution since 
+        // speed up constructor by avoiding super execution since
         // text render is one of the most used class
         this[''] = function(text) {
             /**
@@ -13162,7 +13237,7 @@ pkg.BoldTextRender = Class(pkg.TextRender, [
 ]);
 
 /**
- * Password text render class. This class renders a secret text with hiding it with the given character. 
+ * Password text render class. This class renders a secret text with hiding it with the given character.
  * @param {String|zebra.data.TextModel} [text] a text as string or text model instance
  * @class zebra.ui.PasswordText
  * @constructor
@@ -13175,7 +13250,7 @@ pkg.PasswordText = Class(pkg.TextRender, [
 
     function(text){
         /**
-         * Echo character that will replace characters of hidden text 
+         * Echo character that will replace characters of hidden text
          * @attribute echo
          * @type {String}
          * @readOnly
@@ -13184,7 +13259,7 @@ pkg.PasswordText = Class(pkg.TextRender, [
         this.echo = "*";
 
         /**
-         * Indicates if the last entered character doesn't have to be replaced with echo character  
+         * Indicates if the last entered character doesn't have to be replaced with echo character
          * @type {Boolean}
          * @attribute showLast
          * @default true
@@ -13235,17 +13310,17 @@ pkg.TabBorder = Class(View, [
 
     function $prototype() {
         this.paint = function(g,x,y,w,h,d){
-            var xx = x + w - 1, 
-                yy = y + h - 1, 
-                o  = d.parent.orient, 
-                t  = this.type, 
-                s  = this.width, 
+            var xx = x + w - 1,
+                yy = y + h - 1,
+                o  = d.parent.orient,
+                t  = this.type,
+                s  = this.width,
                 dt = s / 2;
 
             g.beginPath();
             g.lineWidth = s;
             switch(o) {
-                case L.LEFT:     
+                case L.LEFT:
                     g.moveTo(xx + 1, y + dt);
                     g.lineTo(x + s*2, y + dt);
                     g.lineTo(x + dt , y + s*2);
@@ -13258,7 +13333,7 @@ pkg.TabBorder = Class(View, [
                         g.fill();
                     }
 
-                    g.setColor((t === 0 || t == 2) ? this.onColor1 : this.offColor);        
+                    g.setColor((t === 0 || t == 2) ? this.onColor1 : this.offColor);
                     g.stroke();
 
                     if (d.isEnabled === true) {
@@ -13266,19 +13341,19 @@ pkg.TabBorder = Class(View, [
                         g.setColor(this.fillColor3);
                         g.fillRect(xx - ww + 1, y + s, ww, h - s - 1);
                     }
-                    
+
                     if (t == 1) {
                         g.setColor(this.onColor2);
                         g.drawLine(x + 2*s + 1, yy - s, xx + 1, yy - s, s);
                     }
                     break;
                 case L.RIGHT:
-                    xx -= dt; // thick line grows left side and right side proportionally 
-                              // correct it 
+                    xx -= dt; // thick line grows left side and right side proportionally
+                              // correct it
 
                     g.moveTo(x, y + dt);
                     g.lineTo(xx - 2*s, y + dt);
-                    
+
                     g.lineTo(xx   , y + 2*s);
                     g.lineTo(xx   , yy - 2*s);
                     g.lineTo(xx - 2*s, yy + dt);
@@ -13289,7 +13364,7 @@ pkg.TabBorder = Class(View, [
                         g.fill();
                     }
 
-                    g.setColor((t === 0 || t == 2) ? this.onColor1 : this.offColor);        
+                    g.setColor((t === 0 || t == 2) ? this.onColor1 : this.offColor);
                     g.stroke();
 
                     if (d.isEnabled === true) {
@@ -13316,14 +13391,14 @@ pkg.TabBorder = Class(View, [
                         g.fill();
                     }
 
-                    g.setColor((t === 0 || t == 2) ? this.onColor1 : this.offColor);        
+                    g.setColor((t === 0 || t == 2) ? this.onColor1 : this.offColor);
                     g.stroke();
 
                     if (d.isEnabled === true){
                         g.setColor(this.fillColor3);
                         var hh = ~~((h - 6) / 2);
                         g.fillRect(x + s, yy - hh + 1 , w - s - 1, hh);
-                    }               
+                    }
 
                     if (t === 0) {
                         g.setColor(this.onColor2);
@@ -13349,14 +13424,14 @@ pkg.TabBorder = Class(View, [
                         g.fill();
                     }
 
-                    g.setColor((t === 0 || t == 2) ? this.onColor1 : this.offColor);        
+                    g.setColor((t === 0 || t == 2) ? this.onColor1 : this.offColor);
                     g.stroke();
 
                     if (d.isEnabled === true){
                         g.setColor(this.fillColor3);
-                        var hh = ~~((h - 6) / 2);   
+                        var hh = ~~((h - 6) / 2);
                         g.fillRect(x + s, y, w - s - 1, hh);
-                    }               
+                    }
 
                     if (t === 0) {
                         g.setColor(this.onColor2);
@@ -13378,56 +13453,56 @@ pkg.TabBorder = Class(View, [
 ]);
 
 /**
- * Render class that allows developers to render a border with a title area. 
+ * Render class that allows developers to render a border with a title area.
  * The title area has to be specified by an UI component that uses the border
- * by defining "getTitleInfo()"" method. The method has to return object that 
+ * by defining "getTitleInfo()"" method. The method has to return object that
  * describes title size, location and alignment:
- *     
  *
- *      { 
- *        x: {Integer}, y: {Integer}, 
+ *
+ *      {
+ *        x: {Integer}, y: {Integer},
  *        width: {Integer}, height: {Integer},
- *        orient: {Integer} 
+ *        orient: {Integer}
  *      }
  *
- * 
+ *
  * @class zebra.ui.TitledBorder
  * @extends zebra.ui.Render
  * @constructor
  * @param {zebra.ui.View} border  a border to be rendered with a title area
- * @param {Integer|String} [lineAlignment] a line alignment. Specifies how  
+ * @param {Integer|String} [lineAlignment] a line alignment. Specifies how
  * a title area has to be aligned relatively border line:
  *
- *      BOTTOM or "bottom"  - title area will be placed on top of border line: 
- *                    ___| Title area |___ 
- *                    
- * 
+ *      BOTTOM or "bottom"  - title area will be placed on top of border line:
+ *                    ___| Title area |___
+ *
+ *
  *      CENTER or "center"  - title area will be centered relatively to border line:
  *                    ---| Title area |-----
- *                    
- * 
- *      TOP or "top"  - title area will be placed underneath of border line: 
+ *
+ *
+ *      TOP or "top"  - title area will be placed underneath of border line:
  *                     ____              ________
- *                         |  Title area | 
- *                    
- * 
+ *                         |  Title area |
+ *
+ *
  */
 pkg.TitledBorder = Class(pkg.Render, [
     function $prototype() {
         this.getTop  = function (){
-            return this.target.getTop(); 
+            return this.target.getTop();
         };
 
         this.getLeft = function (){
             return this.target.getLeft();
         };
-        
+
         this.getRight = function (){
             return this.target.getRight();
         };
-        
-        this.getBottom = function (){ 
-            return this.target.getBottom(); 
+
+        this.getBottom = function (){
+            return this.target.getBottom();
         };
 
         this.outline = function (g,x,y,w,h,d) {
@@ -13497,8 +13572,8 @@ pkg.TitledBorder = Class(pkg.Render, [
                 var r = d.getTitleInfo();
                 if (r != null) {
                     var xx = x + w, yy = y + h, t = g.getTopStack();
-                    switch (r.orient) {     
-                        case L.TOP: 
+                    switch (r.orient) {
+                        case L.TOP:
                             var top = this.target.getTop();
                             // compute border y
                             switch (this.lineAlignment) {
@@ -13508,13 +13583,13 @@ pkg.TitledBorder = Class(pkg.Render, [
                             }
 
 
-                            // skip rendering border if the border is not in clip rectangle 
+                            // skip rendering border if the border is not in clip rectangle
                             // This is workaround because of IE10/IE11 have bug what causes
-                            // handling rectangular clip + none-rectangular clip side effect 
-                            // to "fill()" subsequent in proper working (fill without respect of 
-                            // clipping  area) 
-                            if (this.$isIn(t, x + this.target.getLeft(), y, 
-                                           w - this.target.getRight() - this.target.getLeft(), 
+                            // handling rectangular clip + none-rectangular clip side effect
+                            // to "fill()" subsequent in proper working (fill without respect of
+                            // clipping  area)
+                            if (this.$isIn(t, x + this.target.getLeft(), y,
+                                           w - this.target.getRight() - this.target.getLeft(),
                                            yy - y - this.target.getBottom()))
                             {
                                 return;
@@ -13522,7 +13597,7 @@ pkg.TitledBorder = Class(pkg.Render, [
 
                             g.save();
                             g.beginPath();
-                            
+
                             g.moveTo(x, y);
                             g.lineTo(r.x, y);
                             g.lineTo(r.x, y + top);
@@ -13542,8 +13617,8 @@ pkg.TitledBorder = Class(pkg.Render, [
                                 case L.BOTTOM : yy = r.y ; break;
                             }
 
-                            if (this.$isIn(t, x + this.target.getLeft(), y + this.target.getTop(), 
-                                              w - this.target.getRight() - this.target.getLeft(), 
+                            if (this.$isIn(t, x + this.target.getLeft(), y + this.target.getTop(),
+                                              w - this.target.getRight() - this.target.getLeft(),
                                               yy - y - this.target.getTop()))
                             {
                                 return;
@@ -13562,7 +13637,7 @@ pkg.TitledBorder = Class(pkg.Render, [
                             g.lineTo(x, yy);
                             g.lineTo(x, y);
 
-                            break;   
+                            break;
                         case L.LEFT:
                             var left = this.target.getLeft();
                             switch (this.lineAlignment) {
@@ -13571,8 +13646,8 @@ pkg.TitledBorder = Class(pkg.Render, [
                                 case L.BOTTOM : x = r.x + r.width; break;
                             }
 
-                            if (this.$isIn(t, x, y + this.target.getTop(), 
-                                           xx - x - this.target.getRight(), 
+                            if (this.$isIn(t, x, y + this.target.getTop(),
+                                           xx - x - this.target.getRight(),
                                            h - this.target.getTop() - this.target.getBottom()))
                             {
                                 return;
@@ -13601,8 +13676,8 @@ pkg.TitledBorder = Class(pkg.Render, [
                             }
 
                             if (this.$isIn(t, x + this.target.getLeft(),
-                                              y + this.target.getTop(), 
-                                              xx - x - this.target.getLeft(), 
+                                              y + this.target.getTop(),
+                                              xx - x - this.target.getLeft(),
                                               h - this.target.getTop() - this.target.getBottom()))
                             {
                                 return;
@@ -13633,13 +13708,13 @@ pkg.TitledBorder = Class(pkg.Render, [
                 this.target.paint(g, x, y, w, h, d);
             }
         };
-    
+
         this[''] = function (b, a){
             this.lineAlignment = (a == null ? L.BOTTOM : L.$constraints(a));
 
             if (b == null && this.lineAlignment != L.BOTTOM &&
-                             this.lineAlignment != L.TOP && 
-                             this.lineAlignment != L.CENTER) 
+                             this.lineAlignment != L.TOP &&
+                             this.lineAlignment != L.CENTER)
             {
                 throw new Error($invalidA);
             }
@@ -13649,21 +13724,21 @@ pkg.TitledBorder = Class(pkg.Render, [
 ]);
 
 /**
- * Label UI component class. The label can be used to visualize simple string or multi lines text or 
+ * Label UI component class. The label can be used to visualize simple string or multi lines text or
  * the given text render implementation:
- 
+
         // render simple string
         var l = new zebra.ui.Label("Simple string");
 
         // render multi lines text
         var l = new zebra.ui.Label(new zebra.data.Text("Multiline\ntext"));
 
-        // render password text 
+        // render password text
         var l = new zebra.ui.Label(new zebra.ui.PasswordText("password"));
 
- * @param  {String|zebra.data.TextModel|zebra.ui.TextRender} [r] a text to be shown with the label. 
- * You can pass a simple string or an instance of a text model or an instance of text render as the 
- * text value.   
+ * @param  {String|zebra.data.TextModel|zebra.ui.TextRender} [r] a text to be shown with the label.
+ * You can pass a simple string or an instance of a text model or an instance of text render as the
+ * text value.
  * @class zebra.ui.Label
  * @constructor
  * @extends zebra.ui.ViewPan
@@ -13678,7 +13753,7 @@ pkg.Label = Class(pkg.ViewPan, [
         this.getValue = function() {
             return this.view.getValue();
         };
-        
+
         /**
          * Get the label text color
          * @return {String} a zebra label color
@@ -13696,10 +13771,10 @@ pkg.Label = Class(pkg.ViewPan, [
         this.getFont = function (){
             return this.view.font;
         };
-        
+
         /**
          * Set the label text value
-         * @param  {String} s a new label text 
+         * @param  {String} s a new label text
          * @method setValue
          * @chainable
          */
@@ -13765,8 +13840,8 @@ pkg.MLabel = Class(pkg.Label, [
 
 /**
  * Shortcut class to render bold text in Label
- * @param {String|zebra.ui.TextRender|zebra.data.TextModel} [t] a text string, 
- * text model or text render instance 
+ * @param {String|zebra.ui.TextRender|zebra.data.TextModel} [t] a text string,
+ * text model or text render instance
  * @constructor
  * @class zebra.ui.BoldLabel
  * @extends zebra.ui.Label
@@ -13774,11 +13849,11 @@ pkg.MLabel = Class(pkg.Label, [
 pkg.BoldLabel = Class(pkg.Label, []);
 
 /**
- * Image label UI component. This is UI container that consists from an image 
+ * Image label UI component. This is UI container that consists from an image
  * component and an label component.Image is located at the left size of text.
  * @param {Image|String} img an image or path to the image
- * @param {String|zebra.ui.TextRender|zebra.data.TextModel} txt a text string, 
- * text model or text render instance 
+ * @param {String|zebra.ui.TextRender|zebra.data.TextModel} txt a text string,
+ * text model or text render instance
  * @constructor
  * @class zebra.ui.ImageLabel
  * @extends {zebra.ui.Panel}
@@ -13793,7 +13868,7 @@ pkg.ImageLabel = Class(pkg.Panel, [
     },
 
     /**
-     * Set the specified caption 
+     * Set the specified caption
      * @param {String} c an image label caption text
      * @method setCaption
      */
@@ -13814,36 +13889,36 @@ pkg.ImageLabel = Class(pkg.Panel, [
 ]);
 
 /**
- * State panel class. The class is UI component that allows to customize 
+ * State panel class. The class is UI component that allows to customize
  * the component  face, background and border depending on the component
- * state. Number and names of states the component can have is defined 
+ * state. Number and names of states the component can have is defined
  * by developers. To bind a view to the specified state use zebra.ui.ViewSet
- * class. For instance if a component has to support two states : "state1" and 
- * "state2" you can do it as following: 
- 
+ * class. For instance if a component has to support two states : "state1" and
+ * "state2" you can do it as following:
+
         // create state component
         var p = new zebra.ui.StatePan();
- 
-        // define border view that contains views for "state1" and "state2" 
+
+        // define border view that contains views for "state1" and "state2"
         p.setBorder({
             "state1": new zebra.ui.Border("red", 1),
             "state1": new zebra.ui.Border("blue", 2)
-        
+
         });
-        
-        // define background view that contains views for "state1" and "state2" 
+
+        // define background view that contains views for "state1" and "state2"
         p.setBorder({
             "state1": "yellow",
             "state1": "green"
         });
- 
-        // set component state 
+
+        // set component state
         p.setState("state1");
-  
- * State component children components can listening when the state of the component 
- * has been updated by implementing "parentStateUpdated(o,n,id)" method. It gets old 
- * state, new state and a view id that is mapped to the new state.  The feature is 
- * useful if we are developing a composite components whose children component also 
+
+ * State component children components can listening when the state of the component
+ * has been updated by implementing "parentStateUpdated(o,n,id)" method. It gets old
+ * state, new state and a view id that is mapped to the new state.  The feature is
+ * useful if we are developing a composite components whose children component also
  * should react to a state changing.
  * @class  zebra.ui.StatePan
  * @constructor
@@ -13864,7 +13939,7 @@ pkg.StatePan = Class(pkg.ViewPan, [
          * @param {Object} s a state
          * @method  setState
          */
-        this.setState = function(s) {            
+        this.setState = function(s) {
             if (s !== this.state){
                 var prev = this.state;
                 this.state = s;
@@ -13873,7 +13948,7 @@ pkg.StatePan = Class(pkg.ViewPan, [
         };
 
         /**
-         * Define the method if the state value has to be 
+         * Define the method if the state value has to be
          * somehow converted to a view id. By default the state value
          * itself is used as a view id.
          * @param {Object} s a state to be converted
@@ -13883,8 +13958,8 @@ pkg.StatePan = Class(pkg.ViewPan, [
 
         /**
          * Called every time the component state has been updated
-         * @param  {Integer} o a previous component state 
-         * @param  {Integer} n a new component state 
+         * @param  {Integer} o a previous component state
+         * @param  {Integer} n a new component state
          * @method stateUpdated
          */
         this.stateUpdated = function(o,n){
@@ -13916,7 +13991,7 @@ pkg.StatePan = Class(pkg.ViewPan, [
         };
 
         /**
-         * Refresh state 
+         * Refresh state
          * @protected
          * @method syncState
          */
@@ -13951,11 +14026,11 @@ pkg.StatePan = Class(pkg.ViewPan, [
 ]);
 
 /**
- * Event state panel class. The class implements UI component whose face, border and 
- * background view depends on its input events state. The component is good basis 
+ * Event state panel class. The class implements UI component whose face, border and
+ * background view depends on its input events state. The component is good basis
  * for creation  dynamic view UI components.The state the component can be is:
-       
-    - **over** the mouse cursor is inside the component 
+
+    - **over** the mouse cursor is inside the component
     - **out** the mouse cursor is outside the component
     - **pressed over** the mouse cursor is inside the component and an action mouse
       button or key is pressed
@@ -13963,12 +14038,12 @@ pkg.StatePan = Class(pkg.ViewPan, [
       button or key is pressed
     - **disabled** the component is disabled
 
- * The view border, background or face should be set as "zebra.ui.ViewSet" where an required 
- * for the given component state view is identified by an id. By default corresponding to 
+ * The view border, background or face should be set as "zebra.ui.ViewSet" where an required
+ * for the given component state view is identified by an id. By default corresponding to
  * component states views IDs are the following: "over", "pressed.over", "out", "pressed.out",
- * "disabled".  Imagine for example we have two colors and we need to change between the colors 
+ * "disabled".  Imagine for example we have two colors and we need to change between the colors
  * every time mouse cursor is over/out of the component:
-  
+
      // create state panel
      var statePan = new zebra.ui.EvStatePan();
 
@@ -13979,18 +14054,18 @@ pkg.StatePan = Class(pkg.ViewPan, [
      }));
 
  * Alone with background border view can be done also dynamic
- 
+
      // add dynamically updated border
      statePan.setBorder(new zebra.ui.ViewSet({
         "over": new zebra.ui.Border("green", 4, 8),
         "out": null
      }));
 
- * Additionally the UI component allows developer to specify whether the component can hold 
- * input focus and which UI component has to be considered as the focus marker. The focus marker 
- * component is used as anchor to paint focus marker view. In simple case the view can be just 
+ * Additionally the UI component allows developer to specify whether the component can hold
+ * input focus and which UI component has to be considered as the focus marker. The focus marker
+ * component is used as anchor to paint focus marker view. In simple case the view can be just
  * a border. So border will be rendered around the focus marker component:
- 
+
      // create state panel that contains one label component
      var statePan = new zebra.ui.EvStatePan();
      var lab      = new zebra.ui.Label("Focus marker label");
@@ -13999,7 +14074,7 @@ pkg.StatePan = Class(pkg.ViewPan, [
      statePan.setLayout(new zebra.layout.BorderLayout());
      statePan.add(zebra.layout.CENTER, lab);
 
-     // set label as an anchor for focus border indicator 
+     // set label as an anchor for focus border indicator
      statePan.setFocusAnchorComponent(lab);
      statePan.setFocusMarkerView("plain");
 
@@ -14007,13 +14082,13 @@ pkg.StatePan = Class(pkg.ViewPan, [
  * @constructor
  * @extends zebra.ui.StatePan
  */
-var OVER = 0, PRESSED_OVER = 1, OUT = 2, PRESSED_OUT = 3, DISABLED = 4; 
+var OVER = 0, PRESSED_OVER = 1, OUT = 2, PRESSED_OUT = 3, DISABLED = 4;
 
 
 pkg.EvStatePan = Class(pkg.StatePan,  [
     function $prototype() {
         this.state = OUT;
-        
+
         this.$isIn = false;
 
         var IDS = ["over", "pressed.over", "out", "pressed.out", "disabled"];
@@ -14054,7 +14129,7 @@ pkg.EvStatePan = Class(pkg.StatePan,  [
         this._mouseReleased = function(e) {
             if ((this.state === PRESSED_OVER || this.state === PRESSED_OUT) && e.isActionMask()){
                 if (e.source == this) {
-                    this.setState(e.x >= 0 && e.y >= 0 && e.x < this.width && e.y < this.height ? OVER : OUT);    
+                    this.setState(e.x >= 0 && e.y >= 0 && e.x < this.width && e.y < this.height ? OVER : OUT);
                 }
                 else {
                     var p = L.toParentOrigin(e.x, e.y, e.source, this);
@@ -14075,11 +14150,11 @@ pkg.EvStatePan = Class(pkg.StatePan,  [
                     case ME.ENTERED : this._mouseEntered(e); break;
                     case ME.PRESSED : this._mousePressed(e); break;
                     case ME.RELEASED: this._mouseReleased(e);break;
-                    case ME.EXITED: 
+                    case ME.EXITED:
                         // check if the mouse cursor is in of the source component
-                        // that means another layer has grabbed control 
+                        // that means another layer has grabbed control
                         if (e.x >= 0 && e.y >= 0 && e.x < e.source.width && e.y < e.source.height) {
-                            this.$isIn = false;                                
+                            this.$isIn = false;
                         }
                         else {
                             var p = L.toParentOrigin(e.x, e.y, e.source, this);
@@ -14200,12 +14275,12 @@ pkg.CompositeEvStatePan = Class(pkg.EvStatePan, pkg.Composite, [
          * @type {Boolean}
          */
         this.canHaveFocus = true;
-        
+
 
         this.focusComponent = null;
-        
+
         /**
-         * Reference to an anchor focus marker component 
+         * Reference to an anchor focus marker component
          * @attribute focusMarkerView
          * @readOnly
          * @type {zebra.ui.Panel}
@@ -14221,11 +14296,11 @@ pkg.CompositeEvStatePan = Class(pkg.EvStatePan, pkg.Composite, [
 
         /**
          * Set the view that has to be rendered as focus marker
-         * when the component gains focus. 
-         * @param  {String|zebra.ui.View|Function} c a view. 
-         * The view can be a color or border string code or view 
-         * or an implementation of zebra.ui.View "paint(g,x,y,w,h,t)" 
-         * method.   
+         * when the component gains focus.
+         * @param  {String|zebra.ui.View|Function} c a view.
+         * The view can be a color or border string code or view
+         * or an implementation of zebra.ui.View "paint(g,x,y,w,h,t)"
+         * method.
          * @method setFocusMarkerView
          */
         this.setFocusMarkerView = function (c){
@@ -14243,7 +14318,7 @@ pkg.CompositeEvStatePan = Class(pkg.EvStatePan, pkg.Composite, [
         this.setCanHaveFocus = function(b){
             if (this.canHaveFocus != b){
                 var fm = pkg.focusManager;
-                if (b === false && fm.focusOwner == this) { 
+                if (b === false && fm.focusOwner == this) {
                     fm.requestFocus(null);
                 }
                 this.canHaveFocus = b;
@@ -14251,10 +14326,10 @@ pkg.CompositeEvStatePan = Class(pkg.EvStatePan, pkg.Composite, [
         };
 
         /**
-         * Set the specified children component to be used as 
-         * focus marker view anchor component. Anchor component 
-         * is a component over that the focus marker view is 
-         * painted. 
+         * Set the specified children component to be used as
+         * focus marker view anchor component. Anchor component
+         * is a component over that the focus marker view is
+         * painted.
          * @param  {zebra.ui.Panel} c  an anchor component
          * @method setFocusAnchorComponent
          */
@@ -14281,36 +14356,36 @@ pkg.CompositeEvStatePan = Class(pkg.EvStatePan, pkg.Composite, [
 ]);
 
 /**
- *  Button UI component. Button is composite component whose look and feel can 
+ *  Button UI component. Button is composite component whose look and feel can
  *  be easily customized:
- 
+
         // create image button
         var button = new zebra.ui.Button(new zebra.ui.ImagePan("icon1.gif"));
 
-        // create image + caption button 
+        // create image + caption button
         var button = new zebra.ui.Button(new zebra.ui.ImageLabel("Caption", "icon1.gif"));
 
-        // create multilines caption button  
+        // create multilines caption button
         var button = new zebra.ui.Button(new zebra.ui.MLabel("Line1\nLine2"));
- 
+
 
  *  @class  zebra.ui.Button
  *  @constructor
- *  @param {String|zebra.ui.Panel} [t] a button label. 
+ *  @param {String|zebra.ui.Panel} [t] a button label.
  *  The label can be a simple text or an UI component.
  *  @extends zebra.ui.CompositeEvStatePan
  */
 
 /**
  * Fired when a button has been pressed
-        
+
         var b = new zebra.ui.Button("Test");
         b.bind(function (src) {
             ...
         });
 
- * Button can be adjusted in respect how it generates the pressed event. Event can be 
- * triggered by pressed or clicked even. Also event can be generated periodically if 
+ * Button can be adjusted in respect how it generates the pressed event. Event can be
+ * triggered by pressed or clicked even. Also event can be generated periodically if
  * the button is kept in pressed state.
  * @event buttonPressed
  * @param {zebra.ui.Button} src a button that has been pressed
@@ -14326,17 +14401,17 @@ pkg.Button = Class(pkg.CompositeEvStatePan, [
         /**
          * Indicate if the button should
          * fire event by pressed event
-         * @attribute isFireByPress 
+         * @attribute isFireByPress
          * @type {Boolean}
          * @default false
          * @readOnly
          */
         this.isFireByPress = false;
-        
+
         /**
          * Fire button event repeating period. -1 means
-         * the button event repeating is disabled. 
-         * @attribute firePeriod 
+         * the button event repeating is disabled.
+         * @attribute firePeriod
          * @type {Integer}
          * @default -1
          * @readOnly
@@ -14349,7 +14424,7 @@ pkg.Button = Class(pkg.CompositeEvStatePan, [
         };
 
         /**
-         * The method is executed for a button that is configured 
+         * The method is executed for a button that is configured
          * to repeat fire events.
          * @method run
          * @protected
@@ -14359,17 +14434,17 @@ pkg.Button = Class(pkg.CompositeEvStatePan, [
         };
 
         /**
-         * Set the mode the button has to fire events. 
-         * Button can fire event after it has been unpressed 
-         * or immediately when it has been pressed. Also button 
-         * can start firing events periodically when it has been 
+         * Set the mode the button has to fire events.
+         * Button can fire event after it has been unpressed
+         * or immediately when it has been pressed. Also button
+         * can start firing events periodically when it has been
          * pressed and held in the pressed state.
-         * @param  {Boolean} b   true if the button has to fire 
+         * @param  {Boolean} b   true if the button has to fire
          * event by pressed event
-         * @param  {Integer} time the period of time the button 
-         * has to repeat firing events if it has been pressed and 
-         * held in pressed state. -1 means event doesn't have 
-         * repeated  
+         * @param  {Integer} time the period of time the button
+         * has to repeat firing events if it has been pressed and
+         * held in pressed state. -1 means event doesn't have
+         * repeated
          * @method setFireParams
          */
         this.setFireParams = function (b,time){
@@ -14415,26 +14490,26 @@ pkg.Button = Class(pkg.CompositeEvStatePan, [
 ]);
 
 /**
- *  Border panel UI component class. The component renders titled border around the 
- *  given  content UI component. Border title can be placed on top or 
- *  bottom border line and aligned horizontally (left, center, right). Every 
+ *  Border panel UI component class. The component renders titled border around the
+ *  given  content UI component. Border title can be placed on top or
+ *  bottom border line and aligned horizontally (left, center, right). Every
  *  zebra UI component can be used as a border title element.
- *  @param {zebra.ui.Panel|String} [title] a border panel title. Can be a 
+ *  @param {zebra.ui.Panel|String} [title] a border panel title. Can be a
  *  string or any other UI component can be used as the border panel title
- *  @param {zebra.ui.Panel} [content] a content UI component of the border 
- *  panel 
- *  @param {Integer} [constraints] a title constraints. The constraints gives 
- *  a possibility to place border panel title in different places. Generally 
+ *  @param {zebra.ui.Panel} [content] a content UI component of the border
+ *  panel
+ *  @param {Integer} [constraints] a title constraints. The constraints gives
+ *  a possibility to place border panel title in different places. Generally
  *  the title can be placed on the top or bottom part of the border panel.
- *  Also the title can be aligned horizontally. 
-        
-         // create border panel with a title located at the 
-         // top and aligned at the canter   
-         var bp = new zebra.ui.BorderPan("Title", 
+ *  Also the title can be aligned horizontally.
+
+         // create border panel with a title located at the
+         // top and aligned at the canter
+         var bp = new zebra.ui.BorderPan("Title",
                                          new zebra.ui.Panel(),
                                          zebra.layout.TOP | zebra.layout.CENTER);
 
- 
+
  *  @constructor
  *  @class zebra.ui.BorderPan
  *  @extends {zebra.ui.Panel}
@@ -14447,8 +14522,8 @@ pkg.BorderPan = Class(pkg.Panel, [
     function $prototype() {
         /**
          * Vertical gap. Define top and bottom paddings between
-         * border panel border and the border panel content 
-         * @attribute vGap 
+         * border panel border and the border panel content
+         * @attribute vGap
          * @type {Integer}
          * @readOnly
          * @default 0
@@ -14456,8 +14531,8 @@ pkg.BorderPan = Class(pkg.Panel, [
 
          /**
           * Horizontal gap. Define left and right paddings between
-          * border panel border and the border panel content 
-          * @attribute hGap 
+          * border panel border and the border panel content
+          * @attribute hGap
           * @type {Integer}
           * @readOnly
           * @default 0
@@ -14465,7 +14540,7 @@ pkg.BorderPan = Class(pkg.Panel, [
          this.vGap = this.hGap = 2;
 
          /**
-          * Border panel label indent 
+          * Border panel label indent
           * @type {Integer}
           * @attribute indent
           * @default 4
@@ -14473,24 +14548,24 @@ pkg.BorderPan = Class(pkg.Panel, [
          this.indent = 4;
 
          /**
-          * Get the border panel title info. The information 
-          * describes a rectangular area the title occupies, the 
+          * Get the border panel title info. The information
+          * describes a rectangular area the title occupies, the
           * title location and alignment
           * @return {Object} a title info
           *
-          *  { 
+          *  {
           *      x: {Integer}, y: {Integer},
           *      width: {Integer}, height: {Integer},
           *      orient: {Integer}
           *  }
-          *       
+          *
           * @method getTitleInfo
-          * @protected      
+          * @protected
           */
          this.getTitleInfo = function() {
-            return (this.label != null) ? { x      : this.label.x, 
+            return (this.label != null) ? { x      : this.label.x,
                                             y      : this.label.y,
-                                            width  : this.label.width, 
+                                            width  : this.label.width,
                                             height : this.label.height,
                                             orient : this.label.constraints & (L.TOP | L.BOTTOM) }
                                         : null;
@@ -14510,12 +14585,12 @@ pkg.BorderPan = Class(pkg.Panel, [
         };
 
         this.doLayout = function (target){
-            var h = 0, 
+            var h = 0,
                 right  = this.getRight(),
                 left   = this.getLeft(),
                 xa     = this.label != null ? this.label.constraints & (L.LEFT | L.CENTER | L.RIGHT): 0,
                 ya     = this.label != null ? this.label.constraints & (L.BOTTOM | L.TOP) : 0,
-                top    = ya == L.TOP ? this.top : this.getTop(),  
+                top    = ya == L.TOP ? this.top : this.getTop(),
                 bottom = ya == L.BOTTOM ? this.bottom : this.getBottom();
 
             if (this.label != null && this.label.isVisible === true){
@@ -14529,7 +14604,7 @@ pkg.BorderPan = Class(pkg.Panel, [
             }
 
             if (this.content != null && this.content.isVisible === true){
-                this.content.setLocation(left + this.hGap, 
+                this.content.setLocation(left + this.hGap,
                                          (ya == L.BOTTOM ? top : top + h) + this.vGap);
                 this.content.setSize(this.width - right - left - 2 * this.hGap,
                                      this.height - top - bottom - h - 2 * this.vGap);
@@ -14538,11 +14613,11 @@ pkg.BorderPan = Class(pkg.Panel, [
 
         /**
          * Set vertical and horizontal paddings between the
-         * border panel border and the content of the border 
-         * panel  
-         * @param {Integer} vg a top and bottom paddings 
+         * border panel border and the content of the border
+         * panel
+         * @param {Integer} vg a top and bottom paddings
          * @param {Integer} hg a left and right paddings
-         * @method setGaps 
+         * @method setGaps
          * @chainable
          */
         this.setGaps = function(vg,hg){
@@ -14558,11 +14633,11 @@ pkg.BorderPan = Class(pkg.Panel, [
     function(title) {
         this.$this(title, null);
     },
-    
+
     function() {
         this.$this(null);
     },
-    
+
     function(title, center) {
         this.$this(title, center, L.TOP | L.LEFT);
     },
@@ -14572,14 +14647,14 @@ pkg.BorderPan = Class(pkg.Panel, [
 
         /**
          * Border panel label component
-         * @attribute label 
+         * @attribute label
          * @type {zebra.ui.Panel}
          * @readOnly
          */
 
         /**
          * Border panel label content component
-         * @attribute content 
+         * @attribute content
          * @type {zebra.ui.Panel}
          * @readOnly
          */
@@ -14613,10 +14688,10 @@ pkg.BorderPan = Class(pkg.Panel, [
 
 /**
  * The standard UI checkbox component switch manager implementation. The manager holds
- * boolean state of a checkbox UI component. There are few ways how a checkbox can 
- * switch its state: standard checkbox or radio group. In general we have a deal with 
- * one switchable UI component that can work in different modes. Thus we can re-use 
- * one UI, but customize it with appropriate switch manager. That is the main idea of 
+ * boolean state of a checkbox UI component. There are few ways how a checkbox can
+ * switch its state: standard checkbox or radio group. In general we have a deal with
+ * one switchable UI component that can work in different modes. Thus we can re-use
+ * one UI, but customize it with appropriate switch manager. That is the main idea of
  * having the class.
  * @constructor
  * @class  zebra.ui.SwitchManager
@@ -14624,20 +14699,20 @@ pkg.BorderPan = Class(pkg.Panel, [
 
 /**
  * Fired when a state has been updated
-        
+
         var ch = new zebra.ui.Checkbox("Test");
         ch.manager.bind(function (src, ui) {
             ...
         });
 
  * @event stateUpdated
- * @param {zebra.ui.SwitchManager} src a switch manager that controls and tracks the event 
+ * @param {zebra.ui.SwitchManager} src a switch manager that controls and tracks the event
  * @param {zebra.ui.Checkbox} ui  an UI component that triggers the event
  */
 pkg.SwitchManager = Class([
     function $prototype() {
         /**
-         * Get current state of the given UI component 
+         * Get current state of the given UI component
          * @param  {zebra.ui.Checkbox} o an ui component
          * @return {Boolean}  a boolean state
          * @method getValue
@@ -14660,7 +14735,7 @@ pkg.SwitchManager = Class([
         /**
          * Called every time a state has been updated.
          * @param  {zebra.ui.Checkbox} o an ui component for which the state has been updated
-         * @param  {Boolean} b  a new boolean state of the UI component 
+         * @param  {Boolean} b  a new boolean state of the UI component
          * @method stateUpdated
          */
         this.updated = function(o, b){
@@ -14671,13 +14746,13 @@ pkg.SwitchManager = Class([
         /**
          * Call when the manager has been installed for the given UI component
          * @protected
-         * @param  {zebra.ui.Checkbox} o an UI component the switch manager is designated  
+         * @param  {zebra.ui.Checkbox} o an UI component the switch manager is designated
          * @method install
          */
-        this.install = function(o) { 
-            o.switched(this.getValue(o)); 
+        this.install = function(o) {
+            o.switched(this.getValue(o));
         };
-        
+
         /**
          * Call when the manager has been uninstalled for the given UI component
          * @protected
@@ -14694,15 +14769,15 @@ pkg.SwitchManager = Class([
 ]);
 
 /**
- * Radio group switch manager implementation. This is an extension of "zebra.ui.SwicthManager" to 
+ * Radio group switch manager implementation. This is an extension of "zebra.ui.SwicthManager" to
  * support radio group switching behavior. You can use it event with normal checkbox:
- 
+
        // create group of check boxes that will work as a radio group
        var gr = new zebra.ui.Group();
        var ch1 = new zebra.ui.Checkbox("Test 1", gr);
        var ch2 = new zebra.ui.Checkbox("Test 2", gr);
        var ch3 = new zebra.ui.Checkbox("Test 3", gr);
- 
+
  * @class  zebra.ui.Group
  * @constructor
  * @extends zebra.ui.SwitchManager
@@ -14737,30 +14812,30 @@ pkg.Group = Class(pkg.SwitchManager, [
 ]);
 
 /**
- * Check-box UI component. The component is a container that 
- * consists from two other UI components: 
-    
-    - Box component to keep checker indicator
-    - Label component to paint label 
+ * Check-box UI component. The component is a container that
+ * consists from two other UI components:
 
- * Developers are free to customize the component as they want. 
- * There is no limitation regarding how the box and label components 
- * have to be laid out, which UI components have to be used as 
- * the box or label components, etc. The check box extends state 
+    - Box component to keep checker indicator
+    - Label component to paint label
+
+ * Developers are free to customize the component as they want.
+ * There is no limitation regarding how the box and label components
+ * have to be laid out, which UI components have to be used as
+ * the box or label components, etc. The check box extends state
  * panel component and re-map states  to own views IDs:
-    
-    - "on.out" - checked and mouse cursor is out 
-    - "off.out" - un-checked and mouse cursor is out 
-    - "don" - disabled and checked, 
-    - "doff" - disabled and un-checked , 
-    - "on.over" - checked and mouse cursor is over 
+
+    - "on.out" - checked and mouse cursor is out
+    - "off.out" - un-checked and mouse cursor is out
+    - "don" - disabled and checked,
+    - "doff" - disabled and un-checked ,
+    - "on.over" - checked and mouse cursor is over
     - "off.over" - un-checked and mouse cursor is out
 
  *
  * Customize is quite similar to what explained for zebra.ui.EvStatePan:
  *
- 
-        // create checkbox component 
+
+        // create checkbox component
         var ch = new zebra.ui.Checkbox("Checkbox");
 
         // change border when the component checked to green
@@ -14771,18 +14846,18 @@ pkg.Group = Class(pkg.SwitchManager, [
         }));
 
         // customize checker box children UI component to show
-        // green for checked and red for un-cheked states 
+        // green for checked and red for un-cheked states
         ch.kids[0].setView(new zebra.ui.ViewSet({
             "off.*": "red",
             "on.*": "green"
         }));
         // sync current state with new look and feel
         ch.syncState();
-  
- * Listening checked event should be done by registering a 
+
+ * Listening checked event should be done by registering a
  * listener in the check box switch manager as follow:
- 
-        // create checkbox component 
+
+        // create checkbox component
         var ch = new zebra.ui.Checkbox("Checkbox");
 
         // register a checkbox listener
@@ -14793,14 +14868,14 @@ pkg.Group = Class(pkg.SwitchManager, [
 
  * @class  zebra.ui.Checkbox
  * @extends zebra.ui.CompositeEvStatePan
- * @constructor 
- * @param {String|zebra.ui.Panel} [label] a label 
- * @param {zebra.ui.SwitchManager} [m] a switch manager 
+ * @constructor
+ * @param {String|zebra.ui.Panel} [label] a label
+ * @param {zebra.ui.SwitchManager} [m] a switch manager
  */
 pkg.Checkbox = Class(pkg.CompositeEvStatePan, [
     function $clazz() {
         /**
-         * The box UI component class that is used by default with 
+         * The box UI component class that is used by default with
          * the check box component.
          * @constructor
          * @class zebra.ui.Checkbox.Box
@@ -14811,7 +14886,7 @@ pkg.Checkbox = Class(pkg.CompositeEvStatePan, [
                 this.parentStateUpdated = function (o, n, id) {
                     this.setState(id);
                 };
-            }      
+            }
         ]);
 
         /**
@@ -14822,7 +14897,7 @@ pkg.Checkbox = Class(pkg.CompositeEvStatePan, [
 
     function $prototype() {
         /**
-         * Set the check box state 
+         * Set the check box state
          * @param  {Boolean} b a state
          * @chainable
          * @method setValue
@@ -14833,18 +14908,18 @@ pkg.Checkbox = Class(pkg.CompositeEvStatePan, [
         };
 
         /**
-         * Get the check box state 
+         * Get the check box state
          * @return {Boolean} a check box state
          * @method getValue
          */
         this.getValue = function() {
             return this.manager ? this.manager.getValue(this) : false;
         };
-      
+
         /**
-         * Callback method that is called whenever a state of switch 
-         * manager has been updated. 
-         * @param  {Boolean} b a new state  
+         * Callback method that is called whenever a state of switch
+         * manager has been updated.
+         * @param  {Boolean} b a new state
          * @method switched
          */
         this.switched = function(b){
@@ -14860,7 +14935,7 @@ pkg.Checkbox = Class(pkg.CompositeEvStatePan, [
          */
         this.toViewId = function(state){
             if (this.isEnabled === true) {
-                if (this.getValue()) { 
+                if (this.getValue()) {
                     return (this.state == OVER) ? "on.over" : "on.out";
                 }
                 return (this.state == OVER) ? "off.over" : "off.out";
@@ -14881,9 +14956,9 @@ pkg.Checkbox = Class(pkg.CompositeEvStatePan, [
         if (zebra.isString(c)) {
             c = new this.$clazz.Label(c);
         }
-        
+
         this.$super();
-        
+
         /**
          * Reference to box component
          * @attribute box
@@ -14892,7 +14967,7 @@ pkg.Checkbox = Class(pkg.CompositeEvStatePan, [
          */
         this.box = new this.$clazz.Box();
         this.add(this.box);
-        
+
         if (c != null) {
             this.add(c);
             this.setFocusAnchorComponent(c);
@@ -14930,7 +15005,7 @@ pkg.Checkbox = Class(pkg.CompositeEvStatePan, [
     },
 
     /**
-     * Set the specified switch manager 
+     * Set the specified switch manager
      * @param {zebra.ui.SwicthManager} m a switch manager
      * @method setSwicthManager
      */
@@ -14942,7 +15017,7 @@ pkg.Checkbox = Class(pkg.CompositeEvStatePan, [
          * @type {zebra.ui.SwitchManager}
          */
 
-        if (m == null) { 
+        if (m == null) {
             throw new Error("Null switch manager");
         }
 
@@ -14969,13 +15044,13 @@ pkg.Checkbox = Class(pkg.CompositeEvStatePan, [
 ]);
 
 /**
- * Radio-box UI component class. This class is extension of "zebra.ui.Checkbox" class that sets group 
- * as a default switch manager. The other functionality id identical to checkbox component. Generally 
- * speaking this class is a shortcut for radio box creation.  
+ * Radio-box UI component class. This class is extension of "zebra.ui.Checkbox" class that sets group
+ * as a default switch manager. The other functionality id identical to checkbox component. Generally
+ * speaking this class is a shortcut for radio box creation.
  * @class  zebra.ui.Radiobox
- * @constructor 
- * @param {String|zebra.ui.Panel} [label] a label 
- * @param {zebra.ui.Group} [m] a switch manager 
+ * @constructor
+ * @param {String|zebra.ui.Panel} [label] a label
+ * @param {zebra.ui.Group} [m] a switch manager
  */
 pkg.Radiobox = Class(pkg.Checkbox, [
     function $clazz() {
@@ -14993,14 +15068,14 @@ pkg.Radiobox = Class(pkg.Checkbox, [
 ]);
 
 /**
- * Splitter panel UI component class. The component splits its area horizontally or vertically into two areas. 
- * Every area hosts an UI component. A size of the parts can be controlled by mouse cursor dragging. Gripper 
+ * Splitter panel UI component class. The component splits its area horizontally or vertically into two areas.
+ * Every area hosts an UI component. A size of the parts can be controlled by mouse cursor dragging. Gripper
  * element is children UI component that can be customized. For instance:
- 
+
       // create split panel
-      var sp = new zebra.ui.SplitPan(new zebra.ui.Label("Left panel"), 
-                                    new zebra.ui.Label("Right panel")); 
-      
+      var sp = new zebra.ui.SplitPan(new zebra.ui.Label("Left panel"),
+                                    new zebra.ui.Label("Right panel"));
+
       // customize gripper background color depending on its state
       sp.gripper.setBackground(new zebra.ui.ViewSet({
            "over" : "yellow"
@@ -15009,9 +15084,9 @@ pkg.Radiobox = Class(pkg.Checkbox, [
       }));
 
 
- * @param {zebra.ui.Panel} [first] a first UI component in splitter panel 
+ * @param {zebra.ui.Panel} [first] a first UI component in splitter panel
  * @param {zebra.ui.Panel} [second] a second UI component in splitter panel
- * @param {Integer} [o] an orientation of splitter element: zebra.layout.VERTICAL or zebra.layout.HORIZONTAL 
+ * @param {Integer} [o] an orientation of splitter element: zebra.layout.VERTICAL or zebra.layout.HORIZONTAL
  * @class zebra.ui.SplitPan
  * @constructor
  * @extends {zebra.ui.Panel}
@@ -15057,7 +15132,7 @@ pkg.SplitPan = Class(pkg.Panel, [
                 };
 
                 this.mouseDragEnded = function(e){
-                    var xy = this.target.normalizeBarLoc(this.target.orientation == L.VERTICAL ? this.x + e.x 
+                    var xy = this.target.normalizeBarLoc(this.target.orientation == L.VERTICAL ? this.x + e.x
                                                                                                : this.y + e.y);
                     if (xy > 0) this.target.setGripperLoc(xy);
                 };
@@ -15075,7 +15150,7 @@ pkg.SplitPan = Class(pkg.Panel, [
 
     function $prototype() {
         /**
-         * A minimal size of the left (or top) sizable panel 
+         * A minimal size of the left (or top) sizable panel
          * @attribute leftMinSize
          * @type {Integer}
          * @readOnly
@@ -15099,13 +15174,13 @@ pkg.SplitPan = Class(pkg.Panel, [
          */
 
         /**
-         * A gap between gripper element and first and second UI components 
+         * A gap between gripper element and first and second UI components
          * @attribute gap
          * @type {Integer}
          * @readOnly
          * @default 1
          */
-        
+
         /**
          * A reference to gripper UI component
          * @attribute gripper
@@ -15238,7 +15313,7 @@ pkg.SplitPan = Class(pkg.Panel, [
         };
 
         /**
-         * Set gap between gripper element and sizable panels 
+         * Set gap between gripper element and sizable panels
          * @param  {Integer} g a gap
          * @method setGap
          */
@@ -15275,7 +15350,7 @@ pkg.SplitPan = Class(pkg.Panel, [
 
         /**
          * Set the given gripper movable state
-         * @param  {Boolean} b the gripper movable state. 
+         * @param  {Boolean} b the gripper movable state.
          * @method setGripperMovable
          */
         this.setGripperMovable = function (b){
@@ -15299,7 +15374,7 @@ pkg.SplitPan = Class(pkg.Panel, [
         this.barLocation = 70;
         this.leftComp = this.rightComp = this.gripper = null;
         this.orientation = L.$constraints(o);
-        
+
         this.$super();
 
         if (f != null) this.add(L.LEFT, f);
@@ -15361,8 +15436,8 @@ pkg.SplitPan = Class(pkg.Panel, [
         });
 
  *  @event fired
- *  @param {zebra.ui.Progress} src a progress bar that triggers 
- *  the event 
+ *  @param {zebra.ui.Progress} src a progress bar that triggers
+ *  the event
  *  @param {Integer} oldValue a progress bar previous value
  */
 
@@ -15426,7 +15501,7 @@ pkg.Progress = Class(pkg.Panel, [
                 v1 = (this.maxValue * bundleSize) + (this.maxValue - 1) * this.gap,
                 ps = this.bundleView.getPreferredSize();
 
-            ps = (this.orientation == L.HORIZONTAL) ? { 
+            ps = (this.orientation == L.HORIZONTAL) ? {
                                                         width :v1,
                                                         height:(this.bundleHeight >= 0 ? this.bundleHeight
                                                                                        : ps.height)
@@ -15530,7 +15605,7 @@ pkg.Progress = Class(pkg.Panel, [
     },
 
     /**
-     * Set the given gap between progress bar bundle elements 
+     * Set the given gap between progress bar bundle elements
      * @param {Integer} g a gap
      * @method setGap
      */
@@ -15544,7 +15619,7 @@ pkg.Progress = Class(pkg.Panel, [
     /**
      * Set the progress bar bundle element view
      * @param {zebra.ui.View} v a progress bar bundle view
-     * @method setBundleView   
+     * @method setBundleView
      */
     function setBundleView(v){
         if (this.bundleView != v){
@@ -15569,7 +15644,7 @@ pkg.Progress = Class(pkg.Panel, [
 ]);
 
 /**
- * UI link component class. 
+ * UI link component class.
  * @class zebra.ui.Link
  * @param {String} s a link text
  * @constructor
@@ -15577,7 +15652,7 @@ pkg.Progress = Class(pkg.Panel, [
  */
 pkg.Link = Class(pkg.Button, [
     function $prototype() {
-        this.cursorType = Cursor.HAND; 
+        this.cursorType = Cursor.HAND;
     },
 
     function(s){
@@ -15588,9 +15663,9 @@ pkg.Link = Class(pkg.Button, [
     },
 
     /**
-     * Set link font 
+     * Set link font
      * @param {zebra.ui.Font} f a font
-     * @method setFont 
+     * @method setFont
      */
     function setFont(f) {
         this.view.setFont(f);
@@ -15598,7 +15673,7 @@ pkg.Link = Class(pkg.Button, [
 
     /**
      * Set the link text color for the specified link state
-     * @param {Integer} state a link state 
+     * @param {Integer} state a link state
      * @param {String} c a link text color
      * @method  setColor
      */
@@ -15620,10 +15695,10 @@ pkg.Link = Class(pkg.Button, [
 ]);
 
 /**
- * Extendable  UI panel class. Implement collapsible panel where 
- * a user can hide of show content by pressing special control 
+ * Extendable  UI panel class. Implement collapsible panel where
+ * a user can hide of show content by pressing special control
  * element:
- 
+
         // create extendable panel that contains list as its content
         var ext = zebra.ui.ExtendablePan(new zebra.ui.List([
             "Item 1",
@@ -15636,13 +15711,13 @@ pkg.Link = Class(pkg.Button, [
  * @class zebra.ui.ExtendablePan
  * @extends {zebra.ui.Panel}
  * @param {zebra.ui.Panel} c a content of the extender panel
- * @param {zebra.ui.Panel|String} l a title label text or 
+ * @param {zebra.ui.Panel|String} l a title label text or
  * component
  */
 
  /**
-  * Fired when extender is collapsed or extended 
-         
+  * Fired when extender is collapsed or extended
+
          var ex = new zebra.ui.ExtendablePan(pan, "Title");
          ex.bind(function (src, isCollapsed) {
              ...
@@ -15650,7 +15725,7 @@ pkg.Link = Class(pkg.Button, [
 
   * @event fired
   * @param {zebra.ui.ExtendablePan} src an extender UI component that generates the event
-  * @param {Boolean} isCollapsed a state of the extender UI component 
+  * @param {Boolean} isCollapsed a state of the extender UI component
   */
 
 pkg.ExtendablePan = Class(pkg.Panel, [
@@ -15674,7 +15749,7 @@ pkg.ExtendablePan = Class(pkg.Panel, [
     function $clazz() {
         this.Label = Class(pkg.Label,[]);
         this.TitlePan = Class(pkg.Panel, []);
-        
+
         this.TogglePan = Class(pkg.StatePan, [
             function $prototype() {
                 this.mousePressed = function(e){
@@ -15697,7 +15772,7 @@ pkg.ExtendablePan = Class(pkg.Panel, [
          * @default false
          */
         this.isCollapsed = true;
-        
+
         this.$super();
 
         if (zebra.isString(lab)) {
@@ -15705,7 +15780,7 @@ pkg.ExtendablePan = Class(pkg.Panel, [
         }
 
         /**
-         * Label component 
+         * Label component
          * @attribute label
          * @type {zebra.ui.Panel}
          * @readOnly
@@ -15732,7 +15807,7 @@ pkg.ExtendablePan = Class(pkg.Panel, [
         this.titlePan.add(this.label);
 
         /**
-         * Content panel 
+         * Content panel
          * @type {zebra.ui.Panel}
          * @readOnly
          * @attribute contentPan
@@ -15750,7 +15825,7 @@ pkg.ExtendablePan = Class(pkg.Panel, [
 var ScrollManagerListeners = zebra.util.ListenersClass("scrolled");
 
 /**
- * Scroll manager class. 
+ * Scroll manager class.
  * @param {zebra.ui.Panel} t a target component to be scrolled
  * @constructor
  * @class zebra.ui.ScrollManager
@@ -15770,7 +15845,7 @@ var ScrollManagerListeners = zebra.util.ListenersClass("scrolled");
 
 
  /**
-  * Fired when a scroll state has been updated 
+  * Fired when a scroll state has been updated
 
         scrollManager.scrollStateUpdated = function(x, y, px, py) {
             ...
@@ -15798,27 +15873,27 @@ pkg.ScrollManager = Class([
          * @method getSY
          */
         this.getSY = function (){ return this.sy; };
-        
+
         /**
-         * Set a target component scroll x location to the 
+         * Set a target component scroll x location to the
          * specified value
-         * @param  {Integer} v a x scroll location 
+         * @param  {Integer} v a x scroll location
          * @method scrollXTo
          */
         this.scrollXTo = function(v){
             this.scrollTo(v, this.getSY());
         };
-        
+
         /**
-         * Set a target component scroll y location to the 
+         * Set a target component scroll y location to the
          * specified value
-         * @param  {Integer} v a y scroll location 
+         * @param  {Integer} v a y scroll location
          * @method scrollYTo
          */
         this.scrollYTo = function(v){
             this.scrollTo(this.getSX(), v);
         };
-        
+
         /**
          * Scroll the target component into the specified location
          * @param  {Integer} x a x location
@@ -15837,11 +15912,11 @@ pkg.ScrollManager = Class([
         };
 
         /**
-         * Make visible the given rectangular area of the 
+         * Make visible the given rectangular area of the
          * scrolled target component
-         * @param  {Integer} x a x coordinate of top left corner 
+         * @param  {Integer} x a x coordinate of top left corner
          * of the rectangular area
-         * @param  {Integer} y a y coordinate of top left corner 
+         * @param  {Integer} y a y coordinate of top left corner
          * of the rectangular area
          * @param  {Integer} w a width of the rectangular area
          * @param  {Integer} h a height of the rectangular area
@@ -15856,7 +15931,7 @@ pkg.ScrollManager = Class([
     function (c){
         this.sx = this.sy = 0;
         this._ = new ScrollManagerListeners();
-        
+
         /**
          * Target UI component for that the scroll manager has been instantiated
          * @attribute target
@@ -15870,7 +15945,7 @@ pkg.ScrollManager = Class([
 /**
  * Scroll bar UI component
  * @param {Integer|String} t type of the scroll bar components:
- 
+
         zebra.layout.VERTICAL or "vertical" - vertical scroll bar
         zebra.layout.HORIZONTAL or "horizontal"- horizontal scroll bar
 
@@ -15901,7 +15976,7 @@ pkg.Scroll = Class(pkg.Panel, zebra.util.Position.Metric, pkg.Composite, [
 
     function $prototype() {
         /**
-         * Maximal possible value 
+         * Maximal possible value
          * @attribute max
          * @type {Integer}
          * @readOnly
@@ -15911,7 +15986,7 @@ pkg.Scroll = Class(pkg.Panel, zebra.util.Position.Metric, pkg.Composite, [
 
         /**
          * Page increment value
-         * @attribute pageIncrement 
+         * @attribute pageIncrement
          * @type {Integer}
          * @readOnly
          * @default 20
@@ -15920,7 +15995,7 @@ pkg.Scroll = Class(pkg.Panel, zebra.util.Position.Metric, pkg.Composite, [
 
         /**
          * Unit increment value
-         * @attribute unitIncrement 
+         * @attribute unitIncrement
          * @type {Integer}
          * @readOnly
          * @default 5
@@ -15928,25 +16003,25 @@ pkg.Scroll = Class(pkg.Panel, zebra.util.Position.Metric, pkg.Composite, [
         this.unitIncrement = 5;
 
         /**
-         * Evaluate if the given point is in scroll bar bundle element 
-         * @param  {Integer}  x a x location 
-         * @param  {Integer}  y a y location 
-         * @return {Boolean}   true if the point is located inside the 
+         * Evaluate if the given point is in scroll bar bundle element
+         * @param  {Integer}  x a x location
+         * @param  {Integer}  y a y location
+         * @return {Boolean}   true if the point is located inside the
          * scroll bar bundle element
          * @method isInBundle
          */
         this.isInBundle = function(x,y){
             var bn = this.bundle;
-            return (bn != null && 
-                    bn.isVisible === true && 
-                    bn.x <= x && bn.y <= y && 
-                    bn.x + bn.width > x && 
+            return (bn != null &&
+                    bn.isVisible === true &&
+                    bn.x <= x && bn.y <= y &&
+                    bn.x + bn.width > x &&
                     bn.y + bn.height > y);
         };
 
         this.amount = function(){
             var db = this.decBt, ib = this.incBt;
-            return (this.type == L.VERTICAL) ? ib.y - db.y - db.height 
+            return (this.type == L.VERTICAL) ? ib.y - db.y - db.height
                                              : ib.x - db.x - db.width;
         };
 
@@ -16041,7 +16116,7 @@ pkg.Scroll = Class(pkg.Panel, zebra.util.Position.Metric, pkg.Composite, [
         };
 
         this.calcPreferredSize = function (target){
-            var ps1 = pkg.getPreferredSize(this.incBt), 
+            var ps1 = pkg.getPreferredSize(this.incBt),
                 ps2 = pkg.getPreferredSize(this.decBt),
                 ps3 = pkg.getPreferredSize(this.bundle);
 
@@ -16057,13 +16132,13 @@ pkg.Scroll = Class(pkg.Panel, zebra.util.Position.Metric, pkg.Composite, [
         };
 
         this.doLayout = function(target){
-            var right  = this.getRight(), 
-                top    = this.getTop(), 
+            var right  = this.getRight(),
+                top    = this.getTop(),
                 bottom = this.getBottom(),
-                left   = this.getLeft(), 
-                ew     = this.width - left - right, 
+                left   = this.getLeft(),
+                ew     = this.width - left - right,
                 eh     = this.height - top - bottom,
-                b      = (this.type == L.HORIZONTAL), 
+                b      = (this.type == L.HORIZONTAL),
                 ps1    = pkg.getPreferredSize(this.decBt),
                 ps2    = pkg.getPreferredSize(this.incBt),
                 minbs  = pkg.Scroll.MIN_BUNDLE_SIZE;
@@ -16072,7 +16147,7 @@ pkg.Scroll = Class(pkg.Panel, zebra.util.Position.Metric, pkg.Composite, [
             this.decBt.setLocation(left, top);
 
             this.incBt.setSize(b ? ps2.width : ew, b ? eh : ps2.height);
-            this.incBt.setLocation(b ? this.width - right - ps2.width 
+            this.incBt.setLocation(b ? this.width - right - ps2.width
                                      : left, b ? top : this.height - bottom - ps2.height);
 
             if (this.bundle != null && this.bundle.isVisible === true){
@@ -16087,7 +16162,7 @@ pkg.Scroll = Class(pkg.Panel, zebra.util.Position.Metric, pkg.Composite, [
         };
 
         /**
-         * Set the specified maximum value of the scroll bar component 
+         * Set the specified maximum value of the scroll bar component
          * @param {Integer} m a maximum value
          * @method setMaximum
          */
@@ -16126,14 +16201,14 @@ pkg.Scroll = Class(pkg.Panel, zebra.util.Position.Metric, pkg.Composite, [
         }
 
         /**
-         * Increment button 
+         * Increment button
          * @attribute incBt
          * @type {zebra.ui.Button}
          * @readOnly
          */
 
         /**
-         * Decrement button 
+         * Decrement button
          * @attribute decBt
          * @type {zebra.ui.Button}
          * @readOnly
@@ -16145,7 +16220,7 @@ pkg.Scroll = Class(pkg.Panel, zebra.util.Position.Metric, pkg.Composite, [
          * @type {zebra.ui.Panel}
          * @readOnly
          */
-        
+
         this.incBt = this.decBt = this.bundle = this.position = null;
         this.bundleLoc = this.type = 0;
         this.startDragLoc = Number.MAX_VALUE;
@@ -16196,12 +16271,12 @@ pkg.Scroll = Class(pkg.Panel, zebra.util.Position.Metric, pkg.Composite, [
 ]);
 
 /**
- * Scroll UI panel. The component is used to manage scrolling 
- * for a children UI component that occupies more space than 
- * it is available. The usage is very simple, just put an component 
- * you want to scroll horizontally or/and vertically in the scroll 
+ * Scroll UI panel. The component is used to manage scrolling
+ * for a children UI component that occupies more space than
+ * it is available. The usage is very simple, just put an component
+ * you want to scroll horizontally or/and vertically in the scroll
  * panel:
- 
+
         // scroll vertically and horizontally a large picture
         var scrollPan = new zebra.ui.ScrollPan(new zebra.ui.ImagePan("largePicture.jpg"));
 
@@ -16214,12 +16289,12 @@ pkg.Scroll = Class(pkg.Panel, zebra.util.Position.Metric, pkg.Composite, [
                                                zebra.layout.HORIZONTAL);
 
 
- 
- * @param {zebra.ui.Panel} [c] an UI component that has to 
- * be placed into scroll panel  
- * @param {Integer} [barMask] a scroll bars mask that allows 
- * developers to control vertical and 
- * horizontal scroll bars visibility.  
+
+ * @param {zebra.ui.Panel} [c] an UI component that has to
+ * be placed into scroll panel
+ * @param {Integer} [barMask] a scroll bars mask that allows
+ * developers to control vertical and
+ * horizontal scroll bars visibility.
  * @constructor
  * @class zebra.ui.ScrollPan
  * @extends {zebra.ui.Panel}
@@ -16243,7 +16318,7 @@ pkg.ScrollPan = Class(pkg.Panel, [
 
     function $prototype() {
         /**
-         * Indicate if the scroll bars should be hidden 
+         * Indicate if the scroll bars should be hidden
          * when they are not active
          * @attribute autoHide
          * @type {Boolean}
@@ -16253,8 +16328,8 @@ pkg.ScrollPan = Class(pkg.Panel, [
         this.$interval = 0;
 
         /**
-         * Set the given auto hide state. 
-         * @param  {Boolean} b an auto hide state.  
+         * Set the given auto hide state.
+         * @param  {Boolean} b an auto hide state.
          * @method setAutoHide
          */
         this.setAutoHide = function(b) {
@@ -16263,12 +16338,12 @@ pkg.ScrollPan = Class(pkg.Panel, [
                 if (this.hBar != null) {
                     if (this.hBar.incBt != null) this.hBar.incBt.setVisible(!b);
                     if (this.hBar.decBt != null) this.hBar.decBt.setVisible(!b);
-                } 
+                }
 
                 if (this.vBar != null) {
                     if (this.vBar.incBt != null) this.vBar.incBt.setVisible(!b);
                     if (this.vBar.decBt != null) this.vBar.decBt.setVisible(!b);
-                } 
+                }
 
                 if (this.$interval != 0) {
                     clearInterval(this.$interval);
@@ -16280,7 +16355,7 @@ pkg.ScrollPan = Class(pkg.Panel, [
         };
 
         /**
-         * Scroll manager listener method that is called every time 
+         * Scroll manager listener method that is called every time
          * a target component has been scrolled
          * @param  {Integer} psx previous scroll x location
          * @param  {Integer} psy previous scroll y location
@@ -16290,32 +16365,32 @@ pkg.ScrollPan = Class(pkg.Panel, [
             try {
                 this.validate();
                 this.isPosChangedLocked = true;
-                
+
                 if (this.hBar != null) {
                     this.hBar.position.setOffset( -this.scrollObj.scrollManager.getSX());
                 }
-                
+
                 if (this.vBar != null) {
                     this.vBar.position.setOffset( -this.scrollObj.scrollManager.getSY());
                 }
-                
+
                 if (this.scrollObj.scrollManager == null) this.invalidate();
             }
             catch(e) { throw e; }
             finally  { this.isPosChangedLocked = false; }
         };
 
-        this.calcPreferredSize = function (target){ 
-            return pkg.getPreferredSize(this.scrollObj); 
+        this.calcPreferredSize = function (target){
+            return pkg.getPreferredSize(this.scrollObj);
         };
 
         this.doLayout = function (target){
             var sman   = (this.scrollObj == null) ? null : this.scrollObj.scrollManager,
-                right  = this.getRight(), 
-                top    = this.getTop(), 
-                bottom = this.getBottom(), 
+                right  = this.getRight(),
+                top    = this.getTop(),
+                bottom = this.getBottom(),
                 left   = this.getLeft(),
-                ww     = this.width  - left - right,  maxH = ww, 
+                ww     = this.width  - left - right,  maxH = ww,
                 hh     = this.height - top  - bottom, maxV = hh,
                 so     = this.scrollObj.getPreferredSize(),
                 vps    = this.vBar == null ? { width:0, height:0 } : this.vBar.getPreferredSize(),
@@ -16330,7 +16405,7 @@ pkg.ScrollPan = Class(pkg.Panel, [
                 maxV -= hps.height;
             }
             maxV = so.height > maxV ? (so.height - maxV) :  -1;
-            
+
             // compensate scrolled horizontal size by reduction of vertical bar width if necessary
             // autoHidded scrollbars don't have an influence to layout
             if (this.vBar != null && this.autoHide === false &&
@@ -16340,7 +16415,7 @@ pkg.ScrollPan = Class(pkg.Panel, [
                 maxH -= vps.width;
             }
             maxH = so.width > maxH ? (so.width - maxH) :  -1;
-           
+
             var sy = sman.getSY(), sx = sman.getSX();
             if (this.vBar != null) {
                 if (maxV < 0) {
@@ -16367,7 +16442,7 @@ pkg.ScrollPan = Class(pkg.Panel, [
 
             if (this.scrollObj.isVisible === true){
                 this.scrollObj.setLocation(left, top);
-                this.scrollObj.setSize(ww - (this.autoHide === false && this.vBar != null && this.vBar.isVisible === true ? vps.width  : 0), 
+                this.scrollObj.setSize(ww - (this.autoHide === false && this.vBar != null && this.vBar.isVisible === true ? vps.width  : 0),
                                        hh - (this.autoHide === false && this.hBar != null && this.hBar.isVisible === true ? hps.height : 0));
             }
 
@@ -16392,18 +16467,18 @@ pkg.ScrollPan = Class(pkg.Panel, [
             if (this.isPosChangedLocked === false){
 
                 //!!! review the code below
-                if (this.autoHide) { 
+                if (this.autoHide) {
                     this.$dontHide = true;
-                    if (this.$interval === 0 && ((this.vBar != null && this.vBar.isVisible === true) || 
-                                                 (this.hBar != null && this.hBar.isVisible === true)    )) 
+                    if (this.$interval === 0 && ((this.vBar != null && this.vBar.isVisible === true) ||
+                                                 (this.hBar != null && this.hBar.isVisible === true)    ))
                     {
                         var $this = this;
                         if (this.vBar) this.vBar.toFront();
                         if (this.hBar) this.hBar.toFront();
                         this.vrp();
-                        this.$interval = setInterval(function() { 
-                            if ($this.$dontHide || ($this.vBar != null && pkg.$mouseMoveOwner == $this.vBar)|| 
-                                                   ($this.hBar != null && pkg.$mouseMoveOwner == $this.hBar)  ) 
+                        this.$interval = setInterval(function() {
+                            if ($this.$dontHide || ($this.vBar != null && pkg.$mouseMoveOwner == $this.vBar)||
+                                                   ($this.hBar != null && pkg.$mouseMoveOwner == $this.hBar)  )
                             {
                                 $this.$dontHide = false;
                             }
@@ -16412,11 +16487,11 @@ pkg.ScrollPan = Class(pkg.Panel, [
                                 $this.$interval = 0;
                                 $this.doLayout();
                             }
-                        }, 500); 
+                        }, 500);
                     }
                 }
 
-                if (this.vBar != null && this.vBar.position == target) { 
+                if (this.vBar != null && this.vBar.position == target) {
                     this.scrollObj.scrollManager.scrollYTo(-this.vBar.position.offset);
                 }
                 else {
@@ -16476,12 +16551,12 @@ pkg.ScrollPan = Class(pkg.Panel, [
         if ((L.VERTICAL & barMask) > 0) {
             this.add(L.RIGHT, new pkg.Scroll(L.VERTICAL));
         }
-        
+
         if (c != null) this.add(L.CENTER, c);
     },
 
     function insert(i,ctr,c){
-        if (L.CENTER == ctr && c.scrollManager == null) { 
+        if (L.CENTER == ctr && c.scrollManager == null) {
             c = new this.$clazz.ContentPan(c);
         }
         return this.$super(i, ctr, c);
@@ -16531,41 +16606,41 @@ pkg.ScrollPan = Class(pkg.Panel, [
 ]);
 
 /**
- * Tabs UI panel. The component is used to organize switching 
+ * Tabs UI panel. The component is used to organize switching
  * between number of pages where every page is an UI component.
  *
- *  Filling tabs component with pages is the same to how you add 
- *  an UI component to a panel. For instance in the example below 
- *  three pages with "Titl1", "Title2", "Title3" are added: 
- 
+ *  Filling tabs component with pages is the same to how you add
+ *  an UI component to a panel. For instance in the example below
+ *  three pages with "Titl1", "Title2", "Title3" are added:
+
       var tabs = zebra.ui.Tabs();
       tabs.add("Title1", new zebra.ui.Label("Label as a page"));
       tabs.add("Title2", new zebra.ui.Button("Button as a page"));
       tabs.add("Title3", new zebra.ui.TextArea("Text area as a page"));
- 
- *  You can access tabs pages UI component the same way like you 
+
+ *  You can access tabs pages UI component the same way like you
  *  access a panel children components
-    
+
      ...
      tabs.kids[0] // access the first page
 
  *  And you can remove it with standard panel inherited API:
-    
+
      ...
      tabs.removeAt(0); // remove first tab page
 
 
- *  To customize tab page caption and icon you should access tab object and 
- *  do it with API it provides: 
-  
-    
-        // update a tab caption 
+ *  To customize tab page caption and icon you should access tab object and
+ *  do it with API it provides:
+
+
+        // update a tab caption
         tabs.getTab(0).setCaption("Test");
 
         // update a tab icon
         tabs.getTab(0).setIcon("my.gif");
 
-        // set a particular font and color for the tab in selected state 
+        // set a particular font and color for the tab in selected state
         tabs.getTab(0).setColor(true, "blue");
         tabs.getTab(0).setFont(true, new zebra.ui.Font("Arial", "bold", 16));
 
@@ -16573,7 +16648,7 @@ pkg.ScrollPan = Class(pkg.Panel, [
         tabs.getTab(0).setCaption(false, "Test");
 
  * @param {Integer|String} [o] the tab panel orientation:
- 
+
       zebra.layout.TOP   or "top"
       zebra.layout.BOTTOM or "bottom"
       zebra.layout.LEFT or "left"
@@ -16585,7 +16660,7 @@ pkg.ScrollPan = Class(pkg.Panel, [
  */
 
 /**
- * Fired when a new tab page has been selected 
+ * Fired when a new tab page has been selected
 
       tabs.bind(function (src, selectedIndex) {
          ...
@@ -16598,9 +16673,9 @@ pkg.ScrollPan = Class(pkg.Panel, [
 pkg.Tabs = Class(pkg.Panel, [
     function $clazz() {
         /**
-         * Tab view class that defines the tab page title and icon  
+         * Tab view class that defines the tab page title and icon
          * @param {String|Image} [icon]  an path to an image or image object
-         * @param {String} [caption] a tab caption 
+         * @param {String} [caption] a tab caption
          * @class zebra.ui.Tabs.TabView
          * @extends {zebra.ui.CompRender}
          * @constructor
@@ -16609,7 +16684,7 @@ pkg.Tabs = Class(pkg.Panel, [
             function $clazz() {
                 this.TabPan = Class(pkg.Panel, [
                     function() {
-                        this.$super();  
+                        this.$super();
                         this.add(new pkg.ImagePan(null));
                         this.add(new pkg.ViewPan());
                     },
@@ -16635,14 +16710,14 @@ pkg.Tabs = Class(pkg.Panel, [
             function(icon, caption) {
                 var tp = new this.$clazz.TabPan();
                 this.$super(tp);
-                this.owner = null; 
+                this.owner = null;
 
                 var $this = this;
                 tp.getImagePan().imageLoaded = function(p, b, i) {
                     $this.vrp();
-                
-                    // if the icon has zero width and height the repaint 
-                    // doesn't trigger validation. So let's do it on 
+
+                    // if the icon has zero width and height the repaint
+                    // doesn't trigger validation. So let's do it on
                     // parent level
                     if ($this.owner != null && $this.owner.parent != null) {
                         $this.owner.repaint();
@@ -16659,11 +16734,11 @@ pkg.Tabs = Class(pkg.Panel, [
 
                 this.getCaptionPan().setView(
                     new pkg.ViewSet(
-                        {   
+                        {
                             "selected": r1,
                             "*"       : r2
-                        }, 
-                        [   
+                        },
+                        [
                             function setFont(id, f) {
                                 var v = this.views[id];
                                 if (v != null) {
@@ -16682,13 +16757,13 @@ pkg.Tabs = Class(pkg.Panel, [
 
                             function getCaption(id) {
                                 var v = this.views[id];
-                                return v == null ? null : v.getValue(); 
-                            } 
+                                return v == null ? null : v.getValue();
+                            }
                         ]
                     )
                 );
             },
-    
+
             function ownerChanged(v) {
                 this.owner = v;
             },
@@ -16698,21 +16773,21 @@ pkg.Tabs = Class(pkg.Panel, [
             },
 
             /**
-             * Set the given tab caption. The caption is set for both 
+             * Set the given tab caption. The caption is set for both
              * tab states: selected and not selected
              * @param {String} s the tab caption
-             * @method setCaption 
+             * @method setCaption
              */
             function setCaption(s) {
                 this.setCaption(true, s);
                 this.setCaption(false, s);
-            }, 
+            },
 
             /**
-             * Set the given tab caption for the specified tab state. 
+             * Set the given tab caption for the specified tab state.
              * @param {Boolean} b the tab state. true means selected state.
              * @param {String} s the tab caption
-             * @method setCaption 
+             * @method setCaption
              */
             function setCaption(b, s) {
                 this.getCaptionPan().view.setCaption(this.$toId(b), s);
@@ -16723,7 +16798,7 @@ pkg.Tabs = Class(pkg.Panel, [
              * Get the tab caption for the specified tab state
              * @param {Boolean} b the tab state. true means selected state.
              * @return {String} the tab caption
-             * @method getCaption 
+             * @method getCaption
              */
             function getCaption(b) {
                 this.getCaptionPan().view.getCaption(this.$toId(b));
@@ -16732,7 +16807,7 @@ pkg.Tabs = Class(pkg.Panel, [
             /**
              * Set the caption text color for both selected and not selected states.
              * @param {String} c the tab caption
-             * @method setColor 
+             * @method setColor
              */
             function setColor(c) {
                 setColor(true, c);
@@ -16740,7 +16815,7 @@ pkg.Tabs = Class(pkg.Panel, [
             },
 
             /**
-             * Set the given tab caption text color for the specified tab state. 
+             * Set the given tab caption text color for the specified tab state.
              * @param {Boolean} b the tab state. true means selected state.
              * @param {String} c the tab caption
              * @method setColor
@@ -16758,7 +16833,7 @@ pkg.Tabs = Class(pkg.Panel, [
              * @param {zebra.ui.Font} f the tab text font
              * @method setFont
              */
-            function setFont(f) {            
+            function setFont(f) {
                 setFont(true, f);
                 setFont(false, f);
             },
@@ -16791,7 +16866,7 @@ pkg.Tabs = Class(pkg.Panel, [
              * The method is invoked every time the tab selection state has been updated
              * @param {zebra.ui.Tabs} tabs the tabs component the tab belongs
              * @param {Integer} i an index of the tab
-             * @param {Boolean} b a new state of the tab 
+             * @param {Boolean} b a new state of the tab
              * @method selected
              */
             function selected(tabs, i, b) {
@@ -16800,7 +16875,7 @@ pkg.Tabs = Class(pkg.Panel, [
 
             function $toId(b) {
                 return b ? "selected" : "*";
-            } 
+            }
         ]);
     },
 
@@ -16815,9 +16890,9 @@ pkg.Tabs = Class(pkg.Panel, [
          * @readOnly
          */
         this.canHaveFocus = true;
-        
+
         /**
-         * Side gaps 
+         * Side gaps
          * @type {Integer}
          * @attribute sideOffset
          * @default 0
@@ -16834,7 +16909,7 @@ pkg.Tabs = Class(pkg.Panel, [
             if (this.overTab != i) {
                 this.overTab = i;
                 if (this.views["tabover"] != null) {
-                    this.repaint(this.repaintX, this.repaintY, 
+                    this.repaint(this.repaintX, this.repaintY,
                                  this.repaintWidth, this.repaintHeight);
                 }
             }
@@ -16874,9 +16949,9 @@ pkg.Tabs = Class(pkg.Panel, [
         /**
          * Navigate to a next tab page following the given direction starting from the given page
          * @param  {Integer} page a starting page index
-         * @param  {Integer} d    a navigation direction. 1 means forward and -1 mens backward 
-         * @return {Integer}      a new tab page index 
-         * @method next 
+         * @param  {Integer} d    a navigation direction. 1 means forward and -1 mens backward
+         * @return {Integer}      a new tab page index
+         * @method next
          */
         this.next =  function (page, d){
             for(; page >= 0 && page < ~~(this.pages.length / 2); page += d) {
@@ -16887,15 +16962,15 @@ pkg.Tabs = Class(pkg.Panel, [
 
         this.getTitleInfo = function(){
             var b   = (this.orient == L.LEFT || this.orient == L.RIGHT),
-                res = b ? { x      : this.tabAreaX, 
-                            y      : 0, 
-                            width  : this.tabAreaWidth, 
-                            height : 0, 
+                res = b ? { x      : this.tabAreaX,
+                            y      : 0,
+                            width  : this.tabAreaWidth,
+                            height : 0,
                             orient : this.orient }
-                        : { x      : 0, 
-                            y      : this.tabAreaY, 
-                            width  : 0, 
-                            height : this.tabAreaHeight, 
+                        : { x      : 0,
+                            y      : this.tabAreaY,
+                            width  : 0,
+                            height : this.tabAreaHeight,
                             orient : this.orient };
 
             if (this.selectedIndex >= 0){
@@ -16916,18 +16991,18 @@ pkg.Tabs = Class(pkg.Panel, [
          * Test if the given tab page is in enabled state
          * @param  {Integer} index a tab page index
          * @return {Boolean} a tab page state
-         * @method isTabEnabled  
+         * @method isTabEnabled
          */
         this.isTabEnabled = function (index){
             return this.kids[index].isEnabled;
-        };  
+        };
 
         this.paintOnTop = function(g){
             var ts = g.stack[g.counter];
             // stop painting if the tab area is outside of clip area
-            if (zebra.util.isIntersect(this.repaintX, this.repaintY, 
+            if (zebra.util.isIntersect(this.repaintX, this.repaintY,
                                        this.repaintWidth, this.repaintHeight,
-                                       ts.x, ts.y, ts.width, ts.height)) 
+                                       ts.x, ts.y, ts.width, ts.height))
             {
                 if (this.selectedIndex > 0){
                     var r = this.getTabBounds(this.selectedIndex);
@@ -16949,9 +17024,9 @@ pkg.Tabs = Class(pkg.Panel, [
         };
 
         /**
-         * Draw currently activate tab page marker. 
-         * @param  {2DContext} g a graphical context 
-         * @param  {Object} r a tab page title rectangular area 
+         * Draw currently activate tab page marker.
+         * @param  {2DContext} g a graphical context
+         * @param  {Object} r a tab page title rectangular area
          * @method drawMarker
          */
         this.drawMarker = function(g,r){
@@ -16972,10 +17047,10 @@ pkg.Tabs = Class(pkg.Panel, [
          * @method paintTab
          */
         this.paintTab = function (g, pageIndex){
-            var b       = this.getTabBounds(pageIndex), 
-                page    = this.kids[pageIndex], 
-                tab     = this.views["tab"], 
-                tabover = this.views["tabover"], 
+            var b       = this.getTabBounds(pageIndex),
+                page    = this.kids[pageIndex],
+                tab     = this.views["tab"],
+                tabover = this.views["tabover"],
                 tabon   = this.views["tabon"];
 
             if (this.selectedIndex == pageIndex && tabon != null) {
@@ -17003,7 +17078,7 @@ pkg.Tabs = Class(pkg.Panel, [
          * @return {Object} a tab page rectangular bounds
          *
          *    {x:{Integer}, y:{Integer}, width:{Integer}, height:{Integer}}
-         * 
+         *
          * @protected
          * @method getTabBounds
          */
@@ -17026,11 +17101,11 @@ pkg.Tabs = Class(pkg.Panel, [
 
         this.doLayout = function(target){
             var right  = this.orient == L.RIGHT  ? this.right  : this.getRight(),
-                top    = this.orient == L.TOP    ? this.top    : this.getTop(), 
-                bottom = this.orient == L.BOTTOM ? this.bottom : this.getBottom(), 
+                top    = this.orient == L.TOP    ? this.top    : this.getTop(),
+                bottom = this.orient == L.BOTTOM ? this.bottom : this.getBottom(),
                 left   = this.orient == L.LEFT   ? this.left   : this.getLeft(),
                 b      = (this.orient == L.TOP || this.orient == L.BOTTOM);
-          
+
             if (b) {
                 this.repaintX = this.tabAreaX = left + this.sideOffset;
                 this.repaintY = this.tabAreaY = (this.orient == L.TOP) ? top : this.height - bottom - this.tabAreaHeight;
@@ -17038,11 +17113,11 @@ pkg.Tabs = Class(pkg.Panel, [
             }
             else {
                 this.repaintX = this.tabAreaX = (this.orient == L.LEFT ? left : this.width - right - this.tabAreaWidth);
-                this.repaintY = this.tabAreaY = top + this.sideOffset;                
+                this.repaintY = this.tabAreaY = top + this.sideOffset;
                 if (this.orient == L.RIGHT) this.repaintX -= this.border.getRight();
             }
 
-            var count = ~~(this.pages.length / 2), 
+            var count = ~~(this.pages.length / 2),
                 sp    = 2 * this.sideSpace,
                 xx    = (this.orient == L.RIGHT  ? this.tabAreaX : this.tabAreaX + this.sideSpace),
                 yy    = (this.orient == L.BOTTOM ? this.tabAreaY : this.tabAreaY + this.sideSpace);
@@ -17055,7 +17130,7 @@ pkg.Tabs = Class(pkg.Panel, [
 
                 if (b) {
                     xx += r.width;
-                    if (i == this.selectedIndex) { 
+                    if (i == this.selectedIndex) {
                         xx -= sp;
                         if (this.orient == L.BOTTOM) r.y -= this.border.getBottom();
                     }
@@ -17064,7 +17139,7 @@ pkg.Tabs = Class(pkg.Panel, [
                     yy += r.height;
                     if (i == this.selectedIndex) {
                         yy -= sp;
-                        if (this.orient == L.RIGHT) r.x -= this.border.getRight();                        
+                        if (this.orient == L.RIGHT) r.x -= this.border.getRight();
                     }
                 }
             }
@@ -17107,14 +17182,14 @@ pkg.Tabs = Class(pkg.Panel, [
                                       top + this.vgap);
                     }
                 }
-                else { 
+                else {
                     l.setSize(0, 0);
                 }
             }
         };
 
         /**
-         * Define recalc method to compute the component metrical characteristics 
+         * Define recalc method to compute the component metrical characteristics
          * @method recalc
          */
         this.recalc = function(){
@@ -17123,7 +17198,7 @@ pkg.Tabs = Class(pkg.Panel, [
                 this.tabAreaHeight = this.tabAreaWidth = 0;
 
                 var bv   = this.views["tab"],
-                    b    = (this.orient == L.LEFT || this.orient == L.RIGHT), 
+                    b    = (this.orient == L.LEFT || this.orient == L.RIGHT),
                     max  = 0,
                     hadd = bv.getLeft() + bv.getRight(),
                     vadd = bv.getTop()  + bv.getBottom();
@@ -17145,7 +17220,7 @@ pkg.Tabs = Class(pkg.Panel, [
                     }
                 }
 
-                // align tabs widths or heights to have the same size 
+                // align tabs widths or heights to have the same size
                 for(var i = 0; i < count; i++ ){
                     var r = this.getTabBounds(i);
                     if (b) r.width  = max;
@@ -17155,13 +17230,13 @@ pkg.Tabs = Class(pkg.Panel, [
                 if (b) {
                     this.tabAreaWidth   = max + this.sideSpace;
                     this.tabAreaHeight += (2 * this.sideSpace);
-                    this.repaintHeight  = this.tabAreaHeight; 
-                    this.repaintWidth   = this.tabAreaWidth + (b  == L.LEFT ? this.border.getLeft() : this.border.getRight()); 
+                    this.repaintHeight  = this.tabAreaHeight;
+                    this.repaintWidth   = this.tabAreaWidth + (b  == L.LEFT ? this.border.getLeft() : this.border.getRight());
                 }
                 else {
                     this.tabAreaWidth += (2 * this.sideSpace);
                     this.tabAreaHeight = this.sideSpace + max;
-                    this.repaintWidth  = this.tabAreaWidth; 
+                    this.repaintWidth  = this.tabAreaWidth;
                     this.repaintHeight = this.tabAreaHeight + (b  == L.TOP ? this.border.getTop() : this.border.getBottom());
                 }
 
@@ -17184,8 +17259,8 @@ pkg.Tabs = Class(pkg.Panel, [
          * Get tab index located at the given location
          * @param  {Integer} x a x coordinate
          * @param  {Integer} y a y coordinate
-         * @return {Integer} an index of the tab that is 
-         * detected at the given location. -1 if no any 
+         * @return {Integer} an index of the tab that is
+         * detected at the given location. -1 if no any
          * tab can be found
          * @method getTabAt
          */
@@ -17250,21 +17325,21 @@ pkg.Tabs = Class(pkg.Panel, [
         };
 
         /**
-         * Switch to the given tab page 
-         * @param  {Integer} index a tab page index to be navigated 
+         * Switch to the given tab page
+         * @param  {Integer} index a tab page index to be navigated
          * @method select
          */
         this.select = function(index){
             if (this.selectedIndex != index){
-                var prev = this.selectedIndex; 
+                var prev = this.selectedIndex;
                 this.selectedIndex = index;
 
                 if (prev >= 0) {
-                    this.pages[prev * 2].selected(this, prev, false);    
+                    this.pages[prev * 2].selected(this, prev, false);
                 }
-                
+
                 if (index >= 0) {
-                    this.pages[index * 2].selected(this, index, true);    
+                    this.pages[index * 2].selected(this, index, true);
                 }
 
                 this._.fired(this, this.selectedIndex);
@@ -17274,7 +17349,7 @@ pkg.Tabs = Class(pkg.Panel, [
 
         /**
          * Get the given tab. Using the tab you can control tab caption,
-         * icon. 
+         * icon.
          * @param {Integer} pageIndex a tab page index
          * @return  {zebra.ui.Tabs.TabView}
          * @method getTab
@@ -17305,8 +17380,8 @@ pkg.Tabs = Class(pkg.Panel, [
 
         /**
          * Set the tab page element alignments
-         * @param {Integer|String} o an alignment. The valid value is one of the following: 
-         * zebra.layout.LEFT, zebra.layout.RIGHT, zebra.layout.TOP, zebra.layout.BOTTOM or 
+         * @param {Integer|String} o an alignment. The valid value is one of the following:
+         * zebra.layout.LEFT, zebra.layout.RIGHT, zebra.layout.TOP, zebra.layout.BOTTOM or
          * "left", "right", "top", bottom
          * @method  setAlignment
          */
@@ -17341,20 +17416,20 @@ pkg.Tabs = Class(pkg.Panel, [
         };
 
         /**
-         *  Set number of views to render different Tab component elements 
-         *  @param {Object} a set of views as dictionary where key is a view 
+         *  Set number of views to render different Tab component elements
+         *  @param {Object} a set of views as dictionary where key is a view
          *  name and the value is a view instance, string(for color), or render
          *  function. The following view elements can be passed:
          *
-         * 
+         *
          *      {
-         *         "tab"    : <view to render not selected tab page>,   
+         *         "tab"    : <view to render not selected tab page>,
          *         "tabover": <view to render a tab page when mouse is over>
          *         "tabon"  : <a view to render selected tab page>
          *         "marker" : <a marker view to be rendered around tab page title>
          *      }
          *
-         * 
+         *
          *  @method  setViews
          */
     },
@@ -17373,14 +17448,14 @@ pkg.Tabs = Class(pkg.Panel, [
 
 
         /**
-         * Tab orientation 
+         * Tab orientation
          * @attribute orient
          * @type {Integer}
          * @readOnly
          */
 
         /**
-         * Sides gap 
+         * Sides gap
          * @attribute sideSpace
          * @type {Integer}
          * @readOnly
@@ -17425,15 +17500,15 @@ pkg.Tabs = Class(pkg.Panel, [
         var render = null
         if (instanceOf(constr, this.$clazz.TabView)) {
             render = constr;
-        } 
+        }
         else {
             render = new this.$clazz.TabView((constr == null ? "Page " + index : constr ));
             render.ownerChanged(this); // TODO: a little bit ugly but settin an owner is required to
-                                       // keep tabs comppnent infprmed when an icon has been updated 
+                                       // keep tabs comppnent infprmed when an icon has been updated
         }
 
-        this.pages.splice(index * 2, 0, render, { x:0, y:0, width:0, height:0 }); 
-        
+        this.pages.splice(index * 2, 0, render, { x:0, y:0, width:0, height:0 });
+
         var r = this.$super(index, constr, c);
         if (this.selectedIndex < 0) this.select(this.next(0, 1));
         return r;
@@ -17473,6 +17548,15 @@ pkg.Slider = Class(pkg.Panel, [
         this.correctDt = this.scaleStep = this.psW = this.psH = 0;
         this.intervals = this.pl = null;
         this.canHaveFocus = true;
+
+        /**
+         * Get a value
+         * @return {Integer} a value
+         * @method getValue
+         */
+        this.getValue = function() {
+            return this.value;
+        };
 
         this.paintNums = function(g,loc){
             if(this.isShowTitle)
@@ -17519,7 +17603,7 @@ pkg.Slider = Class(pkg.Panel, [
                 }
             }
 
-            var left = this.getLeft(), top = this.getTop(), 
+            var left = this.getLeft(), top = this.getTop(),
                 right = this.getRight(), bottom = this.getBottom(),
                 bnv = this.views["bundle"], gauge = this.views["gauge"],
                 bs = bnv.getPreferredSize(), gs = gauge.getPreferredSize(),
@@ -17528,8 +17612,8 @@ pkg.Slider = Class(pkg.Panel, [
             if (this.orient == L.HORIZONTAL){
                 var topY = top + ~~((h - this.psH) / 2) + 1, by = topY;
                 if(this.isEnabled === true) {
-                    gauge.paint(g, left + 1, 
-                                   topY + ~~((bs.height - gs.height) / 2), 
+                    gauge.paint(g, left + 1,
+                                   topY + ~~((bs.height - gs.height) / 2),
                                    w, gs.height, this);
                 }
                 else{
@@ -17560,7 +17644,7 @@ pkg.Slider = Class(pkg.Panel, [
             else {
                 var leftX = left + ~~((w - this.psW) / 2) + 1, bx = leftX;
                 if (this.isEnabled === true) {
-                    gauge.paint(g, leftX + ~~((bs.width - gs.width) / 2), 
+                    gauge.paint(g, leftX + ~~((bs.width - gs.width) / 2),
                                    top + 1, gs.width, h, this);
                 }
                 else {
@@ -17739,7 +17823,7 @@ pkg.Slider = Class(pkg.Panel, [
                     if (v <= this.max) this.setValue(v);
                     break;
                 case KE.HOME: this.setValue(b ? this.getPointValue(0) : this.min);break;
-                case KE.END:  this.setValue(b ? this.getPointValue(this.intervals.length - 1) 
+                case KE.END:  this.setValue(b ? this.getPointValue(this.intervals.length - 1)
                                             : this.max);
                               break;
             }
@@ -17752,8 +17836,8 @@ pkg.Slider = Class(pkg.Panel, [
                     var l = ((this.orient == L.HORIZONTAL) ? x : y), v = this.loc2value(l);
                     if (this.value != v) {
                         this.setValue(this.isJumpOnPress ? v
-                                                         : this.nextValue(this.value, 
-                                                                          this.roughStep, 
+                                                         : this.nextValue(this.value,
+                                                                          this.roughStep,
                                                                           v < this.value ? -1:1));
                     }
                 }
@@ -17763,8 +17847,8 @@ pkg.Slider = Class(pkg.Panel, [
         this.mouseDragStarted = function(e){
             var r = this.getBundleBounds(this.value);
 
-            if (e.x >= r.x && e.y >= r.y && 
-                e.x < r.x + r.width && 
+            if (e.x >= r.x && e.y >= r.y &&
+                e.x < r.x + r.width &&
                 e.y < r.y + r.height)
             {
                 this.dragged = true;
@@ -17800,11 +17884,11 @@ pkg.Slider = Class(pkg.Panel, [
         this.provider = this;
     },
 
-    function focused() { 
+    function focused() {
         this.$super();
-        this.repaint(); 
+        this.repaint();
     },
-    
+
     function setScaleGap(g){
         if (g != this.gap){
             this.gap = g;
@@ -17850,9 +17934,9 @@ pkg.Slider = Class(pkg.Panel, [
     },
 
     function setValues(min,max,intervals,roughStep,exactStep){
-        if(roughStep <= 0 || exactStep < 0 || min >= max || 
-           min + roughStep > max || min + exactStep > max  ) 
-        { 
+        if(roughStep <= 0 || exactStep < 0 || min >= max ||
+           min + roughStep > max || min + exactStep > max  )
+        {
             throw new Error("Invalid values");
         }
 
@@ -17870,7 +17954,7 @@ pkg.Slider = Class(pkg.Panel, [
         for(var i=0; i<intervals.length; i++){
             this.intervals[i] = intervals[i];
         }
-        
+
         if(this.value < min || this.value > max) {
             this.setValue(this.isIntervalMode ? min + intervals[0] : min);
         }
@@ -17887,7 +17971,7 @@ pkg.Slider.prototype.setViews = pkg.$ViewsSetter;
 /**
  * Status bar UI component class
  * @class zebra.ui.StatusBar
- * @param {Integer} [gap] a gap between status bar children elements 
+ * @param {Integer} [gap] a gap between status bar children elements
  * @extends {zebra.ui.Panel}
  */
 pkg.StatusBar = Class(pkg.Panel, [
@@ -17918,14 +18002,14 @@ pkg.StatusBar = Class(pkg.Panel, [
 ]);
 
 /**
- * Toolbar UI component. Handy way to place number of click able elements 
+ * Toolbar UI component. Handy way to place number of click able elements
  * @class zebra.ui.Toolbar
  * @extends {zebra.ui.Panel}
  */
 
 /**
  * Fired when a toolbar element has been pressed
-        
+
         var t = new zebra.ui.Toolbar();
 
         // add three pressable icons
@@ -17933,7 +18017,7 @@ pkg.StatusBar = Class(pkg.Panel, [
         t.addImage("icon2.jpg");
         t.addLine();
         t.addImage("ico3.jpg");
-        
+
         // catch a toolbar icon has been pressed
         t.bind(function (src) {
             ...
@@ -17966,13 +18050,13 @@ pkg.Toolbar = Class(pkg.Panel, [
 
     function $prototype() {
         /**
-         * Test if the given component is a decorative element 
+         * Test if the given component is a decorative element
          * in the toolbar
-         * @param  {zebra.ui.Panel}  c a component 
-         * @return {Boolean} return true if the component is 
+         * @param  {zebra.ui.Panel}  c a component
+         * @return {Boolean} return true if the component is
          * decorative element of the toolbar
          * @method isDecorative
-         * @protected 
+         * @protected
          */
         this.isDecorative = function(c){
             return instanceOf(c, pkg.EvStatePan) === false;
@@ -17985,11 +18069,11 @@ pkg.Toolbar = Class(pkg.Panel, [
     },
 
     /**
-     * Add a radio box as the toolbar element that belongs to the 
+     * Add a radio box as the toolbar element that belongs to the
      * given group and has the specified content component
      * @param {zebra.ui.Group} g a radio group the radio box belongs
      * @param {zebra.ui.Panel} c a content
-     * @return {zebra.ui.Panel} a component that has been added 
+     * @return {zebra.ui.Panel} a component that has been added
      * @method addRadio
      */
     function addRadio(g,c) {
@@ -18002,7 +18086,7 @@ pkg.Toolbar = Class(pkg.Panel, [
      * Add a check box as the toolbar element with the specified content
      * component
      * @param {zebra.ui.Panel} c a content
-     * @return {zebra.ui.Panel} a component that has been added 
+     * @return {zebra.ui.Panel} a component that has been added
      * @method addSwitcher
      */
     function addSwitcher(c){
@@ -18012,7 +18096,7 @@ pkg.Toolbar = Class(pkg.Panel, [
     /**
      * Add an image as the toolbar element
      * @param {String|Image} img an image or a path to the image
-     * @return {zebra.ui.Panel} a component that has been added 
+     * @return {zebra.ui.Panel} a component that has been added
      * @method addImage
      */
     function addImage(img) {
@@ -18022,9 +18106,9 @@ pkg.Toolbar = Class(pkg.Panel, [
 
     /**
      * Add line to the toolbar component. Line is a decorative ]
-     * element that logically splits toolbar elements. Line as any 
-     * other decorative element doesn't fire event  
-     * @return {zebra.ui.Panel} a component that has been added 
+     * element that logically splits toolbar elements. Line as any
+     * other decorative element doesn't fire event
+     * @return {zebra.ui.Panel} a component that has been added
      * @method addLine
      */
     function addLine(){
@@ -18035,9 +18119,9 @@ pkg.Toolbar = Class(pkg.Panel, [
 
     /**
      * Add the given component as decorative element of the toolbar.
-     * Decorative elements don't fire event and cannot be pressed  
-     * @param {zebra.ui.Panel} c a component 
-     * @return {zebra.ui.Panel} a component that has been added 
+     * Decorative elements don't fire event and cannot be pressed
+     * @param {zebra.ui.Panel} c a component
+     * @return {zebra.ui.Panel} a component that has been added
      * @method addDecorative
      */
     function addDecorative(c){
@@ -18052,15 +18136,15 @@ pkg.Toolbar = Class(pkg.Panel, [
 /**
  * Simple video panel that can be used to play a video:
  *
-    
-        // create canvas, add video panel to the center and 
-        // play video 
+
+        // create canvas, add video panel to the center and
+        // play video
         var canvas = zebra.ui.zCanvas(500,500).root.properties({
             layout: new zebra.layout.BorderLayout(),
-            zebra.layout.CENTER: new zebra.ui.VideoPan("trailer.mpg") 
+            zebra.layout.CENTER: new zebra.ui.VideoPan("trailer.mpg")
         });
- 
- * 
+
+ *
  * @param {String} url an URL to a video
  * @class zebra.ui.VideoPan
  * @extends {zebra.ui.Panel}
@@ -18084,17 +18168,17 @@ pkg.VideoPan = Class(pkg.Panel,  [
         };
 
         /**
-         * Start or continue playing video  
+         * Start or continue playing video
          * @method play
          */
         this.play = function() {
             if (this.isPlaying === false) {
                 this.isPlaying = true;
-                this.video.play();  
-            
+                this.video.play();
+
                 var $this = this;
                 window.requestAFrame(function anim() {
-                    if ($this.isReady === true) $this.repaint();    
+                    if ($this.isReady === true) $this.repaint();
                     if ($this.isPlaying === true) window.requestAFrame(anim);
                 })
 
@@ -18114,24 +18198,24 @@ pkg.VideoPan = Class(pkg.Panel,  [
         var $this = this;
 
         /**
-         * Original video DOM element that is created 
-         * to play video 
-         * @type {Video} 
+         * Original video DOM element that is created
+         * to play video
+         * @type {Video}
          * @readOnly
          * @attribute video
          */
         this.video = document.createElement("video");
         this.video.setAttribute("src", src);
-        
+
         this.video.addEventListener("canplaythrough", function() {
             $this.isReady = true;
         }, false);
-        
-        this.video.addEventListener("ended", function() { 
+
+        this.video.addEventListener("ended", function() {
             $this.isPlaying = false;
-            if ($this.finished != null) $this.finished(); 
+            if ($this.finished != null) $this.finished();
         }, false);
-        
+
         this.$super();
     }
 ]);
@@ -18192,10 +18276,10 @@ pkg.ArrowView = Class(View, [
 pkg.CheckboxView = Class(View, [
     function $prototype() {
         this[''] = function(color) {
-            this.color = (color != null ? color : "rgb(65, 131, 255)");    
+            this.color = (color != null ? color : "rgb(65, 131, 255)");
         };
 
-        this.paint = function(g,x,y,w,h,d){        
+        this.paint = function(g,x,y,w,h,d){
             g.beginPath();
             g.strokeStyle = this.color;
             g.lineWidth = 2;
@@ -18221,14 +18305,14 @@ pkg.BunldeView = Class(View, [
         this.paint =  function(g,x,y,w,h,d) {
             g.beginPath();
             if (this.direction == L.VERTICAL) {
-                var r = w/2;    
+                var r = w/2;
                 g.arc(x + r, y + r, r, Math.PI, 0, false);
                 g.lineTo(x + w, y + h - r);
                 g.arc(x + r, y + h - r, r, 0, Math.PI, false);
                 g.lineTo(x, y + r);
             }
             else {
-                var r = h/2;    
+                var r = h/2;
                 g.arc(x + r, y + r, r, 0.5 * Math.PI, 1.5 * Math.PI, false);
                 g.lineTo(x + w - r, y);
                 g.arc(x + w - r, y + h - r, r, 1.5*Math.PI, 0.5*Math.PI, false);
@@ -18244,7 +18328,7 @@ pkg.BunldeView = Class(View, [
  * The radio button ticker view.
  * @class  zebra.ui.RadioView
  * @extends zebra.ui.View
- * @constructor 
+ * @constructor
  * @param {String} [col1] color one to render the outer cycle
  * @param {String} [col2] color tow to render the inner cycle
  */
@@ -18257,10 +18341,10 @@ pkg.RadioView = Class(View, [
         this.color1 = col1;
         this.color2 = col2;
     },
-    
+
     function $prototype() {
         this.paint = function(g,x,y,w,h,d){
-            g.beginPath();            
+            g.beginPath();
 
             g.fillStyle = this.color1;
             g.arc(~~(x + w/2), ~~(y + h/2) , ~~(w/3 - 0.5), 0, 2* Math.PI, 1, false);
@@ -18275,7 +18359,7 @@ pkg.RadioView = Class(View, [
 ]);
 
 /**
- * Mobile scroll manager class. Implements inertial scrolling in zebra mobile application. 
+ * Mobile scroll manager class. Implements inertial scrolling in zebra mobile application.
  * @class zebra.ui.MobileScrollMan
  * @extends zebra.ui.Manager
  * @constructor
@@ -18284,17 +18368,17 @@ pkg.MobileScrollMan = Class(pkg.Manager, [
     function $prototype() {
         this.sx = this.sy = 0;
         this.target = null;
-        this.identifier = -1; 
+        this.identifier = -1;
 
         /**
          * Define mouse drag started events handler.
          * @param  {zebra.ui.MouseEvent} e a mouse event
          * @method mouseDragStarted
-         */                
+         */
         this.mouseDragStarted = function(e) {
             if (e.touchCounter == 1)  {
                 this.identifier = e.touch.identifier;  // finger
-                var owner = e.source; 
+                var owner = e.source;
 
                 while(owner != null && instanceOf(owner, pkg.ScrollPan) === false) {
                     owner = owner.parent;
@@ -18312,11 +18396,11 @@ pkg.MobileScrollMan = Class(pkg.Manager, [
          * Define mouse dragged events handler.
          * @param  {zebra.ui.MouseEvent} e a mouse event
          * @method mouseDragged
-         */                
+         */
         this.mouseDragged = function(e) {
             if (e.touchCounter   == 1 &&
-                this.target      != null && 
-                this.identifier  == e.touch.identifier) 
+                this.target      != null &&
+                this.identifier  == e.touch.identifier)
             {
                 var d = e.touch.direction;
                 if (d == L.BOTTOM || d == L.TOP) {
@@ -18324,7 +18408,7 @@ pkg.MobileScrollMan = Class(pkg.Manager, [
                         var bar = this.target.vBar;
                         bar.position.setOffset(bar.position.offset - e.y + this.sy);
                     }
-                } 
+                }
                 else {
                     if (d == L.LEFT || d == L.RIGHT) {
                         if (this.target.hBar != null && this.target.hBar.isVisible === true) {
@@ -18343,39 +18427,39 @@ pkg.MobileScrollMan = Class(pkg.Manager, [
          * Define mouse drag ended events handler.
          * @param  {zebra.ui.MouseEvent} e a mouse event
          * @method mouseDragEnded
-         */                
+         */
         this.mouseDragEnded = function(e) {
-            if (this.target != null && 
-                this.timer  == null && 
+            if (this.target != null &&
+                this.timer  == null &&
                 this.identifier == e.touch.identifier &&
                 (e.touch.direction == L.BOTTOM || e.touch.direction == L.TOP) &&
-                this.target.vBar != null && 
-                this.target.vBar.isVisible === true && 
-                e.touch.dy != 0) 
+                this.target.vBar != null &&
+                this.target.vBar.isVisible === true &&
+                e.touch.dy != 0)
             {
-                this.$dt = 2*e.touch.dy;                     
+                this.$dt = 2*e.touch.dy;
                 var $this = this, bar = this.target.vBar, k = 0;
 
                 this.timer = setInterval(function() {
                     var o = bar.position.offset;
-                    
+
                     bar.position.setOffset(o - $this.$dt);
-                    if (++k%5 === 0) { 
+                    if (++k%5 === 0) {
                         $this.$dt = ~~($this.$dt/2);
                     }
                     if (o == bar.position.offset || ($this.$dt >= -1  &&  $this.$dt <= 1)) {
                         clearInterval($this.timer);
-                        $this.timer = $this.target = null; 
+                        $this.timer = $this.target = null;
                     }
                 }, 10);
-            }            
+            }
         };
 
         /**
          * Define mouse pressed events handler.
          * @param  {zebra.ui.MouseEvent} e a mouse event
          * @method mousePressed
-         */                
+         */
         this.mousePressed = function(e) {
             if (this.timer != null) {
                 clearInterval(this.timer);
