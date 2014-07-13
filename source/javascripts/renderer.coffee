@@ -78,7 +78,7 @@ class @Renderer
     
     # point
     @s.fillStyle = "rgba(0,0,0,1)"
-    @s.font="32px Arial"
+    @s.font="32px IrisNum, sans-serif"
     @s.fillText(iris.point, 440 - @s.measureText(iris.point).width, 610)
 
   # deprecated (don't work)

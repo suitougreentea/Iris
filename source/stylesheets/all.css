@@ -10,6 +10,11 @@
   position: absolute;
 }
 
+@font-face {
+  font-family: 'IrisNum';
+  src: url(../assets/IrisNum.woff) format('woff');
+}
+
 [id="zebra.fm"] {
   display: none;
 }
