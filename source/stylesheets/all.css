@@ -1,6 +1,9 @@
 @charset "utf-8";
 
 #screen {
+  position: absolute;
+  top: 0px;
+  left: 0px;
   /*margin: 2px;
   border: 2px solid #000;*/
 }

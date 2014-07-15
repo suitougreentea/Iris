@@ -197,9 +197,11 @@ this.iris = {
         iris.field.shoot((x - rect.left) / 20, (y - rect.top) / 20, iris.config.shootspeedright) # should be customizable
   expandcanvas: ->
     canvas = document.getElementById("screen")
-    container = document.getElementById("container")
-    canvas.width = container.offsetWidth
-    canvas.height = container.offsetHeight
+    #container = document.getElementById("container")
+    #canvas.width = container.offsetWidth
+    #canvas.height = container.offsetHeight
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
     size = {width: canvas.width, height: canvas.height}
     size.result = iris.renderer.resize(size)
     return size
