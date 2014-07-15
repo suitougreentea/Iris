@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+#screen {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  /*margin: 2px;
+  border: 2px solid #000;*/
+}
+#container {
+  width: 99%;
+  height: 99%;
+  position: absolute;
+}
+
+@font-face {
+  font-family: 'IrisNum';
+  src: url(../assets/IrisNum.woff) format('woff');
+}
+
+[id="zebra.fm"] {
+  display: none;
+}
